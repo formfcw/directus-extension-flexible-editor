@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
     - name: Request a new feature
-      url: https://github.com/formfcw/directus-extension-flexible-editor/discussions/new?category=feature-requests
+      url: https://github.com/formfcw/directus-extension-flexible-editor/discussions/new?category=feature-request
       about: Share ideas for new features
     - name: Ask a question
       url: https://github.com/formfcw/directus-extension-flexible-editor/discussions/new?category=q-a
