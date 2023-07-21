@@ -4,7 +4,7 @@
 
 A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.
 
-<!-- TODO: [video] flexible-editor -->
+https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/7e021bad-812d-4a1d-98a7-4b20977fe02e
 
 Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap) editor as an extension into the [Directus](https://github.com/directus/directus) app and utilizes an optional many-to-any (M2A) field to place and link related nodes in the editor. This combination makes Flexible Editor a truely rich editor.
 
@@ -39,7 +39,7 @@ RUN pnpm install directus-extension-flexible-editor@^1.0.0
 
 In your Directus app simply click the `Create Field` button and choose `Flexible Editor`.
 
-<!-- TODO: [video] basic-usage -->
+https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/a04be7c8-acad-4bce-9728-a82d99578570
 
 ### Interface Options
 
@@ -65,7 +65,7 @@ Navigate to the `Display` tab and select `Flexible Editor` to display the editor
 
 You can insert items from your Directus collections into the Flexible Editor. This is optional but gives you extreme flexibility when creating rich content. Therefore, you need to add a many-to-any (M2A) field, the editor field can connect to. For Flexible Editor to work this way, you must create the junction collection before adding a M2A field.
 
-<!-- TODO: [video] usage-with-relation-nodes -->
+https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/d2e1de0b-841e-40ab-8066-3a6287812358
 
 1. Create a new (junction) collection and give it a name like `xxxx_editor_nodes` and set the `Type` of the Primary Key to `Generate UUID`. Finish the setup to create the collection.
 
