@@ -1,6 +1,6 @@
 {
     "name": "directus-extension-flexible-editor",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.",
     "license": "GPL-3.0",
     "author": "formfcw",
@@ -30,7 +30,7 @@
     ],
     "type": "module",
     "directus:extension": {
-        "host": "^10.1.5",
+        "host": "^10.1.6",
         "type": "bundle",
         "path": {
             "app": "dist/app.js",
@@ -56,13 +56,9 @@
         "add": "directus-extension add"
     },
     "devDependencies": {
-        "@directus/extensions-sdk": "^10.1.0",
-        "@types/lodash": "^4.14.195",
-        "@types/uuid": "^9.0.2",
-        "typescript": "^5.1.3",
-        "vue": "^3.3.4"
-    },
-    "dependencies": {
+        "@directus/extensions-sdk": "^10.1.6",
+        "@directus/utils": "^10.0.7",
+        "@tiptap/core": "^2.0.4",
         "@tiptap/extension-blockquote": "^2.0.3",
         "@tiptap/extension-bold": "^2.0.3",
         "@tiptap/extension-bullet-list": "^2.0.3",
@@ -85,9 +81,17 @@
         "@tiptap/extension-text": "^2.0.3",
         "@tiptap/pm": "^2.0.3",
         "@tiptap/vue-3": "^2.0.3",
+        "@types/lodash": "^4.14.195",
+        "@types/uuid": "^9.0.2",
         "lodash": "^4.17.21",
+        "typescript": "^5.1.3",
         "uuid": "^9.0.0",
         "validator": "^13.9.0",
+        "vue": "^3.3.4",
         "vue-i18n": "^9.2.2"
-    }
+    },
+    "peerDependencies": {
+        "@directus/extensions-sdk": "^10.1.6"
+    },
+    "packageManager": "pnpm@8.6.7"
 }
