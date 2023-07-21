@@ -91,11 +91,11 @@ If you want to duplicate nested M2A items (e.g. a Related Content collection, th
 
 <!-- TODO: [Stage 2][docs] Duplication -->
 
-Duplication currently only works within the same editor field or between Flexible Editor fields, that use the same `M2A Reference Field`. (This will be improved in [future releases](#feature-requests).)
+Duplication currently only works within the same editor field or between Flexible Editor fields, that use the same `M2A Reference Field`. (This will be improved in [future releases](https://github.com/formfcw/directus-extension-flexible-editor/discussions/categories/feature-request).)
 
-This also means that you can use the same `M2A Reference Field` for multiple Flexible Editor fields, although this is not recommended as this will change in [future releases](#feature-requests).
+This also means that you can use the same `M2A Reference Field` for multiple Flexible Editor fields, although this is not recommended as this will change in [future releases](https://github.com/formfcw/directus-extension-flexible-editor/discussions/categories/feature-request).
 
-The current implementation of duplicating relation nodes (M2A items) does not cover all use cases, but will be improved in [future releases](#feature-requests). If duplication fails you should get a warning.
+The current implementation of duplicating relation nodes (M2A items) does not cover all use cases, but will be improved in [future releases](https://github.com/formfcw/directus-extension-flexible-editor/discussions/categories/feature-request). If duplication fails you should get a warning.
 
 ## Custom Editor Styles
 
