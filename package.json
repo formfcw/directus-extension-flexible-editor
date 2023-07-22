@@ -1,6 +1,6 @@
 {
     "name": "directus-extension-flexible-editor",
-    "version": "1.0.2",
+    "version": "1.0.1",
     "description": "A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.",
     "license": "GPL-3.0",
     "author": "formfcw",
@@ -49,6 +49,9 @@
             }
         ]
     },
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "directus-extension build",
         "dev": "directus-extension build -w --no-minify",
@@ -89,9 +92,5 @@
         "validator": "^13.9.0",
         "vue": "^3.3.4",
         "vue-i18n": "^9.2.2"
-    },
-    "peerDependencies": {
-        "@directus/extensions-sdk": "^10.1.6"
-    },
-    "packageManager": "pnpm@8.6.7"
+    }
 }
