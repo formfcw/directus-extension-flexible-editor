@@ -101,26 +101,38 @@
             Document,
             Text,
             Paragraph,
-            Placeholder.configure({
-                placeholder: props.placeholder,
-            }),
+            Placeholder.configure({ placeholder: props.placeholder }),
             Dropcursor,
             Gapcursor,
             RelationBlock,
             ...toolsExtensions(props.tools)
         ],
-        async onCreate({ editor }) {
-            emit('input', await editor.getJSON());
+        onCreate() {
+            updateEvent.editorCreateTime = Date.now();
         },
         async onUpdate({ editor }) {
-            syncRelationNodes();
-            emit('input', await editor.getJSON());
+            if (updateEvent.triggeredCorrectly()) {
+                syncRelationNodes();
+                emit('input', await editor.getJSON());
+            }
         },
     });
+    // Prevents the update event from being falsely fired
+    const updateEvent = {
+        fakeTriggerPossible: true,
+        editorCreateTime: Date.now(),
+        triggeredCorrectly() {
+            if (!this.fakeTriggerPossible) return true;
+            const timeSinceCreation = Date.now() - this.editorCreateTime;
+            const triggeredCorrectly = timeSinceCreation > 200;
+            if (triggeredCorrectly) this.fakeTriggerPossible = false;
+            return triggeredCorrectly;
+        }
+    };
     watch(() => props.value, (value) => {
         const isSame = JSON.stringify(editor.value!.getJSON()) === JSON.stringify(value)
         if (isSame) return;
-        editor.value!.commands.setContent(value, false);
+        editor.value!.commands.setContent(value);
     });
     watch(() => props.disabled, (disabled) =>
         editor.value!.setEditable(!disabled)
