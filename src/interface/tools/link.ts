@@ -5,7 +5,7 @@ import customMessages from "../i18n/custom-messages";
 import DialogLink from "../components/DialogLink.vue";
 import type { Ref } from "vue";
 import type { Editor } from "@tiptap/core";
-import type { Tool, LinkAttributes, Dialog } from "../types/tool";
+import type { Tool, LinkAttributes, Dialog } from "../types";
 
 const add: Tool = {
     // https://tiptap.dev/api/marks/link

@@ -18,7 +18,7 @@
     import { useM2aStore } from "../composables/use-m2a-store";
     import { useI18n } from "vue-i18n";
     import { useI18nFallback } from '../composables/use-i18n-fallback'
-    import type { UUID } from '../types/relation-nodes';
+    import type { UUID } from '../types';
     import type { M2AStoreItem } from '../composables/use-m2a-store';
 
     interface Props { nodeId: UUID }

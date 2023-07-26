@@ -4,7 +4,7 @@ import Heading from "@tiptap/extension-heading";
 import customMessages from "../i18n/custom-messages";
 import type { Level, HeadingOptions } from "@tiptap/extension-heading";
 import type { Editor, AnyExtension } from "@tiptap/core";
-import type { Tool, ToolSelection } from "../types/tool";
+import type { Tool, ToolSelection } from "../types";
 
 export default (level: Level): Tool => {
     const headingKeys = ["h1", "h2", "h3", "h4", "h5", "h6"];

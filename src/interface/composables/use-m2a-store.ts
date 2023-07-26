@@ -9,9 +9,8 @@ import { v4 as uuidv4 } from "uuid";
 import { cloneDeep, isEqual } from "lodash";
 import { ref } from "vue";
 import type { Ref } from "vue";
-import type { UUID } from "../types/relation-nodes";
+import type { UUID, RelationReference } from "../types";
 import type { Item, PrimaryKey } from "@directus/types";
-import type { RelationReference } from "../types/relation-reference.js";
 
 type EditorField = string | null;
 

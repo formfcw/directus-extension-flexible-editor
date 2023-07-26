@@ -17,11 +17,11 @@ import type {
     RelationQueryMultiple,
     DisplayItem,
 } from "../directus-core/composables/use-relation-multiple";
-import type { UUID } from "../types/relation-nodes.js";
 import type {
+    UUID,
     RelationReference,
     RelationReferenceAttributes,
-} from "../types/relation-reference.js";
+} from "../types";
 
 export function useRelationReference({
     editorInstance,

@@ -88,7 +88,7 @@
     import { translateShortcut } from '../directus-core/utils/translate-shortcut';
     import { useI18n } from "vue-i18n";
     import { useI18nFallback } from '../composables/use-i18n-fallback'
-    import type { Tool, Dialog } from '../types/tool';
+    import type { Tool, Dialog } from '../types';
     import type { Editor } from '@tiptap/vue-3';
 
 

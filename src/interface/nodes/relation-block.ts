@@ -1,7 +1,7 @@
 import { mergeAttributes, Node } from "@tiptap/core";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
 import RelationBlock from "../components/RelationBlock.vue";
-import { RelationBlockAttrs } from "../types/relation-nodes";
+import { RelationBlockAttrs } from "../types";
 
 declare module "@tiptap/core" {
     interface Commands<ReturnType> {

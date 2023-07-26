@@ -55,7 +55,7 @@
     import ToolButton from './ToolButton.vue';
     import { relationBlockTool } from '../tools'
     import type { Editor } from '@tiptap/vue-3';
-    import type { RelationReference } from '../types/relation-reference';
+    import type { RelationReference } from '../types';
 
 
     // Props

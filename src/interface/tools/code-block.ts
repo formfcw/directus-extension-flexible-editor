@@ -3,7 +3,7 @@
 import CodeBlock from "@tiptap/extension-code-block";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types/tool";
+import type { Tool } from "../types";
 
 export default {
     key: "codeBlock",

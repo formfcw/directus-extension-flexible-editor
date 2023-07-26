@@ -4,7 +4,7 @@ import Strike from "@tiptap/extension-strike";
 import customMessages from "../i18n/custom-messages";
 import { extendMarkRangeIfUnselected } from "./utils";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types/tool";
+import type { Tool } from "../types";
 
 export default {
     key: "strike",

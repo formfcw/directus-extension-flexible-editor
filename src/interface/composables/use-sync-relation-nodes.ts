@@ -1,10 +1,9 @@
 import { useM2aStore } from "./use-m2a-store";
 
 import type { ShallowRef } from "vue";
-import type { RelationReference } from "../types/relation-reference";
+import type { RelationReference, UUID } from "../types";
 import type { Editor } from "@tiptap/vue-3";
 import type { Item } from "@directus/types";
-import type { UUID } from "../types/relation-nodes";
 import type { M2AStoreItem } from "./use-m2a-store";
 import type { NodeWithPos } from "@tiptap/vue-3";
 import {

@@ -1,7 +1,6 @@
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types/tool";
-import type { RelationBlockAttrs } from "../types/relation-nodes";
+import type { Tool, RelationBlockAttrs } from "../types";
 
 export default {
     // Custom

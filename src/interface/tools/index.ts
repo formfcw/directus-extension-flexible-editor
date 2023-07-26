@@ -16,7 +16,7 @@ import bulletList from "./bullet-list";
 import orderedList from "./ordered-list";
 import blockquote from "./blockquote";
 import type { AnyExtension } from "@tiptap/core";
-import type { Tool, ToolSelection, InterfaceOption } from "../types/tool";
+import type { Tool, ToolSelection, InterfaceOption } from "../types";
 
 const tools: Tool[] = [
     relationBlock,

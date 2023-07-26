@@ -3,7 +3,7 @@
 import HardBreak from "@tiptap/extension-hard-break";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types/tool";
+import type { Tool } from "../types";
 
 export default {
     key: "hardBreak",

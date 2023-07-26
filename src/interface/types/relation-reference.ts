@@ -4,7 +4,7 @@ import type { Item, PrimaryKey } from "@directus/types";
 import type { RelationM2A } from "../directus-core/composables/use-relation-m2a.js";
 import type { Collection } from "../directus-core/types/collections";
 import type { DisplayItem } from "../directus-core/composables/use-relation-multiple";
-import type { UUID } from "../types/relation-nodes.js";
+import type { UUID } from "../types";
 
 export type RelationReferenceAttributes = {
     editorInstance: ShallowRef<Editor | undefined>;

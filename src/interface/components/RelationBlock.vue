@@ -59,7 +59,7 @@
     import { useI18n } from "vue-i18n";
     import { useI18nFallback } from '../composables/use-i18n-fallback'
     import type { NodeViewProps } from '@tiptap/vue-3';
-    import type { RelationReference } from '../types/relation-reference';
+    import type { RelationReference } from '../types';
 
     const props = defineProps<NodeViewProps>();
 

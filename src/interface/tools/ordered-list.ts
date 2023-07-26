@@ -4,7 +4,7 @@ import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types/tool";
+import type { Tool } from "../types";
 
 export default {
     key: "orderedList",
