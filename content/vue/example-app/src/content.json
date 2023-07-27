@@ -1,0 +1,65 @@
+{
+  "description": {
+    "type": "doc",
+    "content": [
+      { "type": "heading", "attrs": { "level": 1 }, "content": [{ "text": "One morning", "type": "text" }] },
+      {
+        "type": "paragraph",
+        "content": [
+          { "text": "… when ", "type": "text" },
+          { "text": "Gregor Samsa ", "type": "text", "marks": [{ "type": "italic" }] },
+          { "text": "woke from ", "type": "text" },
+          { "text": "troubled", "type": "text", "marks": [{ "type": "bold" }] },
+          {
+            "text": " dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "relation-block",
+        "attrs": {
+          "id": "a84ef404-b0e7-4931-b2e7-26dc072805a2",
+          "junction": "post_editor_nodes",
+          "collection": "definition_list"
+        }
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "text": "The bedding was hardly able to cover it and seemed ready to slide off any moment.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "relation-block",
+        "attrs": {
+          "id": "5a4eef60-9d7e-4e06-bd29-74d33d147e0c",
+          "junction": "post_editor_nodes",
+          "collection": "video"
+        }
+      }
+    ]
+  },
+  "editor_nodes": [
+    {
+      "id": "5a4eef60-9d7e-4e06-bd29-74d33d147e0c",
+      "posts_id": 8,
+      "collection": "video",
+      "item": { "video_url": "https://video-provider.com/20359720" }
+    },
+    {
+      "id": "a84ef404-b0e7-4931-b2e7-26dc072805a2",
+      "posts_id": 8,
+      "collection": "definition_list",
+      "item": {
+        "items": [
+          { "term": "Coffee", "definition": "black hot drink" },
+          { "term": "Water", "definition": "transparent cold drink" }
+        ]
+      }
+    }
+  ]
+}
