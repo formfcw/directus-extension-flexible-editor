@@ -1,6 +1,6 @@
 {
     "name": "directus-extension-flexible-editor",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.",
     "license": "GPL-3.0",
     "author": "formfcw",
@@ -50,9 +50,12 @@
         ]
     },
     "files": [
-        "dist"
+        "dist",
+        "content",
+        "shared"
     ],
     "scripts": {
+        "build-publish": "directus-extension build && npm publish",
         "build": "directus-extension build",
         "dev": "directus-extension build -w --no-minify",
         "link": "directus-extension link",
@@ -61,29 +64,8 @@
     "devDependencies": {
         "@directus/extensions-sdk": "^10.1.6",
         "@directus/utils": "^10.0.7",
-        "@tiptap/core": "^2.0.4",
-        "@tiptap/extension-blockquote": "^2.0.3",
-        "@tiptap/extension-bold": "^2.0.3",
-        "@tiptap/extension-bullet-list": "^2.0.3",
-        "@tiptap/extension-code": "^2.0.3",
-        "@tiptap/extension-code-block": "^2.0.3",
-        "@tiptap/extension-document": "^2.0.3",
-        "@tiptap/extension-dropcursor": "^2.0.3",
-        "@tiptap/extension-gapcursor": "^2.0.3",
-        "@tiptap/extension-hard-break": "^2.0.3",
-        "@tiptap/extension-heading": "^2.0.3",
-        "@tiptap/extension-history": "^2.0.3",
-        "@tiptap/extension-horizontal-rule": "^2.0.3",
-        "@tiptap/extension-italic": "^2.0.3",
-        "@tiptap/extension-link": "^2.0.3",
-        "@tiptap/extension-list-item": "^2.0.3",
-        "@tiptap/extension-ordered-list": "^2.0.3",
-        "@tiptap/extension-paragraph": "^2.0.3",
-        "@tiptap/extension-placeholder": "^2.0.3",
-        "@tiptap/extension-strike": "^2.0.3",
-        "@tiptap/extension-text": "^2.0.3",
-        "@tiptap/pm": "^2.0.3",
-        "@tiptap/vue-3": "^2.0.3",
+        "@tiptap/pm": "^2.0.4",
+        "@tiptap/vue-3": "^2.0.4",
         "@types/lodash": "^4.14.195",
         "@types/uuid": "^9.0.2",
         "lodash": "^4.17.21",
@@ -92,5 +74,29 @@
         "validator": "^13.9.0",
         "vue": "^3.3.4",
         "vue-i18n": "^9.2.2"
+    },
+    "dependencies": {
+        "@tiptap/core": "^2.0.4",
+        "@tiptap/extension-blockquote": "^2.0.4",
+        "@tiptap/extension-bold": "^2.0.4",
+        "@tiptap/extension-bullet-list": "^2.0.4",
+        "@tiptap/extension-code": "^2.0.4",
+        "@tiptap/extension-code-block": "^2.0.4",
+        "@tiptap/extension-document": "^2.0.4",
+        "@tiptap/extension-dropcursor": "^2.0.4",
+        "@tiptap/extension-gapcursor": "^2.0.4",
+        "@tiptap/extension-hard-break": "^2.0.4",
+        "@tiptap/extension-heading": "^2.0.4",
+        "@tiptap/extension-history": "^2.0.4",
+        "@tiptap/extension-horizontal-rule": "^2.0.4",
+        "@tiptap/extension-italic": "^2.0.4",
+        "@tiptap/extension-link": "^2.0.4",
+        "@tiptap/extension-list-item": "^2.0.4",
+        "@tiptap/extension-ordered-list": "^2.0.4",
+        "@tiptap/extension-paragraph": "^2.0.4",
+        "@tiptap/extension-placeholder": "^2.0.4",
+        "@tiptap/extension-strike": "^2.0.4",
+        "@tiptap/extension-text": "^2.0.4",
+        "tiptap-render-view": "^1.0.0"
     }
 }
