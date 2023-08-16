@@ -99,6 +99,10 @@ This also means that you can use the same `M2A Reference Field` for multiple Fle
 
 The current implementation of duplicating relation nodes (M2A items) does not cover all use cases, but will be improved in [future releases](https://github.com/formfcw/directus-extension-flexible-editor/discussions/categories/feature-request). If duplication fails you should get a warning.
 
+### Tutorial: Relation node with existing items
+
+https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/1c357db7-582e-462f-aada-606c0c7197e4
+
 ## Custom Editor Styles
 
 For overwriting CSS of the editor content, you can add `Custom CSS` to your `Project Settings` inside Directus. You can use the `.flexible-editor` class for the editor itself as well as a `.relation-block` class for the relation nodes.
