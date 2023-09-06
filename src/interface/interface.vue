@@ -113,7 +113,14 @@
         async onUpdate({ editor }) {
             if (updateEvent.triggeredCorrectly()) {
                 syncRelationNodes();
-                emit('input', await editor.getJSON());
+
+                const editorValue = await editor.getJSON();
+                const emptyJSON = { "type": "doc", "content": [{ "type": "paragraph" }] };
+                const isEmpty = JSON.stringify(editorValue) === JSON.stringify(emptyJSON);
+
+                if (isEmpty) editor.commands.setContent(null, false);
+
+                emit('input', isEmpty ? null : editorValue);
             }
         },
     });
