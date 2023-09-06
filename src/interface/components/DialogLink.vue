@@ -105,7 +105,7 @@
         let newTab: boolean | null = null;
 
         if (old.hasOwnProperty('target')) {
-            newTab = old.target === false ? false : true;
+            newTab = old.target === null ? false : true;
         }
 
         linkTypes.forEach(linkType => {
@@ -133,7 +133,7 @@
     // Prepare values for inserting
     const getSaveableValues = () => {
         let { type, href, newTab } = modelValues.value;
-        let target = newTab ? '_blank' : false;
+        let target = newTab ? '_blank' : null;
 
         if (newTab)
             target = '_blank';
