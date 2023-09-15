@@ -22,7 +22,8 @@
         relationBlocks?: VueRelationBlockSerializers;
     }>();
 
-    const serializers = props.serializers ?? extensions ?? [];
+    // `.slice(0)` to clone the extensions array
+    const serializers = props.serializers ?? extensions.slice(0) ?? [];
 
     const relationBlockSerializer =
         Node.create({
