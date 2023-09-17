@@ -1,5 +1,5 @@
 <template>
-    <div class="line-truncate">{{ plainText }}</div>
+    <span class="line-truncate">{{ plainText }}</span>
 </template>
 
 
