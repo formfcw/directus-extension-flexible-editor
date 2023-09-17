@@ -107,43 +107,27 @@
             RelationBlock,
             ...toolsExtensions(props.tools)
         ],
-        onCreate() {
-            updateEvent.editorCreateTime = Date.now();
-        },
         async onUpdate({ editor }) {
-            if (updateEvent.triggeredCorrectly()) {
-                syncRelationNodes();
+            syncRelationNodes();
 
-                const editorValue = await editor.getJSON();
-                const emptyJSON = { "type": "doc", "content": [{ "type": "paragraph" }] };
-                const isEmpty = JSON.stringify(editorValue) === JSON.stringify(emptyJSON);
+            const editorValue = await editor.getJSON();
+            const emptyJSON = { "type": "doc", "content": [{ "type": "paragraph" }] };
+            const isEmpty = JSON.stringify(editorValue) === JSON.stringify(emptyJSON);
 
-                if (isEmpty) editor.commands.setContent(null, false);
+            if (isEmpty) editor.commands.setContent(null, false);
 
-                emit('input', isEmpty ? null : editorValue);
-            }
+            emit('input', isEmpty ? null : editorValue);
         },
     });
-    // Prevents the update event from being falsely fired
-    const updateEvent = {
-        fakeTriggerPossible: true,
-        editorCreateTime: Date.now(),
-        triggeredCorrectly() {
-            if (!this.fakeTriggerPossible) return true;
-            const timeSinceCreation = Date.now() - this.editorCreateTime;
-            const triggeredCorrectly = timeSinceCreation > 200;
-            if (triggeredCorrectly) this.fakeTriggerPossible = false;
-            return triggeredCorrectly;
-        }
-    };
     watch(() => props.value, (value) => {
         const isSame = JSON.stringify(editor.value!.getJSON()) === JSON.stringify(value)
         if (isSame) return;
-        editor.value!.commands.setContent(value);
+        editor.value!.commands.setContent(value, false);
     });
-    watch(() => props.disabled, (disabled) =>
-        editor.value!.setEditable(!disabled)
-    );
+    // The following lines are causing the update event to fire on editor creation, which leads to issues. Found out that directus disables the field globally, so this is not needed!
+    // watch(() => props.disabled, (disabled) =>
+    //     editor.value!.setEditable(!disabled)
+    // );
 
 
     // Fallback function
