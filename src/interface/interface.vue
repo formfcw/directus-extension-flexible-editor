@@ -172,7 +172,7 @@
 
     /* Field */
     .field {
-        background-color: var(--background-page);
+        background-color: var(--theme--background, var(--background-page));
         border: var(--border-width) solid var(--border-normal);
         border-radius: var(--border-radius);
     }
@@ -182,12 +182,12 @@
     }
 
     .field:focus-within {
-        border-color: var(--primary);
+        border-color: var(--theme--primary, var(--primary));
         box-shadow: 0 0 16px -8px var(--v-input-box-shadow-color-focus);
     }
 
     .disabled {
-        color: var(--foreground-subdued);
+        color: var(--theme--foreground-subdued, var(--foreground-subdued));
         background-color: var(--background-subdued);
         border-color: var(--border-normal);
         pointer-events: none;
@@ -195,15 +195,15 @@
 
     /* Fonts */
     .monospace {
-        font-family: var(--family-monospace);
+        font-family: var(--theme--font-family-monospace, var(--family-monospace));
     }
 
     .serif {
-        font-family: var(--family-serif);
+        font-family: var(--theme--font-family-serif, var(--family-serif));
     }
 
     .sans-serif {
-        font-family: var(--family-sans-serif);
+        font-family: var(--theme--font-family-sans-serif, var(--family-sans-serif));
     }
 
     /* Editor */
@@ -285,7 +285,7 @@
         color: transparent;
         background-color: var(--border-normal);
         height: 7px;
-        border: 3px solid var(--background-page);
+        border: 3px solid var(--theme--background, var(--background-page));
         border-left: none;
         border-right: none;
     }
@@ -304,8 +304,8 @@
     }
 
     .flexible-editor :deep(a) {
-        color: var(--primary);
-        border-bottom: 1px solid var(--primary);
+        color: var(--theme--primary, var(--primary));
+        border-bottom: 1px solid var(--theme--primary, var(--primary));
     }
 
     .flexible-editor :deep(code) {

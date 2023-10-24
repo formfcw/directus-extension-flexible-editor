@@ -37,10 +37,10 @@
 
 <style scoped>
     .warning {
-        --v-icon-color: var(--warning);
+        --v-icon-color: var(--theme--warning, var(--warning));
     }
 
     .warning:hover {
-        --v-icon-color: var(--warning-110);
+        --v-icon-color: var(--theme--warning-accent, var(--warning-110));
     }
 </style>

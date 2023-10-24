@@ -69,3 +69,11 @@
 
     const { editModalActive, disabled, relationInfo, allowedCollections, currentlyEditing, relatedPrimaryKey, editsAtStart, stageEdits, createItem }: RelationReference = inject('m2aRelation')!;
 </script>
+
+
+
+<style scoped>
+    .v-list-item.active {
+        --v-list-item-icon-color: var(--theme--foreground-subdued, var(--foreground-subdued)) !important;
+    }
+</style>

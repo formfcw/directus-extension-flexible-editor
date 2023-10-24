@@ -122,15 +122,15 @@
     }
 
     .v-list-item.disabled {
-        --v-list-item-color: var(--foreground-subdued) !important;
+        --v-list-item-color: var(--theme--foreground-subdued, var(--foreground-subdued)) !important;
         cursor: not-allowed;
     }
 
     .v-list-item.block {
         --v-list-item-border-color: var(--border-subdued);
-        --v-list-item-background-color: var(--background-page);
+        --v-list-item-background-color: var(--theme--background, var(--background-page));
         --v-list-item-background-color-hover: var(--card-face-color);
-        --v-icon-color: var(--foreground-subdued);
+        --v-icon-color: var(--theme--foreground-subdued, var(--foreground-subdued));
 
         position: relative;
         display: flex;
@@ -148,7 +148,7 @@
     }
 
     .v-list-item.block :slotted(.drag-handle):hover {
-        color: var(--foreground-color);
+        color: var(--theme--foreground, var(--foreground-normal));
     }
 
     .v-list-item.block :slotted(.drag-handle:active) {
@@ -165,7 +165,7 @@
     }
 
     .v-list-item.block.sortable-chosen {
-        border: var(--border-width) solid var(--primary) !important;
+        border: var(--border-width) solid var(--theme--primary, var(--primary)) !important;
     }
 
     .v-list-item.block.sortable-ghost {
@@ -184,7 +184,7 @@
 
     .v-list-item:active {
         /* Alternative to sortable-chosen */
-        border: var(--border-width) solid var(--primary) !important;
+        border: var(--border-width) solid var(--theme--primary, var(--primary)) !important;
     }
 
     .spacer {
@@ -192,7 +192,7 @@
     }
 
     .collection {
-        color: var(--primary);
+        color: var(--theme--primary, var(--primary));
         white-space: nowrap;
         margin-right: 1ch;
     }
@@ -203,7 +203,7 @@
     }
 
     .drag-handle:hover {
-        color: var(--foreground-color);
+        color: var(--theme--foreground, var(--foreground-normal));
     }
 
     .drag-handle:active {
@@ -211,16 +211,16 @@
     }
 
     .clear-icon {
-        --v-icon-color: var(--foreground-subdued);
-        --v-icon-color-hover: var(--danger);
+        --v-icon-color: var(--theme--foreground-subdued, var(--foreground-subdued));
+        --v-icon-color-hover: var(--theme--danger, var(--danger));
 
         margin-right: 8px;
-        color: var(--foreground-subdued);
+        color: var(--theme--foreground-subdued, var(--foreground-subdued));
         transition: color var(--fast) var(--transition);
         cursor: pointer;
     }
 
     .clear-icon:hover {
-        color: var(--danger);
+        color: var(--theme--danger, var(--danger));
     }
 </style>
