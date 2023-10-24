@@ -21,22 +21,6 @@ yarn add directus-extension-flexible-editor
 pnpm add directus-extension-flexible-editor
 ```
 
-Via Dockerfile:
-
-```Dockerfile
-FROM directus/directus:latest
-
-# At the time of writing, the following lines are necessary to install an extension
-# Make sure to use the latest version number
-USER root
-RUN corepack enable && corepack prepare pnpm@8.1.1 --activate && chown node:node /directus
-USER node
-
-# Install the package
-# Make sure to use the latest version number
-RUN pnpm install directus-extension-flexible-editor@^1.1.0
-```
-
 ## Basic Usage
 
 In your Directus app simply click the `Create Field` button and choose `Flexible Editor`.
