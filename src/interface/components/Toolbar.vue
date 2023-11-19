@@ -154,9 +154,9 @@
     .toolbar {
         --v-button-background-color: transparent;
         --v-button-color: var(--theme--foreground, var(--foreground-normal));
-        --v-button-background-color-hover: var(--border-normal);
+        --v-button-background-color-hover: var(--theme--border-color, var(--border-normal));
         --v-button-color-hover: var(--theme--foreground, var(--foreground-normal));
-        --v-button-background-color-active: var(--border-normal);
+        --v-button-background-color-active: var(--theme--border-color, var(--border-normal));
         --v-button-color-active: var(--theme--foreground, var(--foreground-normal));
         --v-button-background-color-disabled: transparent;
         --v-button-color-disabled: var(--theme--foreground-subdued, var(--foreground-subdued));
@@ -167,16 +167,16 @@
 
     .toolbar-dropdown-button :deep(.button) {
         --v-button-min-width: 0;
-        padding-left: calc(var(--input-padding) - var(--toolbar-dropdown-p) * 2);
+        padding-left: calc(var(--theme--form--field--input--padding, var(--input-padding)) - var(--toolbar-dropdown-p) * 2);
         padding-right: 4px;
     }
 
     .toolbar-dropdown {
-        --v-list-item-background-color-active: var(--border-normal);
+        --v-list-item-background-color-active: var(--theme--border-color, var(--border-normal));
     }
 
     .toolbar {
-        border-bottom: var(--border-width) solid var(--border-normal);
+        border-bottom: var(--theme--border-width, var(--border-width)) solid var(--theme--border-color, var(--border-normal));
         padding: var(--toolbar-item-m);
     }
 

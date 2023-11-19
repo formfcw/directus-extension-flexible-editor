@@ -94,9 +94,9 @@
         margin: var(--v-list-item-margin);
         padding: var(--v-list-item-padding);
         overflow: hidden;
-        color: var(--v-list-item-color);
+        color: var(--theme--foreground, var(--v-list-item-color));
         text-decoration: none;
-        border-radius: var(--v-list-item-border-radius);
+        border-radius: var(--theme--border-radius, var(--v-list-item-border-radius));
     }
 
     .v-list-item.link {
@@ -108,7 +108,7 @@
 
     .v-list-item.link:not(.disabled):not(.block):hover {
         color: var(--v-list-item-color-hover);
-        background-color: var(--v-list-item-background-color-hover);
+        background-color: var(--theme--form--field--input--background, var(--v-list-item-background-color-hover));
     }
 
     .v-list-item.link:not(.disabled):not(.block):active {
@@ -127,19 +127,19 @@
     }
 
     .v-list-item.block {
-        --v-list-item-border-color: var(--border-subdued);
-        --v-list-item-background-color: var(--theme--background, var(--background-page));
-        --v-list-item-background-color-hover: var(--card-face-color);
+        --v-list-item-border-color: var(--theme--form--field--input--border-color, var(--border-subdued));
+        --v-list-item-background-color: var(--theme--form--field--input--background, var(--background-page));
+        --v-list-item-background-color-hover: var(--theme--form--field--input--background, var(--card-face-color));
         --v-icon-color: var(--theme--foreground-subdued, var(--foreground-subdued));
 
         position: relative;
         display: flex;
-        height: var(--input-height);
+        height: var(--theme--form--field--input--height, var(--input-height));
         margin: 0;
-        padding: 8px var(--input-padding);
+        padding: 8px var(--theme--form--field--input--padding, var(--input-padding));
         background-color: var(--v-list-item-background-color);
-        border: var(--border-width) solid var(--v-list-item-border-color);
-        border-radius: var(--border-radius);
+        border: var(--theme--border-width, var(--border-width)) solid var(--v-list-item-border-color);
+        border-radius: var(--theme--border-radius, var(--border-radius));
         transition: border-color var(--fast) var(--transition);
     }
 
@@ -160,12 +160,12 @@
     }
 
     .v-list-item.block.clickable:hover {
-        background-color: var(--v-list-item-background-color-hover);
-        border: var(--border-width) solid var(--v-list-item-border-color-hover);
+        background-color: var(--theme--form--field--input--background, var(--v-list-item-background-color-hover));
+        border: var(--theme--border-width, var(--border-width)) solid var(--theme--form--field--input--border-color-hover, var(--v-list-item-border-color-hover));
     }
 
     .v-list-item.block.sortable-chosen {
-        border: var(--border-width) solid var(--theme--primary, var(--primary)) !important;
+        border: var(--theme--border-width, var(--border-width)) solid var(--theme--primary, var(--primary)) !important;
     }
 
     .v-list-item.block.sortable-ghost {
@@ -184,7 +184,7 @@
 
     .v-list-item:active {
         /* Alternative to sortable-chosen */
-        border: var(--border-width) solid var(--theme--primary, var(--primary)) !important;
+        border: var(--theme--border-width, var(--border-width)) solid var(--theme--primary, var(--primary)) !important;
     }
 
     .spacer {

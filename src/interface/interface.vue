@@ -172,24 +172,25 @@
 
     /* Field */
     .field {
-        background-color: var(--theme--background, var(--background-page));
-        border: var(--border-width) solid var(--border-normal);
-        border-radius: var(--border-radius);
+        color: var(--theme--form--field--input--foreground, var(--foreground));
+        background-color: var(--theme--form--field--input--background, var(--background-page));
+        border: var(--theme--border-width, var(--border-width)) solid var(--theme--form--field--input--border-color, var(--border-normal));
+        border-radius: var(--theme--border-radius, var(--border-radius));
     }
 
     .field:hover {
-        border-color: var(--border-normal-alt);
+        border-color: var(--theme--form--field--input--border-color-hover, var(--border-normal-alt));
     }
 
     .field:focus-within {
-        border-color: var(--theme--primary, var(--primary));
-        box-shadow: 0 0 16px -8px var(--v-input-box-shadow-color-focus);
+        border-color: var(--theme--form--field--input--border-color-focus, var(--primary));
+        box-shadow: var(--theme--form--field--input--box-shadow-focus, 0 0 16px -8px var(--v-input-box-shadow-color-focus));
     }
 
     .disabled {
-        color: var(--theme--foreground-subdued, var(--foreground-subdued));
-        background-color: var(--background-subdued);
-        border-color: var(--border-normal);
+        color: var(--theme--form--field--input--foreground-subdued, var(--foreground-subdued));
+        background-color: var(--theme--form--field--input--background-subdued, var(--background-subdued));
+        border-color: var(--theme--form--field--input--border-color, var(--border-normal));
         pointer-events: none;
     }
 
@@ -209,9 +210,10 @@
     /* Editor */
     .field {
         --editor-lineheight: 1.6;
+        --editor-input-padding: var(--theme--form--field--input--padding, var(--input-padding));
         /* --editor-height = --editor-lineheight * 7 */
-        --editor-height: calc(11.2em + var(--input-padding) + var(--input-padding));
-        --editor-overflow-height: calc(100vh - var(--header-bar-height) - var(--header-bar-height) - var(--form-vertical-gap) - var(--form-vertical-gap) - var(--input-padding) - var(--input-padding));
+        --editor-height: calc(11.2em + var(--editor-input-padding) + var(--editor-input-padding));
+        --editor-overflow-height: calc(100vh - var(--header-bar-height) - var(--header-bar-height) - var(--theme--form--row-gap, var(--form-vertical-gap)) - var(--theme--form--row-gap, var(--form-vertical-gap)) - var(--editor-input-padding) - var(--editor-input-padding));
     }
 
     .flexible-editor {
@@ -225,7 +227,7 @@
     /* Editor Size */
     .flexible-editor :deep(.ProseMirror) {
         line-height: var(--editor-lineheight);
-        padding: var(--input-padding);
+        padding: var(--theme--form--field--input--padding, var(--input-padding));
         overflow: auto;
     }
 
@@ -283,7 +285,7 @@
 
     .flexible-editor :deep(hr) {
         color: transparent;
-        background-color: var(--border-normal);
+        background-color: var(--theme--border-color, var(--border-normal));
         height: 7px;
         border: 3px solid var(--theme--background, var(--background-page));
         border-left: none;
@@ -291,12 +293,12 @@
     }
 
     .flexible-editor :deep(hr.ProseMirror-selectednode) {
-        border-color: var(--background-normal);
+        border-color: var(--theme--background-normal, var(--background-normal));
     }
 
     .flexible-editor :deep(blockquote) {
-        border-left: var(--border-width) solid var(--border-normal);
-        padding-left: var(--input-padding);
+        border-left: var(--theme--border-width, var(--border-width)) solid var(--theme--border-color, var(--border-normal));
+        padding-left: var(--theme--form--field--input--padding, var(--input-padding));
     }
 
     .flexible-editor :deep(strong) {
@@ -309,25 +311,29 @@
     }
 
     .flexible-editor :deep(code) {
-        background-color: var(--background-normal);
+        background-color: var(--theme--background-normal, var(--background-normal));
         padding: 2px 4px;
-        border-radius: var(--border-radius);
+        border-radius: var(--theme--border-radius, var(--border-radius));
     }
 
     .flexible-editor :deep(pre) {
-        background-color: var(--background-normal);
-        padding: var(--input-padding);
-        border-radius: var(--border-radius);
+        background-color: var(--theme--background-normal, var(--background-normal));
+        padding: var(--theme--form--field--input--padding, var(--input-padding));
+        border-radius: var(--theme--border-radius, var(--border-radius));
+    }
+
+    .flexible-editor :deep(pre code) {
+        padding: 0;
     }
 
     .flexible-editor :deep(ol),
     .flexible-editor :deep(ul) {
-        padding-left: var(--input-padding);
+        padding-left: var(--theme--form--field--input--padding, var(--input-padding));
     }
 
     /* Placeholder */
     .flexible-editor :deep(p.is-editor-empty:first-child::before) {
-        color: var(--v-input-placeholder-color);
+        color: var(--theme--foreground-subdued, var(--v-input-placeholder-color));
         content: attr(data-placeholder);
         float: left;
         height: 0;
@@ -351,7 +357,7 @@
         width: 0;
         height: 1.1em;
         /* This works as long as every block the gapcursor is appended has a height of `--input-height` */
-        height: var(--input-height);
+        height: var(--theme--form--field--input--height, var(--input-height));
         border-top: none;
         border-left: 1px solid black;
     }
@@ -379,6 +385,6 @@
 <style>
     /* not scoped */
     .prosemirror-dropcursor-block {
-        background-color: var(--border-normal) !important;
+        background-color: var(--theme--border-color, var(--border-normal)) !important;
     }
 </style>
