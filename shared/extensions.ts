@@ -17,22 +17,30 @@ import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import Strike from "@tiptap/extension-strike";
 import Code from "@tiptap/extension-code";
+import { Table } from "@tiptap/extension-table";
+import { TableHeader } from "@tiptap/extension-table-header";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
 
 export default [
-    Document,
-    Text,
-    Paragraph,
-    HardBreak,
-    Heading,
-    CodeBlock,
-    BulletList,
-    OrderedList,
-    ListItem,
-    Blockquote,
-    HorizontalRule,
-    Link,
-    Bold,
-    Italic,
-    Strike,
-    Code,
+  Document,
+  Text,
+  Paragraph,
+  HardBreak,
+  Heading,
+  CodeBlock,
+  BulletList,
+  OrderedList,
+  ListItem,
+  Blockquote,
+  HorizontalRule,
+  Link,
+  Bold,
+  Italic,
+  Strike,
+  Code,
+  Table,
+  TableHeader,
+  TableRow,
+  TableCell,
 ];
