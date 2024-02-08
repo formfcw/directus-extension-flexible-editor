@@ -26,19 +26,9 @@
     // TODO: [Stage 2][improve] attribute bindings on <v-button> not on <button> but on parent element
     import { computed } from 'vue';
     import { translateShortcut } from '../directus-core/utils/translate-shortcut';
-    import type { Tool } from '../types';
+    import type { ToolButtonProps } from '../types';
 
-
-    interface Props {
-        title: string;
-        icon: string | boolean;
-        display: string | boolean;
-        action: Tool['action'];
-        shortcut: Tool['shortcut'];
-        active: boolean,
-        disabled: boolean,
-    }
-    const props = withDefaults(defineProps<Props>(), {
+    const props = withDefaults(defineProps<ToolButtonProps>(), {
         icon: false,
         display: false,
         shortcut: () => [],

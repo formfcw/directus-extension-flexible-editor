@@ -15,9 +15,21 @@ export type Tool = {
     extension: Array<AnyExtension | ExtensionFunction>;
     groups?: string[];
     shortcut?: string[];
+    toolbarButton?: Component;
     action?: (editor: Editor, attrs?: any) => void;
     disabled?: (editor: Editor) => void;
     active?: (editor: Editor) => void;
+};
+
+export type ToolButtonProps = {
+    title: string;
+    icon: string | boolean;
+    display: string | boolean;
+    action: Tool["action"];
+    shortcut: Tool["shortcut"];
+    active: boolean;
+    disabled: boolean;
+    editor: Editor;
 };
 
 export type LinkAttributes = { href: string; target?: string | null };
