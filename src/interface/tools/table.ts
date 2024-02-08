@@ -9,7 +9,7 @@ import type { Tool } from "../types";
 export default {
   key: "table",
   name: customMessages.tools.table,
-  icon: "format_table",
+  icon: "table",
   extension: [Table, TableHeader, TableRow, TableCell],
   action: (editor: Editor) => editor.chain().focus().insertTable().run(),
   disabled: (editor: Editor) =>
