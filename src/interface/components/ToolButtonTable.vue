@@ -103,7 +103,7 @@
         >
           <!-- <v-list-item-icon><v-icon :name="icon" /></v-list-item-icon> -->
           <v-list-item-content>
-            <v-text-overflow :text="t('table.add_crow_before')" />
+            <v-text-overflow :text="t('table.add_row_before')" />
           </v-list-item-content>
           <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> --></v-list-item
         >
