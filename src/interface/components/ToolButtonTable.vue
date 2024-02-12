@@ -13,7 +13,7 @@
                 :editor="editor"
             />
         </template>
-        <v-list class="toolbar-dropdown">
+        <v-list>
             <v-list-item
                 clickable
                 @click="action"
@@ -140,10 +140,3 @@
 
     const { t } = useI18nFallback(useI18n());
 </script>
-
-<style scoped>
-    .toolbar-dropdown {
-        --v-list-item-background-color-active: var(--theme--border-color,
-                var(--border-normal));
-    }
-</style>
