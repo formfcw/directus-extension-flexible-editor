@@ -346,7 +346,7 @@
     .flexible-editor :deep(table th),
     .flexible-editor :deep(table td) {
         padding: 0.25em 0.5em;
-        border: 2px solid var(--theme--border-color);
+        border: var(--theme--border-width) solid var(--theme--border-color);
         text-align: start;
         vertical-align: top;
         box-sizing: border-box;
