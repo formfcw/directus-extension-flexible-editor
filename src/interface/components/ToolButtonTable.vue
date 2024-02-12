@@ -83,8 +83,8 @@
                 </v-list-item>
                 <v-list-item
                     clickable
-                    @click="editor.chain().focus().addColumnAfter().run()"
-                    :disabled="!editor.can().chain().focus().addColumnAfter().run()"
+                    @click="editor.chain().focus().deleteColumn().run()"
+                    :disabled="!editor.can().chain().focus().deleteColumn().run()"
                 >
                     <!-- <v-list-item-icon><v-icon :name="icon" /></v-list-item-icon> -->
                     <v-list-item-content>
