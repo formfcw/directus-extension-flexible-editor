@@ -23,25 +23,31 @@
                 </v-list-item-content>
             </v-list-item>
 
-            <v-list-item
-                clickable
-                @click="editor.chain().focus().toggleHeaderCell().run()"
-                :disabled="!editor.can().chain().focus().toggleHeaderCell().run()"
-            >
-                <v-list-item-content>
-                    <v-text-overflow :text="t('table.toggle_header')" />
-                </v-list-item-content>
-            </v-list-item>
+            <v-list-group>
+                <template #activator>
+                    <v-text-overflow :text="t('table.section_cells')" />
+                </template>
 
-            <v-list-item
-                clickable
-                @click="editor.chain().focus().mergeOrSplit().run()"
-                :disabled="!editor.can().chain().focus().mergeOrSplit().run()"
-            >
-                <v-list-item-content>
-                    <v-text-overflow :text="t('table.merge_or_split_cells')" />
-                </v-list-item-content>
-            </v-list-item>
+                <v-list-item
+                    clickable
+                    @click="editor.chain().focus().mergeOrSplit().run()"
+                    :disabled="!editor.can().chain().focus().mergeOrSplit().run()"
+                >
+                    <v-list-item-content>
+                        <v-text-overflow :text="t('table.merge_or_split_cells')" />
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item
+                    clickable
+                    @click="editor.chain().focus().toggleHeaderCell().run()"
+                    :disabled="!editor.can().chain().focus().toggleHeaderCell().run()"
+                >
+                    <v-list-item-content>
+                        <v-text-overflow :text="t('table.toggle_header')" />
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list-group>
 
             <v-list-group>
                 <template #activator>
