@@ -2,7 +2,6 @@
     <v-menu
         show-arrow
         placement="bottom-start"
-        :fullHeight="true"
     >
         <template #activator="{ toggle }">
             <ToolButton
