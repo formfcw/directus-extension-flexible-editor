@@ -21,7 +21,6 @@
                 <v-list-item-content>
                     <v-text-overflow :text="t('table.insert')" />
                 </v-list-item-content>
-                <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> -->
             </v-list-item>
 
             <v-list-item
@@ -32,7 +31,6 @@
                 <v-list-item-content>
                     <v-text-overflow :text="t('table.toggle_header')" />
                 </v-list-item-content>
-                <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> -->
             </v-list-item>
 
             <v-list-item
@@ -43,7 +41,6 @@
                 <v-list-item-content>
                     <v-text-overflow :text="t('table.merge_or_split_cells')" />
                 </v-list-item-content>
-                <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> -->
             </v-list-item>
 
             <v-list-group>
@@ -59,7 +56,6 @@
                     <v-list-item-content>
                         <v-text-overflow :text="t('table.add_column_before')" />
                     </v-list-item-content>
-                    <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> -->
                 </v-list-item>
                 <v-list-item
                     clickable
@@ -69,7 +65,6 @@
                     <v-list-item-content>
                         <v-text-overflow :text="t('table.add_column_after')" />
                     </v-list-item-content>
-                    <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> -->
                 </v-list-item>
                 <v-list-item
                     clickable
@@ -79,7 +74,6 @@
                     <v-list-item-content>
                         <v-text-overflow :text="t('table.delete_column')" />
                     </v-list-item-content>
-                    <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> -->
                 </v-list-item>
             </v-list-group>
 
@@ -96,7 +90,7 @@
                     <v-list-item-content>
                         <v-text-overflow :text="t('table.add_row_before')" />
                     </v-list-item-content>
-                    <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> --></v-list-item>
+                </v-list-item>
                 <v-list-item
                     clickable
                     @click="editor.chain().focus().addRowAfter().run()"
@@ -105,7 +99,7 @@
                     <v-list-item-content>
                         <v-text-overflow :text="t('table.add_row_after')" />
                     </v-list-item-content>
-                    <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> --></v-list-item>
+                </v-list-item>
                 <v-list-item
                     clickable
                     @click="editor.chain().focus().deleteRow().run()"
@@ -114,14 +108,13 @@
                     <v-list-item-content>
                         <v-text-overflow :text="t('table.delete_row')" />
                     </v-list-item-content>
-                    <!-- <v-list-item-hint>{{ translateShortcut(shortcut as string[]) }}</v-list-item-hint> --></v-list-item>
+                </v-list-item>
             </v-list-group>
         </v-list>
     </v-menu>
 </template>
 
 <script setup lang="ts">
-    // import { translateShortcut } from '../directus-core/utils/translate-shortcut';
     import ToolButton from "./ToolButton.vue";
     import { useI18n } from "vue-i18n";
     import { useI18nFallback } from "../composables/use-i18n-fallback";
