@@ -23,7 +23,9 @@
                 </v-list-item-content>
             </v-list-item>
 
-            <v-list-group>
+            <v-list-group
+                :disabled="!editor.can().chain().focus().mergeOrSplit().run() && !editor.can().chain().focus().toggleHeaderCell().run()"
+            >
                 <template #activator>
                     <v-text-overflow :text="t('table.section_cells')" />
                 </template>
@@ -49,7 +51,9 @@
                 </v-list-item>
             </v-list-group>
 
-            <v-list-group>
+            <v-list-group
+                :disabled="!editor.can().chain().focus().addColumnBefore().run() && !editor.can().chain().focus().addColumnAfter().run() && !editor.can().chain().focus().deleteColumn().run()"
+            >
                 <template #activator>
                     <v-text-overflow :text="t('table.section_columns')" />
                 </template>
@@ -83,7 +87,9 @@
                 </v-list-item>
             </v-list-group>
 
-            <v-list-group>
+            <v-list-group
+                :disabled="!editor.can().chain().focus().addRowBefore().run() && !editor.can().chain().focus().addRowAfter().run() && !editor.can().chain().focus().deleteRow().run()"
+            >
                 <template #activator>
                     <v-text-overflow :text="t('table.section_rows')" />
                 </template>
