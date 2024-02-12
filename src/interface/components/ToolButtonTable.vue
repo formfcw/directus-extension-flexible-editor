@@ -51,11 +51,7 @@
 
             <v-list-group>
                 <template #activator>
-                    <v-list-item>
-                        <v-list-item-content>
-                            <v-text-overflow :text="t('table.section_columns')" />
-                        </v-list-item-content>
-                    </v-list-item>
+                    <v-text-overflow :text="t('table.section_columns')" />
                 </template>
 
                 <v-list-item
@@ -95,11 +91,7 @@
 
             <v-list-group>
                 <template #activator>
-                    <v-list-item>
-                        <v-list-item-content>
-                            <v-text-overflow :text="t('table.section_rows')" />
-                        </v-list-item-content>
-                    </v-list-item>
+                    <v-text-overflow :text="t('table.section_rows')" />
                 </template>
 
                 <v-list-item
