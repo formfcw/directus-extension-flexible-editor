@@ -340,20 +340,21 @@
     }
 
     .flexible-editor :deep(table th) {
-        background-color: var(--theme--background-normal);
+        background-color: var(--theme--background-subdued);
     }
 
     .flexible-editor :deep(table th),
     .flexible-editor :deep(table td) {
         padding: 0.25em 0.5em;
-        border: 1px solid var(--theme--border-color-accent);
+        border: 2px solid var(--theme--border-color);
         text-align: start;
         vertical-align: top;
         box-sizing: border-box;
     }
 
     .flexible-editor :deep(table .selectedCell) {
-        background: var(--theme--primary-background);
+        background: var(--theme--primary);
+        color: var(--theme--background-subdued);
     }
 
     /* Placeholder */
