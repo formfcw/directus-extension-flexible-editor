@@ -331,6 +331,32 @@
         padding-left: var(--theme--form--field--input--padding, var(--input-padding));
     }
 
+    .flexible-editor :deep(table) {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .flexible-editor :deep(table th) {
+        background-color: var(--theme--background-subdued);
+    }
+
+    .flexible-editor :deep(table th),
+    .flexible-editor :deep(table td) {
+        padding: 0.25em 0.5em;
+        border: var(--theme--border-width) solid var(--theme--border-color);
+        text-align: start;
+        vertical-align: top;
+        box-sizing: border-box;
+    }
+
+    .flexible-editor :deep(table .selectedCell) {
+        background: var(--theme--primary);
+        color: var(--theme--background-subdued);
+    }
+
     /* Placeholder */
     .flexible-editor :deep(p.is-editor-empty:first-child::before) {
         color: var(--theme--foreground-subdued, var(--v-input-placeholder-color));

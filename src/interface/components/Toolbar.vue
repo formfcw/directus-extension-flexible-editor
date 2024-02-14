@@ -55,9 +55,10 @@
             </v-list>
         </v-menu>
 
-        <tool-button
+        <component
             v-for="tool in buttonTools"
             :key="tool.key"
+            :is="tool.toolbarButton ?? ToolButton"
             :title="tool.name"
             :icon="tool.icon"
             :display="tool.display"
@@ -65,6 +66,7 @@
             :action="() => toolAction(tool)"
             :active="tool.active?.(editor)"
             :disabled="tool.disabled?.(editor)"
+            :editor="editor"
         />
 
         <v-dialog v-model="showDialog">
