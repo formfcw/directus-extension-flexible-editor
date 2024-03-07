@@ -4,7 +4,8 @@
 
 A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.
 
-<video src="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/flexible-editor.mp4" controls="controls" muted="muted"><a href="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/flexible-editor.mp4">Watch video</a></video>
+<video src="https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/b418c9a7-44c0-43b1-b5ad-6673d09a9066" controls="controls" muted="muted"></video>
+([Open the video](https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/b418c9a7-44c0-43b1-b5ad-6673d09a9066) directly if it isn't displayed!)
 
 Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap) editor as an extension into the [Directus](https://github.com/directus/directus) app and utilizes an optional many-to-any (M2A) field to place and link related nodes in the editor. This combination makes Flexible Editor a truely rich editor.
 
@@ -17,7 +18,8 @@ Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap)
 
 In your Directus app simply click the `Create Field` button and choose `Flexible Editor`.
 
-<video src="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/basic-usage.mp4" controls="controls" muted="muted"><a href="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/basic-usage.mp4">Watch video</a></video>
+<video src="https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/62592c31-498f-4879-b231-fb2f2802777c" controls="controls" muted="muted"></video>
+([Open the video](https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/62592c31-498f-4879-b231-fb2f2802777c) directly if it isn't displayed!)
 
 ### Interface Options
 
@@ -43,7 +45,8 @@ Navigate to the `Display` tab and select `Flexible Editor` to display the editor
 
 You can insert items from your Directus collections into the Flexible Editor. This is optional but gives you extreme flexibility when creating rich content. Therefore, you need to add a many-to-any (M2A) field, the editor field can connect to. For Flexible Editor to work this way, you must create the junction collection before adding a M2A field.
 
-<video src="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/usage-with-relation-nodes.mp4" controls="controls" muted="muted"><a href="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/usage-with-relation-nodes.mp4">Watch video</a></video>
+<video src="https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/986ce5b1-cdda-4607-bea9-26412f942938" controls="controls" muted="muted"></video>
+([Open the video](https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/986ce5b1-cdda-4607-bea9-26412f942938) directly if it isn't displayed!)
 
 1. Create a new (junction) collection and give it a name like `xxxx_editor_nodes` and set the `Type` of the Primary Key to `Generate UUID`. Finish the setup to create the collection.
 
@@ -77,7 +80,8 @@ The current implementation of duplicating relation nodes (M2A items) does not co
 
 ### Tutorial: Relation node with existing items
 
-<video src="https://github.com/formfcw/directus-extension-flexible-editor/blob/main/docs/basic-usage.mp4" controls="controls" muted="muted"><a href="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/selecting-related-items.mp4">Watch video</a></video>
+<video src="https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/1c357db7-582e-462f-aada-606c0c7197e4" controls="controls" muted="muted"></video>
+([Open the video](https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/1c357db7-582e-462f-aada-606c0c7197e4) directly if it isn't displayed!)
 
 ## Custom Editor Styles
 
