@@ -10,7 +10,8 @@ Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap)
 
 ## Installation
 
-[Official Guide](https://docs.directus.io/extensions/installing-extensions.html)
+-   [Official Guide](https://docs.directus.io/extensions/installing-extensions.html)
+-   [NPM Package](https://www.npmjs.com/package/directus-extension-flexible-editor)
 
 ## Basic Usage
 
