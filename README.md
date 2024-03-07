@@ -1,7 +1,5 @@
 # Flexible Editor for Directus
 
-[ [Official Installation Guide](https://docs.directus.io/extensions/installing-extensions.html) ] [ [NPM package](https://www.npmjs.com/package/directus-extension-flexible-editor) ]
-
 <!-- NOTE: [extension-description] Sync description with GitHub, custom-messages.ts and package.json -->
 
 A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.
@@ -9,6 +7,10 @@ A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A rela
 <video src="https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/b418c9a7-44c0-43b1-b5ad-6673d09a9066" controls="controls" muted="muted"><a href="https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/b418c9a7-44c0-43b1-b5ad-6673d09a9066">Watch video</a></video>
 
 Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap) editor as an extension into the [Directus](https://github.com/directus/directus) app and utilizes an optional many-to-any (M2A) field to place and link related nodes in the editor. This combination makes Flexible Editor a truely rich editor.
+
+## Installation
+
+[Official Guide](https://docs.directus.io/extensions/installing-extensions.html)
 
 ## Basic Usage
 
