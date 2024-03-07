@@ -1,6 +1,6 @@
 # Flexible Editor for Directus
 
-[[Official Installation Guide](https://docs.directus.io/extensions/installing-extensions.html)] [[NPM package](https://www.npmjs.com/package/directus-extension-flexible-editor)]
+[ [Official Installation Guide](https://docs.directus.io/extensions/installing-extensions.html) ] [ [NPM package](https://www.npmjs.com/package/directus-extension-flexible-editor) ]
 
 <!-- NOTE: [extension-description] Sync description with GitHub, custom-messages.ts and package.json -->
 
