@@ -77,7 +77,7 @@ The current implementation of duplicating relation nodes (M2A items) does not co
 
 ### Tutorial: Relation node with existing items
 
-<video src="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/selecting-related-items.mp4" controls="controls" muted="muted"><a href="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/selecting-related-items.mp4">Watch video</a></video>
+<video src="https://github.com/formfcw/directus-extension-flexible-editor/blob/main/docs/basic-usage.mp4" controls="controls" muted="muted"><a href="https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/selecting-related-items.mp4">Watch video</a></video>
 
 ## Custom Editor Styles
 
