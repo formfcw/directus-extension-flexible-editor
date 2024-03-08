@@ -1,3 +1,5 @@
+![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/banner.png)
+
 # Flexible Editor for Directus
 
 <!-- NOTE: [extension-description] Sync description with GitHub, custom-messages.ts and package.json -->
