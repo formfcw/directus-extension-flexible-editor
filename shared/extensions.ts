@@ -21,6 +21,7 @@ import { Table } from "@tiptap/extension-table";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
 import { TableCell } from "@tiptap/extension-table-cell";
+import TextAlign from "@tiptap/extension-text-align";
 
 export default [
   Document,
@@ -43,4 +44,7 @@ export default [
   TableHeader,
   TableRow,
   TableCell,
+  TextAlign.configure({
+    types: ['heading', 'paragraph'],
+  }),
 ];

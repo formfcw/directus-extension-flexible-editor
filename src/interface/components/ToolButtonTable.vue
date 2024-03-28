@@ -16,6 +16,42 @@
         <v-list>
             <v-list-item
                 clickable
+                @click="editor.chain().focus().setTextAlign('left').run()"
+                :active="editor.isActive('textStyle', { textAlign: 'left' })"
+            >
+                <v-list-item-content>
+                    <v-text-overflow :text="t('tools.align-left')" />
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+                clickable
+                @click="editor.chain().focus().setTextAlign('center').run()"
+                :active="editor.isActive('textStyle', { textAlign: 'center' })"
+            >
+                <v-list-item-content>
+                    <v-text-overflow :text="t('tools.align-center')" />
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+                clickable
+                @click="editor.chain().focus().setTextAlign('right').run()"
+                :active="editor.isActive('textStyle', { textAlign: 'right' })"
+            >
+                <v-list-item-content>
+                    <v-text-overflow :text="t('tools.align-right')" />
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+                clickable
+                @click="editor.chain().focus().setTextAlign('justify').run()"
+                :active="editor.isActive('textStyle', { textAlign: 'justify' })"
+            >
+                <v-list-item-content>
+                    <v-text-overflow :text="t('tools.align-justify')" />
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+                clickable
                 @click="action"
                 :disabled="disabled"
             >
