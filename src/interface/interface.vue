@@ -20,11 +20,12 @@
             :tools="selectedTools(tools)"
             :editor="editor"
             :display-format="displayFormat"
+            :single-line-mode="singleLineMode"
         ></toolbar>
         <editor-content
             :editor="editor"
             :spellcheck="spellcheck ? 'true' : 'false'"
-            :class="{ [font]: true, [editorHeight]: true }"
+            :class="{ [font]: true, [editorHeight]: true, 'single-line': singleLineMode }"
             class="flexible-editor"
         />
     </div>
@@ -34,7 +35,7 @@
 
 <script setup lang="ts">
     // Imports
-    import { ref, toRef, watch, provide } from 'vue'
+    import { ref, toRef, watch, provide, computed } from 'vue'
     import { useEditor, EditorContent } from '@tiptap/vue-3'
     import Toolbar from './components/Toolbar.vue'
     import Document from '@tiptap/extension-document'
@@ -61,6 +62,7 @@
         disabled: boolean;
         m2aField: string | null;
         placeholder: string;
+        inputMode: "multi" | "single";
         tools: string[];
         displayFormat: boolean;
         font: string;
@@ -75,6 +77,7 @@
         disabled: false,
         m2aField: null,
         placeholder: '',
+        inputMode: "multi",
         tools: () => interfaceOptionsDefault,
         displayFormat: false,
         font: "sans-serif",
@@ -94,11 +97,15 @@
     const emit = defineEmits(['input', 'setFieldValue']);
 
 
+    // Input Mode
+    const singleLineMode = computed(() => props.inputMode == "single");
+
+
     // TipTap Editor Setup
     const editor = useEditor({
         content: props.value,
         extensions: [
-            Document,
+            Document.extend(singleLineMode.value ? { content: "text*" } : {}),
             Text,
             Paragraph,
             Placeholder.configure({ placeholder: props.placeholder }),
@@ -213,6 +220,8 @@
         --editor-input-padding: var(--theme--form--field--input--padding, var(--input-padding));
         /* --editor-height = --editor-lineheight * 7 */
         --editor-height: calc(11.2em + var(--editor-input-padding) + var(--editor-input-padding));
+        /* --editor-height = --editor-lineheight * 1 */
+        --editor-height-single-line: calc(1.6em + var(--editor-input-padding) + var(--editor-input-padding));
         --editor-overflow-height: calc(100vh - var(--header-bar-height) - var(--header-bar-height) - var(--theme--form--row-gap, var(--form-vertical-gap)) - var(--theme--form--row-gap, var(--form-vertical-gap)) - var(--editor-input-padding) - var(--editor-input-padding));
     }
 
@@ -234,10 +243,24 @@
     .flexible-editor.height-fixed :deep(.ProseMirror) {
         height: var(--editor-height);
     }
+    .flexible-editor.height-fixed.single-line :deep(.ProseMirror) {
+        height: var(--editor-height-single-line);
+        white-space: nowrap;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+    }
+    .flexible-editor.height-fixed.single-line :deep(.ProseMirror::-webkit-scrollbar) {
+        display: none;
+    }
 
     .flexible-editor.height-grow-till-overflow :deep(.ProseMirror),
     .flexible-editor.height-grow :deep(.ProseMirror) {
         min-height: var(--editor-height);
+    }
+    .flexible-editor.height-grow-till-overflow.single-line :deep(.ProseMirror),
+    .flexible-editor.height-grow.single-line :deep(.ProseMirror) {
+        min-height: var(--editor-height-single-line);
     }
 
     .flexible-editor.height-grow-till-overflow :deep(.ProseMirror) {
@@ -246,7 +269,7 @@
 
     /* Editor Styles */
     .flexible-editor :deep(.ProseMirror blockquote > * ~ *),
-    .flexible-editor :deep(.ProseMirror > * ~ *) {
+    .flexible-editor:not(.single-line) :deep(.ProseMirror > * ~ *) {
         margin-top: var(--editor-block-mt);
     }
 

@@ -25,5 +25,6 @@ export default {
     },
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().setRelationBlock().run(),
+    disabledInSingleLineMode: true,
     active: (editor: Editor) => editor.isActive("relation-block"),
 } as Tool;

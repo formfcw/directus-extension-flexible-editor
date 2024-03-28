@@ -15,5 +15,6 @@ export default {
         editor.chain().focus().setHorizontalRule().run(),
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().setHorizontalRule().run(),
+    disabledInSingleLineMode: true,
     active: () => false,
 } as Tool;

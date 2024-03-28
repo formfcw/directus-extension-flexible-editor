@@ -7,6 +7,11 @@ export default {
         "A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.",
     tools_title: "Tools",
     m2a_field: "M2A Reference Field",
+    input_mode: {
+        title: "Input Mode",
+        multi: "Multi-line text",
+        single: "Single-line text",
+    },
     formats_appearance: "Formats Button Appearance",
     formats_as_button: "Show name of active format",
     spellcheck: "Spellcheck",

@@ -17,6 +17,7 @@
             <v-list-item
                 clickable
                 @click="action"
+                :disabled="disabled"
             >
                 <v-list-item-content>
                     <v-text-overflow :text="t('table.insert')" />

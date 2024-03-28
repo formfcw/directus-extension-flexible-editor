@@ -14,5 +14,6 @@ export default {
     action: (editor: Editor) => editor.chain().focus().setHardBreak().run(),
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().setHardBreak().run(),
+    disabledInSingleLineMode: true,
     active: () => false,
 } as Tool;

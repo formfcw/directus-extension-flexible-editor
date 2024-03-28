@@ -18,6 +18,7 @@ export type Tool = {
     toolbarButton?: Component;
     action?: (editor: Editor, attrs?: any) => void;
     disabled?: (editor: Editor) => void;
+    disabledInSingleLineMode?: boolean;
     active?: (editor: Editor) => void;
 };
 

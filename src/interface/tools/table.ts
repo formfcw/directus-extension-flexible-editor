@@ -16,5 +16,6 @@ export default {
     action: (editor: Editor) => editor.chain().focus().insertTable().run(),
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().insertTable().run(),
+    disabledInSingleLineMode: true,
     active: (editor: Editor) => editor.isActive("table"),
 } as Tool;

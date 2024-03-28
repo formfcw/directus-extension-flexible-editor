@@ -82,6 +82,59 @@ export default defineInterface({
                 },
             },
             {
+                field: "inputMode",
+                name: customMessages.input_mode.title,
+                type: "string",
+                meta: {
+                    width: "half",
+                    interface: "select-dropdown",
+                    options: {
+                        choices: [
+                            {
+                                text: customMessages.input_mode.multi,
+                                value: "multi",
+                            },
+                            {
+                                text: customMessages.input_mode.single,
+                                value: "single",
+                            },
+                        ],
+                    },
+                },
+                schema: {
+                    default_value: "multi",
+                },
+            },
+            {
+                field: "editorHeight",
+                name: customMessages.editor_height.title,
+                type: "string",
+                meta: {
+                    width: "half",
+                    interface: "select-dropdown",
+                    options: {
+                        choices: [
+                            {
+                                text: customMessages.editor_height
+                                    .grow_till_overflow,
+                                value: "height-grow-till-overflow",
+                            },
+                            {
+                                text: customMessages.editor_height.grow,
+                                value: "height-grow",
+                            },
+                            {
+                                text: customMessages.editor_height.fixed,
+                                value: "height-fixed",
+                            },
+                        ],
+                    },
+                },
+                schema: {
+                    default_value: "height-grow-till-overflow",
+                },
+            },
+            {
                 field: "font",
                 name: "$t:font",
                 type: "string",
@@ -119,35 +172,6 @@ export default defineInterface({
                 },
                 schema: {
                     default_value: false,
-                },
-            },
-            {
-                field: "editorHeight",
-                name: customMessages.editor_height.title,
-                type: "string",
-                meta: {
-                    width: "half",
-                    interface: "select-dropdown",
-                    options: {
-                        choices: [
-                            {
-                                text: customMessages.editor_height
-                                    .grow_till_overflow,
-                                value: "height-grow-till-overflow",
-                            },
-                            {
-                                text: customMessages.editor_height.grow,
-                                value: "height-grow",
-                            },
-                            {
-                                text: customMessages.editor_height.fixed,
-                                value: "height-fixed",
-                            },
-                        ],
-                    },
-                },
-                schema: {
-                    default_value: "height-grow-till-overflow",
                 },
             },
         ];

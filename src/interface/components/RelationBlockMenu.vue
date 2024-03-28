@@ -13,7 +13,7 @@
             />
         </template>
         <v-list>
-            <!-- TODO: [improve] active, pressed, disabled check -->
+            <!-- TODO: [improve] active, pressed check -->
             <v-list-item
                 v-for="availableCollection of allowedCollections"
                 :key="availableCollection.collection"
@@ -21,7 +21,7 @@
                 @click="createItem(availableCollection.collection)"
                 :active="relationBlockTool!.active?.(editor)"
                 :aria-pressed="relationBlockTool!.active?.(editor)"
-                :disabled="relationBlockTool!.disabled?.(editor)"
+                :disabled="relationBlockTool!.disabled?.(editor) || (singleLineMode && relationBlockTool!.disabledInSingleLineMode)"
             >
                 <v-list-item-icon>
                     <v-icon :name="availableCollection.icon" />
@@ -59,12 +59,14 @@
 
 
     // Props
-    interface Props { editor: Editor }
+    interface Props {
+        editor: Editor;
+        singleLineMode: boolean;
+    }
     const props = defineProps<Props>();
 
 
-    // TODO: [improve] block tools disabled
-    const relationBlockToolsDisabled = computed(() => false);
+    const relationBlockToolsDisabled = computed(() => relationBlockTool!.disabled?.(props.editor) || (props.singleLineMode && relationBlockTool!.disabledInSingleLineMode));
 
 
     const { editModalActive, disabled, relationInfo, allowedCollections, currentlyEditing, relatedPrimaryKey, editsAtStart, stageEdits, createItem }: RelationReference = inject('m2aRelation')!;

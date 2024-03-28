@@ -3,6 +3,7 @@
         <relation-block-menu
             v-if="m2aField"
             :editor="editor"
+            :single-line-mode="singleLineMode"
         />
 
         <v-menu
@@ -42,7 +43,7 @@
                     @click="tool.action?.(editor)"
                     :active="tool.active?.(editor)"
                     :aria-pressed="tool.active?.(editor)"
-                    :disabled="tool.disabled?.(editor)"
+                    :disabled="tool.disabled?.(editor) || (singleLineMode && tool.disabledInSingleLineMode)"
                 >
                     <v-list-item-icon v-if="tool.icon">
                         <v-icon :name="tool.icon" />
@@ -65,7 +66,7 @@
             :shortcut="tool.shortcut"
             :action="() => toolAction(tool)"
             :active="tool.active?.(editor)"
-            :disabled="tool.disabled?.(editor)"
+            :disabled="tool.disabled?.(editor) || (singleLineMode && tool.disabledInSingleLineMode)"
             :editor="editor"
         />
 
@@ -99,6 +100,7 @@
         tools: Tool[];
         editor: Editor;
         displayFormat: boolean;
+        singleLineMode: boolean;
     }
     const props = withDefaults(defineProps<Props>(), {
         displayFormat: false
