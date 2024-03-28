@@ -29,15 +29,16 @@ In your Directus app simply click the `Create Field` button and choose `Flexible
 
 Navigate to the interface tab to adjust the settings.
 
-| Option                    | Description                                                                                                                                                                                |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| M2A Reference Field       | Described in detail below _(Usage with relation nodes)_                                                                                                                                    |
-| Placeholder               | Display a placeholder text when empty                                                                                                                                                      |
-| Tools                     | Select the editor tools you want to use                                                                                                                                                    |
-| Formats Button Appearance | Display the active format name instead of just an icon                                                                                                                                     |
-| Font                      | Font that is used in the editor                                                                                                                                                            |
-| Spellcheck                | Enable spell checking in the editor                                                                                                                                                        |
-| Editor Height             | _Grow till Overflow_ … The height grows with its content as long as it remains in the viewport.<br>_Grow_ … The height grows with its content.<br>_Fixed_ … The editor has a fixed height. |
+| Option                    | Description                                                                                                                                                                             |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| M2A Reference Field       | Described in detail below _(Usage with relation nodes)_                                                                                                                                 |
+| Placeholder               | Display a placeholder text when empty                                                                                                                                                   |
+| Tools                     | Select the editor tools you want to use                                                                                                                                                 |
+| Formats Button Appearance | Display the active format name instead of just an icon                                                                                                                                  |
+| Input Mode                | _Multi-line text_ … Default behavior<br>_Single-line text_ … Turns into an inline editor that only allows inline marks/blocks                                                           |
+| Editor Height             | _Grow till Overflow_ … The height grows with its content as long as it remains in the viewport<br>_Grow_ … The height grows with its content<br>_Fixed_ … The editor has a fixed height |
+| Font                      | Font that is used in the editor                                                                                                                                                         |
+| Spellcheck                | Enable spell checking in the editor                                                                                                                                                     |
 
 ### Display
 
