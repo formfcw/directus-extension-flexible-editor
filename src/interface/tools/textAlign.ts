@@ -7,8 +7,8 @@ import type { Tool } from "../types";
 const textAlignOptions = ['left', 'center', 'right', 'justify'];
 
 export const textAlignTools = textAlignOptions.map((alignment) => ({
-  key: `align-${alignment}`,
-  name: (customMessages.tools as any)[`align-${alignment}`],
+  key: `align_${alignment}`,
+  name: (customMessages.tools as any)[`align_${alignment}`],
   icon: `format_align_${alignment}`,
   extension: [TextAlign],
   action: (editor: Editor) => editor.chain().focus().setTextAlign(alignment).run(),

@@ -44,6 +44,7 @@
     import Placeholder from '@tiptap/extension-placeholder'
     import Dropcursor from '@tiptap/extension-dropcursor'
     import Gapcursor from '@tiptap/extension-gapcursor'
+    import TextAlign from '@tiptap/extension-text-align'
     import RelationBlock from "./nodes/relation-block";
     import { toolsExtensions, interfaceOptionsDefault, selectedTools } from './tools'
     import { useSyncRelationNodes } from "./composables/use-sync-relation-nodes"
@@ -111,6 +112,9 @@
             Placeholder.configure({ placeholder: props.placeholder }),
             Dropcursor,
             Gapcursor,
+            TextAlign.configure({
+                types: ['heading', 'paragraph'],
+            }),
             RelationBlock,
             ...toolsExtensions(props.tools)
         ],
@@ -426,6 +430,19 @@
 
     .flexible-editor :deep(.ProseMirror .ProseMirror-gapcursor:last-child:after) {
         bottom: 0;
+    }
+
+    .flexible-editor .ProseMirror [textAlign="left"] {
+        text-align: left;
+    }
+    .flexible-editor .ProseMirror [textAlign="center"] {
+        text-align: center;
+    }
+    .flexible-editor .ProseMirror [textAlign="right"] {
+        text-align: right;
+    }
+    .flexible-editor .ProseMirror [textAlign="justify"] {
+        text-align: justify;
     }
 </style>
 

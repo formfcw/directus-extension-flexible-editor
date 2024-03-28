@@ -23,6 +23,10 @@ export default {
     },
     tools: {
         relation_block: "Blocks",
+        align_left: "Align Left",
+        align_center: "Align Center",
+        align_right: "Align Right",
+        align_justify: "Justify",
         paragraph: "Paragraph",
         code_block: "Code Block",
         h1: "$t:wysiwyg_options.h1",
