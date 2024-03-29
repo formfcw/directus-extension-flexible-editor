@@ -18,5 +18,6 @@ export const textAlignTools = textAlignOptions.map((alignment) => ({
         editor.chain().focus().setTextAlign(alignment).run(),
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().setTextAlign(alignment).run(),
+    disabledInSingleLineMode: true,
     active: (editor: Editor) => editor.isActive({ textAlign: alignment }),
 })) as Tool[];
