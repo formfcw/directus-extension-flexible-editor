@@ -44,17 +44,16 @@
     import Placeholder from '@tiptap/extension-placeholder'
     import Dropcursor from '@tiptap/extension-dropcursor'
     import Gapcursor from '@tiptap/extension-gapcursor'
-    import TextAlign from '@tiptap/extension-text-align'
-    import RelationBlock from "./nodes/relation-block";
+    import RelationBlock from "./nodes/relation-block"
     import { toolsExtensions, interfaceOptionsDefault, selectedTools } from './tools'
     import { useSyncRelationNodes } from "./composables/use-sync-relation-nodes"
     import { useRelationReference } from './composables/use-relation-reference'
     // import { useM2aStore } from './composables/use-m2a-store'
-    import { useI18n } from "vue-i18n";
-    import { useI18nFallback } from './composables/use-i18n-fallback';
-    import type { Ref } from 'vue';
-    import type { PrimaryKey } from "@directus/types";
-    import type { JSONContent } from "@tiptap/vue-3";
+    import { useI18n } from "vue-i18n"
+    import { useI18nFallback } from './composables/use-i18n-fallback'
+    import type { Ref } from 'vue'
+    import type { PrimaryKey } from "@directus/types"
+    import type { JSONContent } from "@tiptap/vue-3"
 
 
     // Props
