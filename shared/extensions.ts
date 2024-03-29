@@ -45,6 +45,6 @@ export default [
   TableRow,
   TableCell,
   TextAlign.configure({
-    types: ['heading', 'paragraph'],
+    types: ['paragraph', 'heading'],
   }),
 ];

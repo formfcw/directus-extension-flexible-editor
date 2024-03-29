@@ -113,8 +113,8 @@
             Dropcursor,
             Gapcursor,
             TextAlign.configure({
-                types: ['heading', 'paragraph'],
-            }),
+            types: ['paragraph', 'heading'],
+        }),
             RelationBlock,
             ...toolsExtensions(props.tools)
         ],
@@ -444,6 +444,7 @@
     .flexible-editor .ProseMirror [textAlign="justify"] {
         text-align: justify;
     }
+    
 </style>
 
 
