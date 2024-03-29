@@ -1,4 +1,5 @@
 // https://tiptap.dev/api/extensions/text-align
+
 import TextAlign from "@tiptap/extension-text-align";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
@@ -17,6 +18,5 @@ export const textAlignTools = textAlignOptions.map((alignment) => ({
         editor.chain().focus().setTextAlign(alignment).run(),
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().setTextAlign(alignment).run(),
-    active: (editor: Editor) =>
-        editor.isActive("textStyle", { textAlign: alignment }),
+    active: (editor: Editor) => editor.isActive({ textAlign: alignment }),
 })) as Tool[];
