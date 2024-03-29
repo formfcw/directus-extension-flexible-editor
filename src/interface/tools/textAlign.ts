@@ -10,7 +10,9 @@ export const textAlignTools = textAlignOptions.map((alignment) => ({
     key: `align_${alignment}`,
     name: (customMessages.tools as any)[`align_${alignment}`],
     icon: `format_align_${alignment}`,
-    extension: [TextAlign],
+    extension: [
+        TextAlign.configure({ types: ["heading", "paragraph", "codeBlock"] }),
+    ],
     action: (editor: Editor) =>
         editor.chain().focus().setTextAlign(alignment).run(),
     disabled: (editor: Editor) =>

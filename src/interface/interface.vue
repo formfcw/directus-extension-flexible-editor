@@ -112,9 +112,6 @@
             Placeholder.configure({ placeholder: props.placeholder }),
             Dropcursor,
             Gapcursor,
-            TextAlign.configure({
-            types: ['paragraph', 'heading'],
-        }),
             RelationBlock,
             ...toolsExtensions(props.tools)
         ],
