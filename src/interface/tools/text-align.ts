@@ -1,23 +1,24 @@
-// https://tiptap.dev/api/extensions/text-align
+// interface/tools/text-align.ts
 
 import TextAlign from "@tiptap/extension-text-align";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
 import type { Tool } from "../types";
+import ToolButtonTextAlign from "../components/ToolButtonTextAlign.vue";
 
-const textAlignOptions = ["left", "center", "right", "justify"];
-
-export const textAlignTools = textAlignOptions.map((alignment) => ({
-    key: `align_${alignment}`,
-    name: (customMessages.tools as any)[`align_${alignment}`],
-    icon: `format_align_${alignment}`,
-    extension: [
-        TextAlign.configure({ types: ["heading", "paragraph", "codeBlock"] }),
-    ],
-    action: (editor: Editor) =>
-        editor.chain().focus().setTextAlign(alignment).run(),
-    disabled: (editor: Editor) =>
-        !editor.can().chain().focus().setTextAlign(alignment).run(),
+export default {
+    key: "text_align",
+    name: customMessages.tools.text_align,
+    icon: "format_align_left",
+    extension: [TextAlign.configure({ types: ["heading", "paragraph", "codeBlock"] })],
+    toolbarButton: ToolButtonTextAlign,
+    action: (editor: Editor, alignment: string) => {
+        editor.chain().focus().setTextAlign(alignment).run();
+    },
+    disabled: (editor: Editor) => !editor.can().chain().focus().setTextAlign('left').run(),
     disabledInSingleLineMode: true,
-    active: (editor: Editor) => editor.isActive({ textAlign: alignment }),
-})) as Tool[];
+    active: (editor: Editor) => {
+        const alignments = ['left', 'center', 'right', 'justify'];
+        return alignments.some(alignment => editor.isActive({ textAlign: alignment }));
+    },
+} as Tool;

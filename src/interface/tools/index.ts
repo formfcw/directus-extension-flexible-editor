@@ -1,6 +1,6 @@
 // NOTE: [guide] Add a `Tool` by creating a new file in this directory, importing it and adding it to the `tools: Tool[]` array below! If you import a tiptap extension that also renders content, make sure to add it to /shared/extensions.ts as well!
 
-import { textAlignTools } from "./text-align";
+import textAlign from "./text-align";
 import heading from "./heading";
 import history from "./history";
 import relationBlock from "./relation-block";
@@ -30,7 +30,7 @@ const tools: Tool[] = [
     heading(4),
     heading(5),
     heading(6),
-    ...textAlignTools,
+    textAlign,
     bold,
     italic,
     strike,
