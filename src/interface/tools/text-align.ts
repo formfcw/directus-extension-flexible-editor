@@ -7,7 +7,7 @@ import type { Tool } from "../types";
 import ToolButtonTextAlign from "../components/ToolButtonTextAlign.vue";
 
 export default {
-    key: "text_align",
+    key: "textAlign",
     name: customMessages.tools.text_align,
     icon: "format_align_left",
     extension: [TextAlign.configure({ types: ["heading", "paragraph", "codeBlock"] })],

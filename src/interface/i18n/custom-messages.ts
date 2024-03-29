@@ -31,7 +31,7 @@ export default {
         h4: "$t:wysiwyg_options.h4",
         h5: "$t:wysiwyg_options.h5",
         h6: "$t:wysiwyg_options.h6",
-        text_align: "$t:wysiwyg_options.text_align",
+        text_align: "Text Align",
         bold: "$t:wysiwyg_options.bold",
         italic: "$t:wysiwyg_options.italic",
         strike: "$t:wysiwyg_options.strikethrough",
