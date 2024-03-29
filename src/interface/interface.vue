@@ -306,6 +306,19 @@
         font-size: 1.25em;
     }
 
+    .flexible-editor :deep([textAlign="left"]) {
+        text-align: left;
+    }
+    .flexible-editor :deep([textAlign="center"]) {
+        text-align: center;
+    }
+    .flexible-editor :deep([textAlign="right"]) {
+        text-align: right;
+    }
+    .flexible-editor :deep([textAlign="justify"]) {
+        text-align: justify;
+    }
+
     .flexible-editor :deep(hr) {
         color: transparent;
         background-color: var(--theme--border-color, var(--border-normal));
@@ -427,20 +440,6 @@
     .flexible-editor :deep(.ProseMirror .ProseMirror-gapcursor:last-child:after) {
         bottom: 0;
     }
-
-    .flexible-editor .ProseMirror [textAlign="left"] {
-        text-align: left;
-    }
-    .flexible-editor .ProseMirror [textAlign="center"] {
-        text-align: center;
-    }
-    .flexible-editor .ProseMirror [textAlign="right"] {
-        text-align: right;
-    }
-    .flexible-editor .ProseMirror [textAlign="justify"] {
-        text-align: justify;
-    }
-    
 </style>
 
 
