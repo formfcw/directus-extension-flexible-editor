@@ -1,66 +1,81 @@
 <template>
-  <v-menu offset-y v-model="menuOpen">
-    <template #activator="{ toggle }">
-      <ToolButton
-        :title="t(`tools.text_align`)"
-        :icon="`format_align_${currentAlignment}`"
-        :action="toggle"
-        :active="active"
-        :disabled="disabled"
-        :editor="editor"
-        />
-    </template>
-    <v-list>
-      <v-list-item
-        clickable
-        v-for="option in alignmentOptions"
-        :key="option.alignment"
-        @click="setAlignment(option.alignment)"
-        :disabled="disabled"
-      >
-        <v-list-item-content>
-          <v-text-overflow :text="t(option.label)" />
-        </v-list-item-content>
-        <v-list-item-hint>{{ translateShortcut(option.shortcut) }}</v-list-item-hint>
-      </v-list-item>
-    </v-list>
-  </v-menu>
+    <v-menu
+        show-arrow
+        placement="bottom-start"
+        :fullHeight="true"
+    >
+        <template #activator="{ toggle }">
+            <ToolButton
+                :title="t(`tools.text_align`)"
+                :icon="currentAlignment.icon"
+                :action="toggle"
+                :disabled="disabled"
+                :editor="editor"
+            />
+        </template>
+        <v-list>
+            <v-list-item
+                clickable
+                v-for="option in alignmentOptions"
+                :key="option.alignment"
+                @click="editor.chain().focus().setTextAlign(option.alignment).run()"
+                :disabled="!editor.can().chain().focus().setTextAlign(option.alignment).run()"
+                :active="editor.isActive({ textAlign: option.alignment })"
+            >
+                <v-list-item-icon>
+                    <v-icon :name="option.icon" />
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-text-overflow :text="t(option.label)" />
+                </v-list-item-content>
+                <v-list-item-hint>{{ translateShortcut(option.shortcut) }}</v-list-item-hint>
+            </v-list-item>
+        </v-list>
+    </v-menu>
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
-import { useI18n } from "vue-i18n";
-import { useI18nFallback } from "../composables/use-i18n-fallback";
-import ToolButton from "./ToolButton.vue";
-import { translateShortcut } from "../directus-core/utils/translate-shortcut";
-import type { Editor } from '@tiptap/core';
+    import { computed } from 'vue';
+    import { useI18n } from "vue-i18n";
+    import { useI18nFallback } from "../composables/use-i18n-fallback";
+    import ToolButton from "./ToolButton.vue";
+    import { translateShortcut } from "../directus-core/utils/translate-shortcut";
+    import type { ToolButtonProps } from "../types";
 
-const props = defineProps<{
-  editor: Editor;
-  disabled: boolean;
-}>();
+    const props = defineProps<ToolButtonProps>();
 
-const { t } = useI18nFallback(useI18n());
+    const { t } = useI18nFallback(useI18n());
 
-const alignmentOptions = [
-  { label: 'text_align.align_left', alignment: 'left', shortcut: ['meta', 'shift', 'L'] },
-  { label: 'text_align.align_center', alignment: 'center', shortcut: ['meta', 'shift', 'E'] },
-  { label: 'text_align.align_right', alignment: 'right', shortcut: ['meta', 'shift', 'R'] },
-  { label: 'text_align.align_justify', alignment: 'justify', shortcut: ['meta', 'shift', 'J'] }
-];
+    const alignmentOptions = [
+        {
+            alignment: 'left',
+            icon: 'format_align_left',
+            label: 'text_align.align_left',
+            shortcut: ['meta', 'shift', 'L']
+        },
+        {
+            alignment: 'center',
+            icon: 'format_align_center',
+            label: 'text_align.align_center',
+            shortcut: ['meta', 'shift', 'E']
+        },
+        {
+            alignment: 'right',
+            icon: 'format_align_right',
+            label: 'text_align.align_right',
+            shortcut: ['meta', 'shift', 'R']
+        },
+        {
+            alignment: 'justify',
+            icon: 'format_align_justify',
+            label: 'text_align.align_justify',
+            shortcut: ['meta', 'shift', 'J']
+        }
+    ];
 
-const currentAlignment = ref('left');
-const menuOpen = ref(false);
-
-watchEffect(() => {
-  const activeAlignment = alignmentOptions.find(option =>
-    props.editor.isActive({ textAlign: option.alignment })
-  );
-  currentAlignment.value = activeAlignment ? activeAlignment.alignment : 'left';
-});
-
-const setAlignment = (alignment: string) => {
-  props.editor.chain().focus().setTextAlign(alignment).run();
-  menuOpen.value = false;
-};
+    const currentAlignment = computed(
+        () => alignmentOptions.find(option =>
+            props.editor.isActive({ textAlign: option.alignment })
+        ) ?? alignmentOptions[0]
+    );
 </script>
