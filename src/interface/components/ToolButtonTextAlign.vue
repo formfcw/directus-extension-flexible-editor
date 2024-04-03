@@ -10,7 +10,6 @@
                 :icon="currentAlignment.icon"
                 :action="toggle"
                 :disabled="disabled"
-                :editor="editor"
             />
         </template>
         <v-list>
@@ -40,9 +39,9 @@
     import { useI18nFallback } from "../composables/use-i18n-fallback";
     import ToolButton from "./ToolButton.vue";
     import { translateShortcut } from "../directus-core/utils/translate-shortcut";
-    import type { ToolButtonProps } from "../types";
+    import type { CustomToolButtonProps } from "../types";
 
-    const props = defineProps<ToolButtonProps>();
+    const props = defineProps<CustomToolButtonProps>();
 
     const { t } = useI18nFallback(useI18n());
 

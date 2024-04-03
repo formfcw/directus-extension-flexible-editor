@@ -10,7 +10,6 @@
                 :action="toggle"
                 :active="active"
                 :disabled="disabled"
-                :editor="editor"
             />
         </template>
         <v-list>
@@ -131,9 +130,9 @@
     import ToolButton from "./ToolButton.vue";
     import { useI18n } from "vue-i18n";
     import { useI18nFallback } from "../composables/use-i18n-fallback";
-    import type { ToolButtonProps } from "../types";
+    import type { CustomToolButtonProps } from "../types";
 
-    defineProps<ToolButtonProps>();
+    defineProps<CustomToolButtonProps>();
 
     const { t } = useI18nFallback(useI18n());
 </script>
