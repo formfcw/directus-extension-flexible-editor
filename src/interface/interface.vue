@@ -44,16 +44,16 @@
     import Placeholder from '@tiptap/extension-placeholder'
     import Dropcursor from '@tiptap/extension-dropcursor'
     import Gapcursor from '@tiptap/extension-gapcursor'
-    import RelationBlock from "./nodes/relation-block";
+    import RelationBlock from "./nodes/relation-block"
     import { toolsExtensions, interfaceOptionsDefault, selectedTools } from './tools'
     import { useSyncRelationNodes } from "./composables/use-sync-relation-nodes"
     import { useRelationReference } from './composables/use-relation-reference'
     // import { useM2aStore } from './composables/use-m2a-store'
-    import { useI18n } from "vue-i18n";
-    import { useI18nFallback } from './composables/use-i18n-fallback';
-    import type { Ref } from 'vue';
-    import type { PrimaryKey } from "@directus/types";
-    import type { JSONContent } from "@tiptap/vue-3";
+    import { useI18n } from "vue-i18n"
+    import { useI18nFallback } from './composables/use-i18n-fallback'
+    import type { Ref } from 'vue'
+    import type { PrimaryKey } from "@directus/types"
+    import type { JSONContent } from "@tiptap/vue-3"
 
 
     // Props
@@ -304,6 +304,19 @@
 
     .flexible-editor :deep(h6) {
         font-size: 1.25em;
+    }
+
+    .flexible-editor :deep([textAlign="left"]) {
+        text-align: left;
+    }
+    .flexible-editor :deep([textAlign="center"]) {
+        text-align: center;
+    }
+    .flexible-editor :deep([textAlign="right"]) {
+        text-align: right;
+    }
+    .flexible-editor :deep([textAlign="justify"]) {
+        text-align: justify;
     }
 
     .flexible-editor :deep(hr) {
