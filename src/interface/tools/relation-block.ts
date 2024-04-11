@@ -12,15 +12,15 @@ export default {
     // Already imported
     extension: [],
     action: (editor: Editor, attrs: RelationBlockAttrs) => {
+        focusAfterSelectionIfNotEmpty();
         editor.chain().focus().setRelationBlock(attrs).run();
+        focusAfterSelectionIfNotEmpty();
 
-        // We need this workaround to prevent selecting the relation block after inserting it, if the editor content was empty (https://github.com/ueberdosis/tiptap/issues/3355)
-        if (!editor.view.state.selection.empty) {
-            editor
-                .chain()
-                .focus(editor.view.state.selection.to)
-                // .insertContent({ type: "paragraph" }).focus()
-                .run();
+        function focusAfterSelectionIfNotEmpty() {
+            // We need this workaround to prevent selecting the relation block after inserting it, if the editor content was empty (https://github.com/ueberdosis/tiptap/issues/3355)
+            if (!editor.view.state.selection.empty) {
+                editor.chain().focus(editor.view.state.selection.to).run();
+            }
         }
     },
     disabled: (editor: Editor) =>
