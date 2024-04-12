@@ -45,14 +45,24 @@ export const useM2aStore = () => ({
         initialized.value = true;
 
         fetchedItems.map((item: Item) => {
-            state.value.push({
-                nodeId: item[junctionPrimaryKeyField],
+            const nodeId = item[junctionPrimaryKeyField];
+            const blockState = {
+                nodeId,
                 field: null,
                 new: false,
                 active: true,
                 edits: false,
                 item,
-            });
+            };
+            const existingIndex = state.value.findIndex(
+                (item) => item.nodeId === nodeId
+            );
+
+            if (existingIndex !== -1) {
+                state.value[existingIndex] = blockState;
+            } else {
+                state.value.push(blockState);
+            }
         });
     },
 
