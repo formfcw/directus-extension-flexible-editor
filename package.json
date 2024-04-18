@@ -1,6 +1,6 @@
 {
     "name": "directus-extension-flexible-editor",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.",
     "license": "GPL-3.0",
     "author": {
