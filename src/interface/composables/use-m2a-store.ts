@@ -17,6 +17,7 @@ type EditorField = string | null;
 export type M2AStoreItem = {
     nodeId: UUID;
     field: EditorField;
+    currentItem: boolean;
     new: boolean;
     active: boolean;
     edits: boolean | Item;
@@ -49,6 +50,7 @@ export const useM2aStore = () => ({
             const blockState = {
                 nodeId,
                 field: null,
+                currentItem: true,
                 new: false,
                 active: true,
                 edits: false,
@@ -63,6 +65,22 @@ export const useM2aStore = () => ({
             } else {
                 state.value.push(blockState);
             }
+        });
+    },
+
+    reset(editorNodeIds: UUID[], field: EditorField) {
+        state.value.map((item) => {
+            const itemInEditor = editorNodeIds.indexOf(item.nodeId) >= 0;
+
+            if (itemInEditor) {
+                item.active = true;
+                item.currentItem = true;
+            } else if (item.field == field) {
+                item.active = false;
+                item.currentItem = false;
+            }
+
+            return item;
         });
     },
 
@@ -84,6 +102,7 @@ export const useM2aStore = () => ({
         state.value.push({
             nodeId: item[junctionPrimaryKeyField],
             field,
+            currentItem: true,
             new: true,
             active: true,
             edits: false,
@@ -160,6 +179,10 @@ export const useM2aStore = () => ({
         return this.getItem(nodeId)?.field !== field;
     },
 
+    itemFromDifferentItem(nodeId: UUID) {
+        return !this.getItem(nodeId)?.currentItem;
+    },
+
     setField(nodeId: UUID, field: EditorField) {
         this.getItem(nodeId)!.field = field;
     },
@@ -178,6 +201,8 @@ export const useM2aStore = () => ({
         const nodeId = uuidv4();
         const duplicate: M2AStoreItem = cloneDeep({
             ...storeItem,
+            currentItem: true,
+            active: true,
             new: true,
             nodeId,
         });

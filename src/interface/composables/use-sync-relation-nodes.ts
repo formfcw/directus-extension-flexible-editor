@@ -30,6 +30,12 @@ export function useSyncRelationNodes({
     const m2aStore = useM2aStore();
 
     return {
+        resetRelationNodes() {
+            const editorNodeIds: UUID[] = _getExistingEditorNodes().map(
+                ({ node }) => node.attrs.id
+            );
+            m2aStore.reset(editorNodeIds, editorField);
+        },
         initFetchedItems,
         syncRelationNodes() {
             const editorNodes = _getExistingEditorNodes();
@@ -43,7 +49,6 @@ export function useSyncRelationNodes({
             m2aStore.init(fetchedItems, m2aRelation.junctionPrimaryKeyField);
 
         // First add all fetchedItems to M2A Store, then set the editor fields per editor
-
         const editorNodeIds: UUID[] = _getExistingEditorNodes().map(
             ({ node }) => node.attrs.id
         );
@@ -52,7 +57,48 @@ export function useSyncRelationNodes({
     }
 
     function syncInsertedNodes(editorNodes: NodeWithPos[]) {
+        /*
+            AI prompt: Create all possible combinations for the following sentence: COPY/CUT SAVED_NODE/NEW_NODE from SAVED_ITEM/NEW_ITEM and paste into SAME_FIELD/DIFFERENT_FIELD of SAME_ITEM/DIFFERENT_ITEM
+            
+            - COPY SAVED_NODE from SAVED_ITEM and paste into SAME_FIELD of SAME_ITEM
+            - COPY SAVED_NODE from SAVED_ITEM and paste into SAME_FIELD of DIFFERENT_ITEM
+            - COPY SAVED_NODE from SAVED_ITEM and paste into DIFFERENT_FIELD of SAME_ITEM
+            - COPY SAVED_NODE from SAVED_ITEM and paste into DIFFERENT_FIELD of DIFFERENT_ITEM
+            - CUT SAVED_NODE from SAVED_ITEM and paste into SAME_FIELD of SAME_ITEM
+            - CUT SAVED_NODE from SAVED_ITEM and paste into SAME_FIELD of DIFFERENT_ITEM
+            - CUT SAVED_NODE from SAVED_ITEM and paste into DIFFERENT_FIELD of SAME_ITEM
+            - CUT SAVED_NODE from SAVED_ITEM and paste into DIFFERENT_FIELD of DIFFERENT_ITEM
+            - COPY NEW_NODE from SAVED_ITEM and paste into SAME_FIELD of SAME_ITEM
+            - COPY NEW_NODE from SAVED_ITEM and paste into SAME_FIELD of DIFFERENT_ITEM
+            - COPY NEW_NODE from SAVED_ITEM and paste into DIFFERENT_FIELD of SAME_ITEM
+            - COPY NEW_NODE from SAVED_ITEM and paste into DIFFERENT_FIELD of DIFFERENT_ITEM
+            - COPY NEW_NODE from NEW_ITEM and paste into SAME_FIELD of SAME_ITEM
+            - COPY NEW_NODE from NEW_ITEM and paste into SAME_FIELD of DIFFERENT_ITEM
+            - COPY NEW_NODE from NEW_ITEM and paste into DIFFERENT_FIELD of SAME_ITEM
+            - COPY NEW_NODE from NEW_ITEM and paste into DIFFERENT_FIELD of DIFFERENT_ITEM
+            - CUT NEW_NODE from SAVED_ITEM and paste into SAME_FIELD of SAME_ITEM
+            - CUT NEW_NODE from SAVED_ITEM and paste into SAME_FIELD of DIFFERENT_ITEM
+            - CUT NEW_NODE from SAVED_ITEM and paste into DIFFERENT_FIELD of SAME_ITEM
+            - CUT NEW_NODE from SAVED_ITEM and paste into DIFFERENT_FIELD of DIFFERENT_ITEM
+            - CUT NEW_NODE from NEW_ITEM and paste into SAME_FIELD of SAME_ITEM
+            - CUT NEW_NODE from NEW_ITEM and paste into SAME_FIELD of DIFFERENT_ITEM
+            - CUT NEW_NODE from NEW_ITEM and paste into DIFFERENT_FIELD of SAME_ITEM
+            - CUT NEW_NODE from NEW_ITEM and paste into DIFFERENT_FIELD of DIFFERENT_ITEM
+
+            NOT POSSIBLE:
+            - COPY SAVED_NODE from NEW_ITEM and paste into SAME_FIELD of SAME_ITEM
+            - COPY SAVED_NODE from NEW_ITEM and paste into SAME_FIELD of DIFFERENT_ITEM
+            - COPY SAVED_NODE from NEW_ITEM and paste into DIFFERENT_FIELD of SAME_ITEM
+            - COPY SAVED_NODE from NEW_ITEM and paste into DIFFERENT_FIELD of DIFFERENT_ITEM
+            - CUT SAVED_NODE from NEW_ITEM and paste into SAME_FIELD of SAME_ITEM
+            - CUT SAVED_NODE from NEW_ITEM and paste into SAME_FIELD of DIFFERENT_ITEM
+            - CUT SAVED_NODE from NEW_ITEM and paste into DIFFERENT_FIELD of SAME_ITEM
+            - CUT SAVED_NODE from NEW_ITEM and paste into DIFFERENT_FIELD of DIFFERENT_ITEM
+        */
+
         const memory = _nodeIdMemory();
+        const junctionField =
+            m2aRelation.relationInfo.value!.junctionField.collection;
 
         // TODO: [Stage 2][flow chart] Place link to flow chart here
         editorNodes.forEach(({ node, pos }) => {
@@ -67,22 +113,31 @@ export function useSyncRelationNodes({
                 nodeId,
                 editorField
             );
+            const nodeFromDifferentItem =
+                m2aStore.itemFromDifferentItem(nodeId);
 
             // Nothing changed OR inserted a new node OR dragged and dropped an existing node
-            if (storeItemIsActive && nodeIdIsUnique && !nodeFromDifferentEditor)
+            if (
+                storeItemIsActive &&
+                nodeIdIsUnique &&
+                !nodeFromDifferentEditor &&
+                !nodeFromDifferentItem
+            )
                 return;
 
-            if (storeItemIsActive) {
+            let storeItemReactivated = false;
+
+            if (storeItemIsActive || nodeFromDifferentItem) {
                 nodeId = m2aStore.duplicateItem(nodeId, m2aRelation);
-                _refreshEditorNodeId(nodeId, node, pos);
+                _refreshRelationNode(nodeId, junctionField, node, pos);
                 memory.replaceLastItem(nodeId);
             } else {
                 m2aStore.activateItem(nodeId);
+                storeItemReactivated = true;
             }
 
             if (nodeFromDifferentEditor) m2aStore.setField(nodeId, editorField);
 
-            const storeItemReactivated = !storeItemIsActive;
             const storeItemNotNew = !m2aStore.itemIsNew(nodeId);
             const storeItem = m2aStore.getItem(nodeId)!;
 
@@ -127,12 +182,13 @@ export function useSyncRelationNodes({
         return editorNodes;
     }
 
-    function _refreshEditorNodeId(
+    function _refreshRelationNode(
         nodeId: UUID,
+        junction: string,
         node: ProseMirrorNode,
         pos: number
     ) {
-        _updateNodeAttrs(node, pos, { ...node.attrs, id: nodeId });
+        _updateNodeAttrs(node, pos, { ...node.attrs, id: nodeId, junction });
     }
 
     function _updateNodeAttrs(

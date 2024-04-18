@@ -114,6 +114,10 @@
             RelationBlock,
             ...toolsExtensions(props.tools)
         ],
+        onCreate() {
+            // called twice to reset the items even if props.value (below) is empty
+            resetRelationNodes();
+        },
         async onUpdate({ editor }) {
             syncRelationNodes();
 
@@ -130,6 +134,7 @@
         const isSame = JSON.stringify(editor.value!.getJSON()) === JSON.stringify(value)
         if (isSame) return;
         editor.value!.commands.setContent(value, false);
+        resetRelationNodes();
     });
     // The following lines are causing the update event to fire on editor creation, which leads to issues. Found out that directus disables the field globally, so this is not needed!
     // watch(() => props.disabled, (disabled) =>
@@ -138,6 +143,7 @@
 
 
     // Fallback function
+    let resetRelationNodes = () => { };
     let syncRelationNodes = () => { };
 
 
@@ -163,7 +169,8 @@
         errors.value = m2aRelation.errors.value;
 
         // sync relation nodes with M2A relation and M2A store
-        const { initFetchedItems, syncRelationNodes: _syncRelationNodes } = useSyncRelationNodes({ m2aRelation, editor, editorField: props.field });
+        const { initFetchedItems, syncRelationNodes: _syncRelationNodes, resetRelationNodes: _resetRelationNodes } = useSyncRelationNodes({ m2aRelation, editor, editorField: props.field });
+        resetRelationNodes = _resetRelationNodes;
         syncRelationNodes = _syncRelationNodes;
 
         watch(m2aRelation.fetchedItems, initFetchedItems);
