@@ -2,7 +2,7 @@
     <v-button
         @click="action"
         tabindex="-1"
-        v-tooltip="tooltip"
+        v-tooltip:[tooltipPlacement]="tooltip"
         :aria-label="title"
         :disabled="disabled"
         :aria-disabled="disabled"
@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
     // TODO: [Stage 2][improve] attribute bindings on <v-button> not on <button> but on parent element
-    import { computed } from 'vue';
+    import { computed, inject, type Ref } from 'vue';
     import { translateShortcut } from '../directus-core/utils/translate-shortcut';
     import type { ToolButtonProps } from '../types';
 
@@ -43,7 +43,10 @@
         return `${props.title} (${translateShortcut(props.shortcut)})`;
     });
 
-    const small = computed(() => props.icon || props.display)
+    const small = computed(() => props.icon || props.display);
+
+    const fullscreen = inject('fullscreen') as Ref;
+    const tooltipPlacement = computed(() => fullscreen.value ? 'bottom' : 'top');
 </script>
 
 

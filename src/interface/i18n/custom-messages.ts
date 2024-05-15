@@ -47,6 +47,7 @@ export default {
         undo: "$t:wysiwyg_options.undo",
         redo: "$t:wysiwyg_options.redo",
         table: "$t:wysiwyg_options.table",
+        fullscreen: "$t:wysiwyg_options.fullscreen",
     },
     table: {
         insert: "Insert table",

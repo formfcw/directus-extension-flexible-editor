@@ -12,7 +12,7 @@
     </div>
     <div
         v-else-if="editor"
-        :class="{ disabled }"
+        :class="{ disabled, fullscreen }"
         class="field"
     >
         <toolbar
@@ -147,6 +147,11 @@
     let syncRelationNodes = () => { };
 
 
+    // Fullscreen mode
+    const fullscreen = ref(false);
+    provide('fullscreen', fullscreen);
+
+
     // Provide
     provide('m2aField', toRef(props, 'm2aField'));
 
@@ -206,6 +211,26 @@
         background-color: var(--theme--form--field--input--background-subdued, var(--background-subdued));
         border-color: var(--theme--form--field--input--border-color, var(--border-normal));
         pointer-events: none;
+    }
+
+    .field.fullscreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 490;
+        display: flex;
+        flex-direction: column;
+    }
+    .field.fullscreen .flexible-editor {
+        flex-grow: 1;
+        height: 0;
+    }
+    .field.fullscreen .flexible-editor :deep(.ProseMirror) {
+        height: 100% !important;
+        min-height: 0;
+        max-height: 100%;
     }
 
     /* Fonts */
