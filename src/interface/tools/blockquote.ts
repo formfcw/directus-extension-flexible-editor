@@ -1,11 +1,11 @@
 // https://tiptap.dev/api/nodes/blockquote
 
 import Blockquote from "@tiptap/extension-blockquote";
+import { defineTool } from "../lib";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types";
 
-export default {
+export default defineTool({
     key: "blockquote",
     name: customMessages.tools.blockquote,
     icon: "format_quote",
@@ -15,4 +15,4 @@ export default {
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().toggleBlockquote().run(),
     active: (editor: Editor) => editor.isActive("blockquote"),
-} as Tool;
+});

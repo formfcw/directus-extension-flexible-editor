@@ -1,44 +1,24 @@
 // https://tiptap.dev/api/marks/link
 
 import Link from "@tiptap/extension-link";
-import customMessages from "../i18n/custom-messages";
-import DialogLink from "../components/DialogLink.vue";
-import type { Ref } from "vue";
+import { defineTool } from "../../lib";
+import customMessages from "../../i18n/custom-messages";
+import AddButton from "./AddButton.vue";
 import type { Editor } from "@tiptap/core";
-import type { Tool, LinkAttributes, Dialog } from "../types";
 
-const add: Tool = {
+const add = defineTool({
     // https://tiptap.dev/api/marks/link
     key: "link",
     name: customMessages.tools.link,
     icon: "link",
     extension: [linkExtenstionConfig],
-    action: (editor: Editor, { dialog }: { dialog: Ref<Dialog> }) => {
-        dialog.value = {
-            component: DialogLink,
-            get: () => editor.getAttributes("link"),
-            set: (attrs: LinkAttributes) =>
-                editor
-                    .chain()
-                    .focus()
-                    .extendMarkRange("link")
-                    .setLink(attrs)
-                    .run(),
-            unset: () =>
-                editor
-                    .chain()
-                    .focus()
-                    .extendMarkRange("link")
-                    .unsetLink()
-                    .run(),
-        };
-    },
+    toolbarButton: AddButton,
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().toggleLink({ href: "" }).run(),
     active: (editor: Editor) => editor.isActive("link"),
-};
+});
 
-const remove: Tool = {
+const remove = defineTool({
     // https://tiptap.dev/api/marks/link
     key: "removeLink",
     name: customMessages.tools.unlink,
@@ -49,15 +29,15 @@ const remove: Tool = {
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().toggleLink({ href: "" }).run(),
     active: () => false,
-};
+});
 
-const auto: Tool = {
+const auto = defineTool({
     // If you want to use autolink without a link button
     key: "autolink",
     name: customMessages.tools.autolink,
     excludeFromToolbar: true,
     extension: [linkExtenstionConfig],
-};
+});
 
 function linkExtenstionConfig(selection: string[]) {
     const autolink = selection.indexOf("autolink") >= 0;

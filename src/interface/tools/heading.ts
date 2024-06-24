@@ -1,12 +1,13 @@
 // https://tiptap.dev/api/nodes/heading
 
 import Heading from "@tiptap/extension-heading";
+import { defineTool } from "../lib";
 import customMessages from "../i18n/custom-messages";
 import type { Level, HeadingOptions } from "@tiptap/extension-heading";
 import type { Editor, AnyExtension } from "@tiptap/core";
-import type { Tool, ToolSelection } from "../types";
+import type { ToolSelection } from "../types";
 
-export default (level: Level): Tool => {
+export default (level: Level) => {
     const headingKeys = ["h1", "h2", "h3", "h4", "h5", "h6"];
     const headingExtension = (selection: ToolSelection): AnyExtension => {
         const levels = headingKeys
@@ -18,7 +19,7 @@ export default (level: Level): Tool => {
     };
     const msgKey = `h${level}` as keyof typeof customMessages.tools;
 
-    return {
+    return defineTool({
         key: `h${level}`,
         name: customMessages.tools[msgKey],
         display: `H${level}`,
@@ -30,5 +31,5 @@ export default (level: Level): Tool => {
         disabled: (editor: Editor) =>
             !editor.can().chain().focus().toggleHeading({ level }).run(),
         active: (editor: Editor) => editor.isActive("heading", { level }),
-    };
+    });
 };

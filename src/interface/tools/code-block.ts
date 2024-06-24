@@ -1,11 +1,11 @@
 // https://tiptap.dev/api/nodes/code-block
 
 import CodeBlock from "@tiptap/extension-code-block";
+import { defineTool } from "../lib";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types";
 
-export default {
+export default defineTool({
     key: "codeBlock",
     name: customMessages.tools.code_block,
     extension: [CodeBlock],
@@ -15,4 +15,4 @@ export default {
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().toggleCodeBlock().run(),
     active: (editor: Editor) => editor.isActive("codeBlock"),
-} as Tool;
+});

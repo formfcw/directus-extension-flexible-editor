@@ -1,11 +1,11 @@
 // https://tiptap.dev/api/nodes/hard-break
 
 import HardBreak from "@tiptap/extension-hard-break";
+import { defineTool } from "../lib";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types";
 
-export default {
+export default defineTool({
     key: "hardBreak",
     name: customMessages.tools.hard_break,
     icon: "keyboard_return",
@@ -16,4 +16,4 @@ export default {
         !editor.can().chain().focus().setHardBreak().run(),
     disabledInSingleLineMode: true,
     active: () => false,
-} as Tool;
+});

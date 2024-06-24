@@ -17,7 +17,7 @@
     >
         <toolbar
             v-if="tools.length"
-            :tools="selectedTools(tools)"
+            :tools="selectedTools(tools, !!m2aField)"
             :editor="editor"
             :display-format="displayFormat"
             :single-line-mode="singleLineMode"
@@ -44,7 +44,7 @@
     import Placeholder from '@tiptap/extension-placeholder'
     import Dropcursor from '@tiptap/extension-dropcursor'
     import Gapcursor from '@tiptap/extension-gapcursor'
-    import RelationBlock from "./nodes/relation-block"
+    import RelationBlock from "./tools/relation-block/node-extension"
     import { toolsExtensions, interfaceOptionsDefault, selectedTools } from './tools'
     import { useSyncRelationNodes } from "./composables/use-sync-relation-nodes"
     import { useRelationReference } from './composables/use-relation-reference'
@@ -152,10 +152,7 @@
     provide('fullscreen', fullscreen);
 
 
-    // Provide
-    provide('m2aField', toRef(props, 'm2aField'));
-
-
+    // Errors
     const errors = ref<string[]>([]);
 
 

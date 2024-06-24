@@ -10,6 +10,7 @@
             @click="editItem(element)"
             @mousedown="onMousedown()"
             class="v-list-item link block clickable"
+            :class="{ selected: selected && editor.isFocused }"
         >
             <v-icon
                 data-drag-handle
@@ -55,11 +56,11 @@
     // nodeViewProps: https://github.com/ueberdosis/tiptap/blob/develop/docs/guide/node-views/vue.md#all-available-props
     import { computed, inject } from 'vue';
     import { NodeViewWrapper } from '@tiptap/vue-3'
-    import DuplicationWarning from './DuplicationWarning.vue'
     import { useI18n } from "vue-i18n";
-    import { useI18nFallback } from '../composables/use-i18n-fallback'
+    import { useI18nFallback } from '../../composables/use-i18n-fallback'
+    import DuplicationWarning from '../../components/DuplicationWarning.vue'
     import type { NodeViewProps } from '@tiptap/vue-3';
-    import type { RelationReference } from '../types';
+    import type { RelationReference } from '../../types';
 
     const props = defineProps<NodeViewProps>();
 
@@ -184,7 +185,7 @@
 
     .v-list-item:active {
         /* Alternative to sortable-chosen */
-        border: var(--theme--border-width, var(--border-width)) solid var(--theme--primary, var(--primary)) !important;
+        --v-list-item-border-color: var(--theme--primary, var(--primary)) !important;
     }
 
     .spacer {
@@ -222,5 +223,9 @@
 
     .clear-icon:hover {
         color: var(--theme--danger, var(--danger));
+    }
+
+    .v-list-item.selected {
+        --v-list-item-border-color: var(--theme--form--field--input--border-color-hover, var(--v-list-item-border-color-hover));
     }
 </style>

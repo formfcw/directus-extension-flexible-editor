@@ -65,9 +65,9 @@
     import isEmail from 'validator/lib/isEmail';
     import isURL from 'validator/lib/isURL';
     import isSlug from 'validator/lib/isSlug';
-    import { ref, computed, watch, watchEffect } from 'vue'
+    import { ref, computed, watchEffect } from 'vue'
     import { useI18n } from "vue-i18n";
-    import { useI18nFallback } from '../composables/use-i18n-fallback'
+    import { useI18nFallback } from '../../composables/use-i18n-fallback'
 
 
     // Props
@@ -171,7 +171,7 @@
 
         if (type === 'external_link') {
             const protocolExists = linkTypes
-                .filter(({ value }) => value === type)[0].prefix
+                .filter(({ value }) => value === type)[0]!.prefix
                 .some(prefix => href.startsWith(prefix));
 
             if (!protocolExists) {

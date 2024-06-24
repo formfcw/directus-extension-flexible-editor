@@ -2,11 +2,11 @@
 
 import BulletList from "@tiptap/extension-bullet-list";
 import ListItem from "@tiptap/extension-list-item";
+import { defineTool } from "../lib";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types";
 
-export default {
+export default defineTool({
     key: "bulletList",
     name: customMessages.tools.bullet_list,
     icon: "format_list_bulleted",
@@ -16,4 +16,4 @@ export default {
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().toggleBulletList().run(),
     active: (editor: Editor) => editor.isActive("bulletList"),
-} as Tool;
+});

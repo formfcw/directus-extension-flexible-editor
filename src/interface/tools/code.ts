@@ -1,12 +1,11 @@
 // https://tiptap.dev/api/marks/code
 
 import Code from "@tiptap/extension-code";
+import { defineTool, extendMarkRangeIfUnselected } from "../lib";
 import customMessages from "../i18n/custom-messages";
-import { extendMarkRangeIfUnselected } from "./utils";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types";
 
-export default {
+export default defineTool({
     key: "code",
     name: customMessages.tools.code,
     icon: "code",
@@ -17,4 +16,4 @@ export default {
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().toggleCode().run(),
     active: (editor: Editor) => editor.isActive("code"),
-} as Tool;
+});

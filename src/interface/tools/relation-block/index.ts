@@ -1,16 +1,19 @@
-import customMessages from "../i18n/custom-messages";
+import { defineTool } from "../../lib";
+import customMessages from "../../i18n/custom-messages";
+// import RelationBlock from "./node-extension";
+import ToolButton from "./ToolButton.vue";
 import type { Editor } from "@tiptap/core";
-import type { Tool, RelationBlockAttrs } from "../types";
+import type { RelationBlockAttrs } from "../../types";
 
-export default {
+export default defineTool({
     // Custom
     key: "relation-block",
     name: customMessages.tools.relation_block,
     icon: "add",
     excludeFromOptions: true,
-    excludeFromToolbar: true,
     // Already imported
     extension: [],
+    toolbarButton: ToolButton,
     action: (editor: Editor, attrs: RelationBlockAttrs) => {
         focusAfterSelectionIfNotEmpty();
         editor.chain().focus().setRelationBlock(attrs).run();
@@ -27,4 +30,4 @@ export default {
         !editor.can().chain().focus().setRelationBlock().run(),
     disabledInSingleLineMode: true,
     active: (editor: Editor) => editor.isActive("relation-block"),
-} as Tool;
+});

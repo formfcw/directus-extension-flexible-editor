@@ -1,8 +1,8 @@
 // https://tiptap.dev/api/nodes/paragraph
 
+import { defineTool } from "../lib";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types";
 
 declare module "@tiptap/core" {
     interface Commands<ReturnType> {
@@ -12,7 +12,7 @@ declare module "@tiptap/core" {
     }
 }
 
-export default {
+export default defineTool({
     key: "paragraph",
     name: customMessages.tools.paragraph,
     // Because we want “Paragraph” selectable from the formats menu, we don’t `excludeFromOptions: true`
@@ -24,4 +24,4 @@ export default {
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().setParagraph().run(),
     active: (editor: Editor) => editor.isActive("paragraph"),
-} as Tool;
+});

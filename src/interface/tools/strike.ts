@@ -2,11 +2,10 @@
 
 import Strike from "@tiptap/extension-strike";
 import customMessages from "../i18n/custom-messages";
-import { extendMarkRangeIfUnselected } from "./utils";
+import { defineTool, extendMarkRangeIfUnselected } from "../lib";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types";
 
-export default {
+export default defineTool({
     key: "strike",
     name: customMessages.tools.strike,
     icon: "format_strikethrough",
@@ -17,4 +16,4 @@ export default {
     disabled: (editor: Editor) =>
         !editor.can().chain().focus().toggleStrike().run(),
     active: (editor: Editor) => editor.isActive("strike"),
-} as Tool;
+});

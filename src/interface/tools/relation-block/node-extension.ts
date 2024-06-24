@@ -1,7 +1,7 @@
 import { mergeAttributes, Node } from "@tiptap/core";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
-import RelationBlock from "../components/RelationBlock.vue";
-import { RelationBlockAttrs } from "../types";
+import NodeView from "./NodeView.vue";
+import type { RelationBlockAttrs } from "../../types";
 
 declare module "@tiptap/core" {
     interface Commands<ReturnType> {
@@ -43,7 +43,7 @@ export default Node.create({
     },
 
     addNodeView() {
-        return VueNodeViewRenderer(RelationBlock);
+        return VueNodeViewRenderer(NodeView);
     },
 
     addCommands() {

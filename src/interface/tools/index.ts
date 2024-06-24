@@ -50,8 +50,15 @@ const tools: Tool[] = [
     fullscreen,
 ];
 
-export const selectedTools = (selection: ToolSelection) =>
-    tools.filter(({ key }) => selection.indexOf(key) >= 0);
+export const selectedTools = (
+    selection: ToolSelection,
+    includeRelationBlock = false
+) =>
+    tools.filter(
+        ({ key }) =>
+            selection.indexOf(key) >= 0 ||
+            (includeRelationBlock && key == "relation-block")
+    );
 
 export const toolsExtensions = (selection: ToolSelection): AnyExtension[] => {
     const toolsExtensions: AnyExtension[] = [];

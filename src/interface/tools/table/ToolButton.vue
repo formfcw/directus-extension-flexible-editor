@@ -5,11 +5,11 @@
     >
         <template #activator="{ toggle }">
             <ToolButton
-                :title="title"
-                :icon="icon"
+                :title
+                :icon
+                :active
+                :disabled
                 :action="toggle"
-                :active="active"
-                :disabled="disabled"
             />
         </template>
         <v-list>
@@ -127,10 +127,10 @@
 </template>
 
 <script setup lang="ts">
-    import ToolButton from "./ToolButton.vue";
+    import ToolButton from "../../components/ToolButton.vue";
     import { useI18n } from "vue-i18n";
-    import { useI18nFallback } from "../composables/use-i18n-fallback";
-    import type { CustomToolButtonProps } from "../types";
+    import { useI18nFallback } from "../../composables/use-i18n-fallback";
+    import type { CustomToolButtonProps } from "../../types";
 
     defineProps<CustomToolButtonProps>();
 

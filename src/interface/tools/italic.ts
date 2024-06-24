@@ -2,11 +2,10 @@
 
 import Italic from "@tiptap/extension-italic";
 import customMessages from "../i18n/custom-messages";
-import { extendMarkRangeIfUnselected } from "./utils";
+import { defineTool, extendMarkRangeIfUnselected } from "../lib";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types";
 
-export default {
+export default defineTool({
     key: "italic",
     name: customMessages.tools.italic,
     icon: "format_italic",
@@ -16,4 +15,4 @@ export default {
         extendMarkRangeIfUnselected(editor, "italic").toggleItalic().run(),
     disabled: (editor) => !editor.can().chain().focus().toggleItalic().run(),
     active: (editor: Editor) => editor.isActive("italic"),
-} as Tool;
+});

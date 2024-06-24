@@ -1,11 +1,11 @@
 // https://tiptap.dev/api/nodes/horizontal-rule
 
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
+import { defineTool } from "../lib";
 import customMessages from "../i18n/custom-messages";
 import type { Editor } from "@tiptap/core";
-import type { Tool } from "../types";
 
-export default {
+export default defineTool({
     key: "horizontalRule",
     name: customMessages.tools.hr,
     icon: "horizontal_rule",
@@ -17,4 +17,4 @@ export default {
         !editor.can().chain().focus().setHorizontalRule().run(),
     disabledInSingleLineMode: true,
     active: () => false,
-} as Tool;
+});

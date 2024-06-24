@@ -6,10 +6,10 @@
     >
         <template #activator="{ toggle }">
             <ToolButton
-                :title="t(`tools.text_align`)"
+                :title
+                :disabled
                 :icon="currentAlignment.icon"
                 :action="toggle"
-                :disabled="disabled"
             />
         </template>
         <v-list>
@@ -36,10 +36,10 @@
 <script setup lang="ts">
     import { computed } from 'vue';
     import { useI18n } from "vue-i18n";
-    import { useI18nFallback } from "../composables/use-i18n-fallback";
-    import ToolButton from "./ToolButton.vue";
-    import { translateShortcut } from "../directus-core/utils/translate-shortcut";
-    import type { CustomToolButtonProps } from "../types";
+    import { useI18nFallback } from "../../composables/use-i18n-fallback";
+    import ToolButton from "../../components/ToolButton.vue";
+    import { translateShortcut } from "../../directus-core/utils/translate-shortcut";
+    import type { CustomToolButtonProps } from "../../types";
 
     const props = defineProps<CustomToolButtonProps>();
 

@@ -34,13 +34,4 @@ export type ToolButtonProps = {
 
 export type CustomToolButtonProps = ToolButtonProps & { editor: Editor };
 
-export type LinkAttributes = { href: string; target?: string | null };
-
 export type InterfaceOption = { text: string; value: string };
-
-export type Dialog = {
-    component: Component;
-    get: () => void;
-    set: (attrs: LinkAttributes) => void;
-    unset: () => void;
-};

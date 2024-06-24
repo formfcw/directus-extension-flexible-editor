@@ -1,11 +1,5 @@
 <template>
     <div class="toolbar">
-        <relation-block-menu
-            v-if="m2aField"
-            :editor="editor"
-            :single-line-mode="singleLineMode"
-        />
-
         <v-menu
             v-if="formatTools.length"
             show-arrow
@@ -64,34 +58,23 @@
             :icon="tool.icon"
             :display="tool.display"
             :shortcut="tool.shortcut"
-            :action="() => toolAction(tool)"
-            :active="tool.active?.(editor)"
+            :action="() => tool.action?.(editor)"
+            :active="editor.isFocused && tool.active?.(editor)"
             :disabled="tool.disabled?.(editor) || (singleLineMode && tool.disabledInSingleLineMode)"
             :editor="editor"
         />
-
-        <v-dialog v-model="showDialog">
-            <component
-                :is="dialog!.component"
-                :get="dialog!.get"
-                @set="dialog!.set"
-                @unset="dialog!.unset"
-                @close-dialog="dialog = null"
-            ></component>
-        </v-dialog>
     </div>
 </template>
 
 
 
 <script setup lang="ts">
-    import { ref, computed, inject } from 'vue';
+    import { ref, computed } from 'vue';
     import ToolButton from './ToolButton.vue';
-    import RelationBlockMenu from './RelationBlockMenu.vue';
     import { translateShortcut } from '../directus-core/utils/translate-shortcut';
     import { useI18n } from "vue-i18n";
     import { useI18nFallback } from '../composables/use-i18n-fallback'
-    import type { Tool, Dialog } from '../types';
+    import type { Tool } from '../types';
     import type { Editor } from '@tiptap/vue-3';
 
 
@@ -109,10 +92,6 @@
 
     // I18n
     const { t, $t } = useI18nFallback(useI18n());
-
-
-    // Inject
-    const m2aField = inject('m2aField');
 
 
     // Split up tools to types
@@ -141,15 +120,6 @@
 
         return t('tools.paragraph');
     });
-
-
-    // Dialog
-    const dialog = ref<Dialog | null>(null);
-    const showDialog = computed(() => dialog.value !== null)
-
-
-    // Action (click) method
-    const toolAction = (tool: Tool) => tool.action?.(props.editor, { dialog });
 </script>
 
 
@@ -167,6 +137,9 @@
 
         --toolbar-item-m: 1px;
         --toolbar-dropdown-p: 2px;
+
+        display: flex;
+        flex-wrap: wrap;
     }
 
     .toolbar-dropdown-button :deep(.button) {
