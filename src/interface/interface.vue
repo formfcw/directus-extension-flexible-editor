@@ -21,7 +21,8 @@
             :editor="editor"
             :display-format="displayFormat"
             :single-line-mode="singleLineMode"
-        ></toolbar>
+            :mode="toolbarMode"
+        />
         <editor-content
             :editor="editor"
             :spellcheck="spellcheck ? 'true' : 'false'"
@@ -35,8 +36,8 @@
 
 <script setup lang="ts">
     // Imports
-    import { ref, toRef, watch, provide, computed } from 'vue'
-    import { useEditor, EditorContent } from '@tiptap/vue-3'
+    import { ref, toRef, watch, provide, computed, type Ref } from 'vue'
+    import { useEditor, EditorContent, type JSONContent } from '@tiptap/vue-3'
     import Toolbar from './components/Toolbar.vue'
     import Document from '@tiptap/extension-document'
     import Text from '@tiptap/extension-text'
@@ -51,9 +52,8 @@
     // import { useM2aStore } from './composables/use-m2a-store'
     import { useI18n } from "vue-i18n"
     import { useI18nFallback } from './composables/use-i18n-fallback'
-    import type { Ref } from 'vue'
     import type { PrimaryKey } from "@directus/types"
-    import type { JSONContent } from "@tiptap/vue-3"
+    import type { ToolbarMode } from './types'
 
 
     // Props
@@ -64,6 +64,7 @@
         placeholder: string;
         inputMode: "multi" | "single";
         tools: string[];
+        toolbarMode: ToolbarMode;
         displayFormat: boolean;
         font: string;
         spellcheck: boolean;
@@ -79,6 +80,7 @@
         placeholder: '',
         inputMode: "multi",
         tools: () => interfaceOptionsDefault,
+        toolbarMode: "static",
         displayFormat: false,
         font: "sans-serif",
         spellcheck: false,
@@ -192,6 +194,7 @@
         background-color: var(--theme--form--field--input--background, var(--background-page));
         border: var(--theme--border-width, var(--border-width)) solid var(--theme--form--field--input--border-color, var(--border-normal));
         border-radius: var(--theme--border-radius, var(--border-radius));
+        contain: paint;
     }
 
     .field:hover {
@@ -219,6 +222,11 @@
         z-index: 490;
         display: flex;
         flex-direction: column;
+        border-radius: 0;
+        border: none;
+    }
+    .field.fullscreen .toolbar.sticky {
+        position: static;
     }
     .field.fullscreen .flexible-editor {
         flex-grow: 1;

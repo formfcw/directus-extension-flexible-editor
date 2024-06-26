@@ -1,5 +1,5 @@
 <template>
-    <div class="toolbar">
+    <div class="toolbar" :class="{ sticky: mode == 'sticky' }">
         <v-menu
             v-if="formatTools.length"
             show-arrow
@@ -74,7 +74,7 @@
     import { translateShortcut } from '../directus-core/utils/translate-shortcut';
     import { useI18n } from "vue-i18n";
     import { useI18nFallback } from '../composables/use-i18n-fallback'
-    import type { Tool } from '../types';
+    import type { Tool, ToolbarMode } from '../types';
     import type { Editor } from '@tiptap/vue-3';
 
 
@@ -84,6 +84,7 @@
         editor: Editor;
         displayFormat: boolean;
         singleLineMode: boolean;
+        mode: ToolbarMode
     }
     const props = withDefaults(defineProps<Props>(), {
         displayFormat: false
@@ -140,6 +141,14 @@
 
         display: flex;
         flex-wrap: wrap;
+    }
+
+    .toolbar.sticky {
+        position: sticky;
+        top: calc(var(--header-bar-height) - 1px + var(--theme--header--border-width));
+        z-index: 1;
+        background: var(--theme--form--field--input--background-subdued);
+        border: 0;
     }
 
     .toolbar-dropdown-button :deep(.button) {

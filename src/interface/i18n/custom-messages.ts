@@ -49,6 +49,11 @@ export default {
         table: "$t:wysiwyg_options.table",
         fullscreen: "$t:wysiwyg_options.fullscreen",
     },
+    toolbar_mode: {
+        title: "$t:interfaces.input-rich-text-html.toolbar",
+        static: "Static",
+        sticky: "Sticky",
+    },
     table: {
         insert: "Insert table",
         section_cells: "Cell",

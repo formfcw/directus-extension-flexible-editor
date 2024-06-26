@@ -24,7 +24,7 @@ export default defineInterface({
     // localTypes: ["m2a"],
     group: "standard",
     recommendedDisplays: ["flexible-editor-display"],
-    options: ({ collection }) => {
+    options: ({ collection }): any => {
         return [
             {
                 field: "m2aField",
@@ -59,11 +59,35 @@ export default defineInterface({
                     default_value: interfaceOptionsDefault,
                 },
                 meta: {
-                    width: "half",
+                    width: "full",
                     interface: "select-multiple-dropdown",
                     options: {
                         choices: interfaceOptions,
                     },
+                },
+            },
+            {
+                field: "toolbarMode",
+                name: customMessages.toolbar_mode.title,
+                type: "string",
+                meta: {
+                    width: "half",
+                    interface: "select-dropdown",
+                    options: {
+                        choices: [
+                            {
+                                text: customMessages.toolbar_mode.static,
+                                value: "static",
+                            },
+                            {
+                                text: customMessages.toolbar_mode.sticky,
+                                value: "sticky",
+                            },
+                        ],
+                    },
+                },
+                schema: {
+                    default_value: "static",
                 },
             },
             {
