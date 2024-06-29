@@ -4,13 +4,13 @@
 
 <!-- NOTE: [extension-description] Sync description with GitHub, custom-messages.ts and package.json -->
 
-A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.
+A rich text editor (WYSIWYG) with JSON output that allows the integration of M2A relations to make it extremely flexible.
 
 > https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/b418c9a7-44c0-43b1-b5ad-6673d09a9066
 >
 > _(Demo Video)_
 
-Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap) editor as an extension into the [Directus](https://github.com/directus/directus) app and utilizes an optional many-to-any (M2A) field to place and link relation nodes in the editor. This combination makes Flexible Editor a truely rich editor.
+Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap) editor as an extension to the [Directus](https://github.com/directus/directus) app and uses an optional many-to-any (M2A) field to place and link relation nodes in the editor. This combination makes Flexible Editor a truly rich editor.
 
 ## Installation
 
@@ -19,7 +19,7 @@ Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap)
 
 ## Basic Usage
 
-In your Directus app simply click the `Create Field` button and choose `Flexible Editor`.
+In your Directus app simply click the `Create Field` button and select `Flexible Editor`.
 
 > https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/62592c31-498f-4879-b231-fb2f2802777c
 >
@@ -29,26 +29,27 @@ In your Directus app simply click the `Create Field` button and choose `Flexible
 
 Navigate to the interface tab to adjust the settings.
 
-| Option                    | Description                                                                                                                                                                             |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| M2A Reference Field       | Described in detail below _(Usage with relation nodes)_                                                                                                                                 |
-| Placeholder               | Display a placeholder text when empty                                                                                                                                                   |
-| Tools                     | Select the editor tools you want to use                                                                                                                                                 |
-| Formats Button Appearance | Display the active format name instead of just an icon                                                                                                                                  |
-| Input Mode                | _Multi-line text_ … Default behavior<br>_Single-line text_ … Turns into an inline editor that only allows inline marks/blocks                                                           |
-| Editor Height             | _Grow till Overflow_ … The height grows with its content as long as it remains in the viewport<br>_Grow_ … The height grows with its content<br>_Fixed_ … The editor has a fixed height |
-| Font                      | Font that is used in the editor                                                                                                                                                         |
-| Spellcheck                | Enable spell checking in the editor                                                                                                                                                     |
+| Option                    | Description                                                                                                                                                                                           |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| M2A Reference Field       | Described in detail below _(Usage with relation nodes)_                                                                                                                                               |
+| Placeholder               | Display a placeholder text when empty                                                                                                                                                                 |
+| Tools                     | Select the editor tools you want to use                                                                                                                                                               |
+| Toolbar                   | _Static_ … The toolbar appears at the top of the editor<br>_Sticky_ … The toolbar stays at the top of the viewport as you scroll<br>_Floating_ … The toolbar floats above the current cursor position |
+| Formats Button Appearance | Display the active format name instead of just an icon                                                                                                                                                |
+| Input Mode                | _Multi-line text_ … Default behavior<br>_Single-line text_ … Turns into an inline editor that only allows inline marks/blocks                                                                         |
+| Editor Height             | _Grow till Overflow_ … The height grows with its content as long as it remains in the viewport<br>_Grow_ … The height grows with its content<br>_Fixed_ … The editor has a fixed height               |
+| Font                      | Font that is used in the editor                                                                                                                                                                       |
+| Spellcheck                | Enable spell checking in the editor                                                                                                                                                                   |
 
 ### Display
 
-Navigate to the `Display` tab and select `Flexible Editor` to display the editor content as plain text inside the Directus app.
+Navigate to the `Display` tab and select `Flexible Editor` to display the editor content as plain text in the Directus app.
 
 ## Usage with relation nodes
 
 <!-- Sync heading with link above `#usage-with-relation-nodes` -->
 
-You can insert items from your Directus collections into the Flexible Editor. This is optional but gives you extreme flexibility when creating rich content. Therefore, you need to add a many-to-any (M2A) field, the editor field can connect to. For Flexible Editor to work this way, you must create the junction collection before adding a M2A field.
+You can insert items from your Directus collections into the Flexible Editor. This is optional but gives you extreme flexibility when creating rich content. To do this, you need to add a many-to-any (M2A) field, that the editor field can connect to. For Flexible Editor to work in this way, you must create the junction collection before adding a M2A field.
 
 > https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/986ce5b1-cdda-4607-bea9-26412f942938
 >
@@ -56,25 +57,25 @@ You can insert items from your Directus collections into the Flexible Editor. Th
 
 1. Create a new (junction) collection and give it a name like `xxxx_editor_nodes` and set the `Type` of the Primary Key to `Generate UUID`. Finish the setup to create the collection.
 
-2. Open the data model of the collection you want to add Flexible Editor to and click `Create Field in Advanced Mode` and select `Many to Any Relationship`.
+2. Open the data model of the collection to which you want to add Flexible Editor, click `Create Field in Advanced Mode`, and select `Many to Any Relationship`.
 
-3. Give the field a name like `editor_nodes` and on the `Relationship` tab, uncheck the `Auto Fill` option, so you can select the junction collection you created earlier manually (like `xxxx_editor_nodes`). Select the `Related Collections` you want to integrate into your Flexible Editor field. You don’t need to set a `sort` field, but you want to set the `Relational Triggers` to `cascade` when deleting or deselecting an item.
+3. Enter a name for the field, such as `editor_nodes` and uncheck `Auto Fill` on the `Relationship` tab, so that you can manually select the junction collection you created earlier (such as `xxxx_editor_nodes`). Select the `Related Collections` you want to integrate into your Flexible Editor field. You don’t need to set a `sort` field, but you do want to set the `Relational Triggers` to `cascade` when an item is deleted or deselected.
 
-4. On the `Field` tab, set the field `Hidden on Detail` as we manage the M2A items via Flexible Editor. Therefore no interface is required for the M2A field.
+4. On the `Field` tab, set the field to `Hidden on Detail` because we are managing the M2A items through Flexible Editor. Therefore, no interface is required for the M2A field.
 
 5. Now that you have created your M2A field, open the interface settings for your Flexible Editor field and connect to the M2A field by selecting it in the `M2A Reference Field`.
 
-6. Set the `Item Duplication Fields` for your junction collection (`xxxx_editor_nodes`) in the data model settings. This is required to make `copy & paste` or `drag & drop` work.
+6. Set the `Item Duplication Fields` for your junction collection (`xxxx_editor_nodes`) in the data model settings. This is required for `copy & paste` or `drag & drop` to work.
 
-    > **Tip**: If you setup Flexible Editor the same way on different collections, you can copy & paste the duplication settings via `Copy Raw Value` from the field menu — by clicking the “Item Duplication Fields” label.
+    > **Tip**: If you set up Flexible Editor in the same way foron different collections, you can copy and paste the duplication settings via `Copy Raw Value` from the field menu — by clicking on the “Item Duplication Fields” label.
 
 ### Things to keep in mind
 
-You cannot use the same M2A junction collection for multiple collections (in which you use Flexible Editor). This would only work with an any-to-any relationship, which Directus doesn't support at the time of writing.
+You cannot use the same M2A junction collection for multiple collections (where you use Flexible Editor). This would only work with an any-to-any relationship, which Directus doesn't support at the time of writing.
 
 You should not set `Item Duplication Fields` for nested Flexible Editor fields as they are managed by their own junction collections.
 
-If you want to duplicate nested M2A items (e.g. a Related Content collection, that relates to multiple other collection items) you only want to duplicate the IDs (in the junction collection) without copying the whole item!
+If you want to duplicate nested M2A items (e.g. a Related Content collection, that references several other collection items), you want to duplicate only the IDs (in the junction collection) without copying the whole item!
 
 <!-- TODO: [Stage 2][docs] Duplication -->
 
@@ -82,7 +83,7 @@ Duplication currently only works within the same editor field or between Flexibl
 
 This also means that you can use the same `M2A Reference Field` for multiple Flexible Editor fields, although this is not recommended as this will change in [future releases](https://github.com/formfcw/directus-extension-flexible-editor/discussions/categories/feature-request).
 
-The current implementation of duplicating relation nodes (M2A items) does not cover all use cases, but will be improved in [future releases](https://github.com/formfcw/directus-extension-flexible-editor/discussions/categories/feature-request). If duplication fails you should get a warning.
+The current implementation of duplicating relation nodes (M2A items) does not cover all use cases, but will be improved in [future releases](https://github.com/formfcw/directus-extension-flexible-editor/discussions/categories/feature-request). If the duplication fails, you should get a warning.
 
 ### Tutorial: Relation node with existing items
 
@@ -100,12 +101,12 @@ To render the JSON content generated by Flexible Editor you can follow the [offi
 
 ### Rendering with interactive components
 
-If you want to render your JSON content with interactive components, especially when using relation nodes, follow this [Flexible Editor Content](https://github.com/formfcw/directus-extension-flexible-editor/blob/main/content/README.md) guide.
+If you want to render your JSON content with interactive components, especially when using relation nodes, follow the [Flexible Editor Content](https://github.com/formfcw/directus-extension-flexible-editor/blob/main/content/README.md) guide.
 
 ### Rendering plain HTML or plain text
 
-Tiptap provides official functions to [`generateText()`](https://github.com/ueberdosis/tiptap/pull/1875) or `generateHTML()` from the JSON output. Note that as of this writing, there are different versions of `generateHTML()`: one for client side (`import { generateHTML } from "@tiptap/core"`) and one for server side (`import { generateHTML } from "@tiptap/html"`) rendering!
+Tiptap provides official functions to [`generateText()`](https://github.com/ueberdosis/tiptap/pull/1875) or `generateHTML()` from the JSON output. Note that as of this writing, there are different versions of `generateHTML()`: one for client-side rendering (`import { generateHTML } from "@tiptap/core"`) and one for server-side rendering (`import { generateHTML } from "@tiptap/html"`)!
 
 ## Contribution
 
-Contributions are welcome. Make sure to open an issue for bugs or start a discussion for feature requests, before you start writing code!
+Contributions are welcome. Be sure to open an issue for bugs or start a discussion for feature requests, before you start writing code!

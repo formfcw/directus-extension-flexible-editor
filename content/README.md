@@ -4,7 +4,7 @@ Serialize [Flexible Editor](https://github.com/ueberdosis/tiptap) JSON content w
 
 ## Installation
 
-Since this is included in the Flexible Editor package, you can install it the same way.
+Since it is included in the Flexible Editor package, you can install it the same way.
 
 ```sh
 # Using npm
@@ -19,13 +19,13 @@ pnpm add directus-extension-flexible-editor
 
 The Flexible Editor Content tools are available via `directus-extension-flexible-editor/content`.
 
-At the time of writing this package only provides a Vue component to render your content. But, because it depends on [tiptap-render-view](https://github.com/formfcw/tiptap-render-view), it also provides types and tools to build components for your prefered JavaScript framework.
+At the time of writing, this package only provides a Vue component to render your content. However, because it depends on [tiptap-render-view](https://github.com/formfcw/tiptap-render-view), it also provides types and tools to create components for your preferred JavaScript framework.
 
 ### Fetching and transforming the API data
 
 This is for usage with relation nodes.
 
-Since the editor field (e.g. `description`) and the corresponding “M2A Reference Field” (e.g. `editor_nodes`) are separate fields, add both fields (including the [related fields](https://docs.directus.io/reference/query.html#many-to-any-union-types)) in your Directus API request as usual.
+Since the editor field (e.g. `description`) and the corresponding “M2A Reference Field” (e.g. `editor_nodes`) are separate fields, add both fields (including the [related fields](https://docs.directus.io/reference/query.html#many-to-any-union-types)) to your Directus API request as usual.
 
 With `injectDataIntoContent()` you can merge both fields:
 
@@ -40,11 +40,11 @@ injectDataIntoContent(data.editor_nodes, data.description);
 delete data.editor_nodes;
 ```
 
-> **Tip**: In Nuxt you will call `injectDataIntoContent` in the [transform](https://nuxt.com/docs/getting-started/data-fetching#minimize-payload-size) callback to cache the result.
+> **Tip**: In Nuxt, you will call `injectDataIntoContent` in the [transform](https://nuxt.com/docs/getting-started/data-fetching#minimize-payload-size) callback to cache the result.
 
 ### Importing Flexible Editor extensions
 
-It might be useful to import an array of all tiptap extensions used by Flexible Editor and required for serialization.
+It may be useful to import an array of all tiptap extensions used by Flexible Editor that are required for serialization.
 
 ```ts
 import { serializers } from "directus-extension-flexible-editor/content";
@@ -75,7 +75,7 @@ Check out this [example on StackBlitz](https://stackblitz.com/github/formfcw/dir
     import DefinitionList from "./components/DefinitionList.vue";
     import Video from "./components/Video.vue";
 
-    // Fetching and transforming the API data
+    // Fetch and transform the API data
     const data = await fetchDirectusData();
     injectDataIntoContent(data.editor_nodes, data.description);
     delete data.editor_nodes;
@@ -104,12 +104,15 @@ Check out this [example on StackBlitz](https://stackblitz.com/github/formfcw/dir
 </script>
 ```
 
-Example of a component (`./components/DefinitionList.vue`) rendering a relation block:
+Example of a component (`./components/DefinitionList.vue`) that renders a relation block:
 
 ```vue
 <template>
     <dl>
-        <template v-for="(item, key) in data.items" :key="key">
+        <template
+            v-for="(item, key) in data.items"
+            :key="key"
+        >
             <dt>{{ item.term }}</dt>
             <dd>{{ item.definition }}</dd>
         </template>
@@ -135,4 +138,4 @@ Feel free to contribute
 
 ## Contribution
 
-Contributions are welcome. Make sure to open an issue for bugs or start a discussion for feature requests, before you start writing code!
+Contributions are welcome. Be sure to open an issue for bugs or start a discussion for feature requests, before you start writing code!

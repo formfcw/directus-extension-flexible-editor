@@ -4,7 +4,7 @@
 export default {
     // NOTE: [extension-description] Sync description with GitHub, README.md and package.json
     extension_description:
-        "A Rich Text Editor (WYSIWYG) with JSON output, that allows to integrate M2A relations to make it extremely flexible.",
+        "A rich text editor (WYSIWYG) with JSON output that allows the integration of M2A relations to make it extremely flexible.",
     tools_title: "Tools",
     m2a_field: "M2A Reference Field",
     input_mode: {
