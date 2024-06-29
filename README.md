@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/banner.png)
+![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/preview.png)
 
 # Flexible Editor for Directus
 
