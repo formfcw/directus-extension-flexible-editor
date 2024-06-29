@@ -83,6 +83,10 @@ export default defineInterface({
                                 text: customMessages.toolbar_mode.sticky,
                                 value: "sticky",
                             },
+                            {
+                                text: customMessages.toolbar_mode.floating,
+                                value: "floating",
+                            },
                         ],
                     },
                 },

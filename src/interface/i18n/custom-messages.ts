@@ -53,6 +53,7 @@ export default {
         title: "$t:interfaces.input-rich-text-html.toolbar",
         static: "Static",
         sticky: "Sticky",
+        floating: "Floating",
     },
     table: {
         insert: "Insert table",

@@ -36,4 +36,4 @@ export type CustomToolButtonProps = ToolButtonProps & { editor: Editor };
 
 export type InterfaceOption = { text: string; value: string };
 
-export type ToolbarMode = "static" | "sticky";
+export type ToolbarMode = "static" | "sticky" | "floating";

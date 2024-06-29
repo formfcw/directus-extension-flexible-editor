@@ -92,7 +92,7 @@ The current implementation of duplicating relation nodes (M2A items) does not co
 
 ## Custom Editor Styles
 
-For overwriting CSS of the editor content, you can add `Custom CSS` to your `Project Settings` inside Directus. You can use the `.flexible-editor` class for the editor itself as well as a `.relation-block` class for the relation nodes.
+To override the CSS of the editor content, you can add `Custom CSS` to your `Project Settings` in Directus. You can use the `.flexible-editor` & `.flexible-editor-wrapper` classes for the editor itself as well as a `.relation-block` class for the relation nodes.
 
 ## Rendering in the front-end
 

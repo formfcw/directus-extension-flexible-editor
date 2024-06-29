@@ -12,8 +12,8 @@
     </div>
     <div
         v-else-if="editor"
-        :class="{ disabled, fullscreen }"
-        class="field"
+        :class="{ disabled, fullscreen, [`toolbar-${toolbarMode}`]: true }"
+        class="flexible-editor-wrapper"
     >
         <toolbar
             v-if="tools.length"
@@ -189,19 +189,21 @@
     }
 
     /* Field */
-    .field {
+    .flexible-editor-wrapper {
         color: var(--theme--form--field--input--foreground, var(--foreground));
         background-color: var(--theme--form--field--input--background, var(--background-page));
         border: var(--theme--border-width, var(--border-width)) solid var(--theme--form--field--input--border-color, var(--border-normal));
-        border-radius: var(--theme--border-radius, var(--border-radius));
+        border-radius: var(--v-input-border-radius, var(--theme--border-radius));
+    }
+    .flexible-editor-wrapper:not(.toolbar-floating) {
         contain: paint;
     }
 
-    .field:hover {
+    .flexible-editor-wrapper:hover {
         border-color: var(--theme--form--field--input--border-color-hover, var(--border-normal-alt));
     }
 
-    .field:focus-within {
+    .flexible-editor-wrapper:focus-within {
         border-color: var(--theme--form--field--input--border-color-focus, var(--primary));
         box-shadow: var(--theme--form--field--input--box-shadow-focus, 0 0 16px -8px var(--v-input-box-shadow-color-focus));
     }
@@ -213,7 +215,7 @@
         pointer-events: none;
     }
 
-    .field.fullscreen {
+    .flexible-editor-wrapper.fullscreen {
         position: fixed;
         top: 0;
         left: 0;
@@ -225,14 +227,14 @@
         border-radius: 0;
         border: none;
     }
-    .field.fullscreen .toolbar.sticky {
+    .flexible-editor-wrapper.fullscreen .toolbar.sticky {
         position: static;
     }
-    .field.fullscreen .flexible-editor {
+    .flexible-editor-wrapper.fullscreen .flexible-editor {
         flex-grow: 1;
         height: 0;
     }
-    .field.fullscreen .flexible-editor :deep(.ProseMirror) {
+    .flexible-editor-wrapper.fullscreen .flexible-editor :deep(.ProseMirror) {
         height: 100% !important;
         min-height: 0;
         max-height: 100%;
@@ -252,7 +254,7 @@
     }
 
     /* Editor */
-    .field {
+    .flexible-editor-wrapper {
         --editor-lineheight: 1.6;
         --editor-input-padding: var(--theme--form--field--input--padding, var(--input-padding));
         /* --editor-height = --editor-lineheight * 7 */
