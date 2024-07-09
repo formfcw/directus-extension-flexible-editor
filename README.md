@@ -49,7 +49,12 @@ Navigate to the `Display` tab and select `Flexible Editor` to display the editor
 
 <!-- Sync heading with link above `#usage-with-relation-nodes` -->
 
-You can insert items from your Directus collections into the Flexible Editor. This is optional but gives you extreme flexibility when creating rich content. To do this, you need to add a many-to-any (M2A) field, that the editor field can connect to. For Flexible Editor to work in this way, you must create the junction collection before adding a M2A field.
+You can insert items from your Directus collections into the Flexible Editor.
+This is optional but gives you extreme flexibility when creating rich content.
+To do this, you need to add a many-to-any (M2A) field, that the editor field can connect to.
+For Flexible Editor to work in this way, you must create the junction collection before adding a M2A field.
+Note that any inserted items are created there and then.
+To insert one of your items that already exist, see the [tutorial below](#tutorial-relation-node-with-existing-items).
 
 > https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/986ce5b1-cdda-4607-bea9-26412f942938
 >
@@ -67,7 +72,7 @@ You can insert items from your Directus collections into the Flexible Editor. Th
 
 6. Set the `Item Duplication Fields` for your junction collection (`xxxx_editor_nodes`) in the data model settings. This is required for `copy & paste` or `drag & drop` to work.
 
-    > **Tip**: If you set up Flexible Editor in the same way foron different collections, you can copy and paste the duplication settings via `Copy Raw Value` from the field menu — by clicking on the “Item Duplication Fields” label.
+   > **Tip**: If you set up Flexible Editor in the same way on different collections, you can copy and paste the duplication settings via `Copy Raw Value` from the field menu — by clicking on the “Item Duplication Fields” label.
 
 ### Things to keep in mind
 
