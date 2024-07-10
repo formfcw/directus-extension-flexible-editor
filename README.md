@@ -49,7 +49,7 @@ Navigate to the `Display` tab and select `Flexible Editor` to display the editor
 
 <!-- Sync heading with link above `#usage-with-relation-nodes` -->
 
-You can insert items from your Directus collections into the Flexible Editor. This is optional but gives you extreme flexibility when creating rich content. To do this, you need to add a many-to-any (M2A) field, that the editor field can connect to. For Flexible Editor to work in this way, you must create the junction collection before adding a M2A field.
+You can insert items from your Directus collections into Flexible Editor. This is optional but gives you extreme flexibility when creating rich content. To do this, you need to add a many-to-any (M2A) field, that the editor field can connect to. For Flexible Editor to work in this way, you must create the junction collection before adding a M2A field.
 
 > https://github.com/formfcw/directus-extension-flexible-editor/assets/78852214/986ce5b1-cdda-4607-bea9-26412f942938
 >
