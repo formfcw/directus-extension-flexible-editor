@@ -67,7 +67,7 @@ You can insert items from your Directus collections into the Flexible Editor. Th
 
 6. Set the `Item Duplication Fields` for your junction collection (`xxxx_editor_nodes`) in the data model settings. This is required for `copy & paste` or `drag & drop` to work.
 
-    > **Tip**: If you set up Flexible Editor in the same way foron different collections, you can copy and paste the duplication settings via `Copy Raw Value` from the field menu — by clicking on the “Item Duplication Fields” label.
+    > **Tip**: If you set up Flexible Editor in the same way for different collections, you can copy and paste the duplication settings via `Copy Raw Value` from the field menu — by clicking on the “Item Duplication Fields” label.
 
 ### Things to keep in mind
 
