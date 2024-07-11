@@ -9,6 +9,8 @@ import bold from "./bold";
 import italic from "./italic";
 import strike from "./strike";
 import code from "./code";
+import subscript from "./subscript";
+import superscript from "./superscript";
 import link from "./link";
 import hardBreak from "./hard-break";
 import horizontalRule from "./horizontal-rule";
@@ -35,6 +37,8 @@ const tools: Tool[] = [
     italic,
     strike,
     code,
+    subscript,
+    superscript,
     link.add,
     link.remove,
     link.auto,

@@ -36,6 +36,8 @@ export default {
         italic: "$t:wysiwyg_options.italic",
         strike: "$t:wysiwyg_options.strikethrough",
         code: "Code",
+        subscript: "$t:wysiwyg_options.subscript",
+        superscript: "$t:wysiwyg_options.superscript",
         link: "$t:field_options.directus_roles.fields.link_name",
         unlink: "$t:wysiwyg_options.unlink",
         autolink: "Autolink",

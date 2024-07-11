@@ -17,6 +17,8 @@ import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import Strike from "@tiptap/extension-strike";
 import Code from "@tiptap/extension-code";
+import { Subscript } from "@tiptap/extension-subscript";
+import { Superscript } from "@tiptap/extension-superscript";
 import { Table } from "@tiptap/extension-table";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
@@ -40,6 +42,8 @@ export default [
     Italic,
     Strike,
     Code,
+    Subscript,
+    Superscript,
     Table,
     TableHeader,
     TableRow,
