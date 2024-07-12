@@ -10,7 +10,7 @@ export default defineTool({
     name: customMessages.tools.superscript,
     icon: "superscript",
     extension: [Superscript],
-    shortcut: [],
+    shortcut: ["meta", "."],
     action: (editor: Editor) =>
         extendMarkRangeIfUnselected(editor, "superscript").toggleSuperscript().run(),
     disabled: (editor: Editor) =>

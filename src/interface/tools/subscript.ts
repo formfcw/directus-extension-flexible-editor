@@ -10,7 +10,7 @@ export default defineTool({
     name: customMessages.tools.subscript,
     icon: "subscript",
     extension: [Subscript],
-    shortcut: [],
+    shortcut: ["meta", ","],
     action: (editor: Editor) =>
         extendMarkRangeIfUnselected(editor, "subscript").toggleSubscript().run(),
     disabled: (editor: Editor) =>
