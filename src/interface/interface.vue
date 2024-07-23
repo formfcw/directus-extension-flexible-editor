@@ -391,6 +391,12 @@
         border-radius: var(--theme--border-radius, var(--border-radius));
     }
 
+    .flexible-editor :deep(sub),
+    .flexible-editor :deep(sup) {
+        font-size: 0.75em;
+        line-height: 1em;
+    }
+
     .flexible-editor :deep(pre) {
         background-color: var(--theme--background-normal, var(--background-normal));
         padding: var(--theme--form--field--input--padding, var(--input-padding));
