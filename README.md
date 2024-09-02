@@ -63,6 +63,8 @@ You can insert items from your Directus collections into Flexible Editor. This i
 
 4. On the `Field` tab, set the field to `Hidden on Detail` because we are managing the M2A items through Flexible Editor. Therefore, no interface is required for the M2A field.
 
+    > **Note**: If you use Flexible Editor inside groups – especially inside nested groups –, make sure you put your `editor_nodes field` in the same group as your `Flexible Editor field`, otherwise they may lose their connection!
+
 5. Now that you have created your M2A field, open the interface settings for your Flexible Editor field and connect to the M2A field by selecting it in the `M2A Reference Field`.
 
 6. Set the `Item Duplication Fields` for your junction collection (`xxxx_editor_nodes`) in the data model settings. This is required for `copy & paste` or `drag & drop` to work.
