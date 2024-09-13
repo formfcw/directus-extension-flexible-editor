@@ -1,9 +1,19 @@
 import type { Editor } from "@tiptap/core";
 
-// if textIsSelected only the selection will be de-/marked. if no selection the whole word will be de-/marked
+// If textIsSelected || isAtEndOfLine || siblingCharIsSpace, only the selection is deselected. If there is no selection, the entire mark is deselected.
 export function extendMarkRangeIfUnselected(editor: Editor, mark: string) {
-    const { from, to } = editor.view.state.selection;
+    const { from, to, $anchor } = editor.view.state.selection;
+    const doc = editor.view.state.doc;
+
     const textIsSelected = from !== to;
+    const isAtEndOfLine = $anchor.pos === $anchor.end();
+    const siblingCharIsSpace =
+        doc.textBetween(from, from + 1, undefined, " ") === " " ||
+        doc.textBetween(from - 1, from, undefined, " ") === " ";
+
     const chain = editor.chain().focus();
-    return textIsSelected ? chain : chain.extendMarkRange(mark);
+
+    return textIsSelected || isAtEndOfLine || siblingCharIsSpace
+        ? chain
+        : chain.extendMarkRange(mark);
 }
