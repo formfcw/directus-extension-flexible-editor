@@ -1,7 +1,8 @@
 <template>
     <component
         :is="mode == 'floating' ? FloatingMenu : 'div'"
-        class="toolbar" :class="mode"
+        class="toolbar"
+        :class="mode"
         v-bind="mode == 'floating' ? floatingMenuProps : null"
     >
         <v-menu
@@ -62,7 +63,7 @@
             :icon="tool.icon"
             :display="tool.display"
             :shortcut="tool.shortcut"
-            :action="() => tool.action?.(editor)"
+            :action="(attrs = null) => tool.action?.(editor, attrs)"
             :active="editor.isFocused && tool.active?.(editor)"
             :disabled="tool.disabled?.(editor) || (singleLineMode && tool.disabledInSingleLineMode)"
             :editor="editor"
@@ -214,6 +215,7 @@
 
 
 <style>
+
     .flexible-editor-wrapper .tippy-arrow,
     .flexible-editor-wrapper .tippy-arrow::after {
         position: absolute;
@@ -223,23 +225,26 @@
         overflow: hidden;
         border-radius: 2px;
     }
+
     .flexible-editor-wrapper .tippy-arrow {
         height: 7px;
     }
+
     .flexible-editor-wrapper .tippy-arrow::after {
         height: 10px;
     }
 
-	.flexible-editor-wrapper .tippy-arrow::after {
-		background: var(--theme--popover--menu--background);
-		transform: rotate(45deg) scale(1);
-		transition-delay: 0;
-		content: '';
-	}
+    .flexible-editor-wrapper .tippy-arrow::after {
+        background: var(--theme--popover--menu--background);
+        transform: rotate(45deg) scale(1);
+        transition-delay: 0;
+        content: '';
+    }
 
     .flexible-editor-wrapper [data-placement^='top'] .tippy-arrow {
         bottom: -6px;
     }
+
     .flexible-editor-wrapper [data-placement^='top'] .tippy-arrow::after {
         bottom: 3px;
     }
@@ -247,6 +252,7 @@
     .flexible-editor-wrapper [data-placement^='bottom'] .tippy-arrow {
         top: -6px;
     }
+
     .flexible-editor-wrapper [data-placement^='bottom'] .tippy-arrow::after {
         top: 3px;
     }
@@ -254,6 +260,7 @@
     .flexible-editor-wrapper [data-placement^='right'] .tippy-arrow {
         left: -6px;
     }
+
     .flexible-editor-wrapper [data-placement^='right'] .tippy-arrow::after {
         left: 4px;
     }
@@ -261,6 +268,7 @@
     .flexible-editor-wrapper [data-placement^='left'] .tippy-arrow {
         right: -6px;
     }
+
     .flexible-editor-wrapper [data-placement^='left'] .tippy-arrow::after {
         right: 4px;
     }

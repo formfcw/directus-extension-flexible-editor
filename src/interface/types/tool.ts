@@ -26,7 +26,7 @@ export type ToolButtonProps = {
     title: string;
     icon: string | boolean;
     display: string | boolean;
-    action: Tool["action"];
+    action: (attrs?: any) => void;
     shortcut: Tool["shortcut"];
     active: boolean;
     disabled: boolean;
