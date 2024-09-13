@@ -1,10 +1,26 @@
 <template>
-    <ToolButton :title :icon :display :shortcut :active :disabled :editor :action="() => showDialog = true" />
+    <ToolButton
+        :title
+        :icon
+        :display
+        :shortcut
+        :active
+        :disabled
+        :editor
+        :action="() => showDialog = true"
+    />
 
     <v-dialog v-model="showDialog">
-        <DialogLink :get="get" @set="set" @unset="unset" @close-dialog="showDialog = false"></DialogLink>
+        <DialogLink
+            :get="get"
+            @set="set"
+            @unset="unset"
+            @close-dialog="showDialog = false"
+        ></DialogLink>
     </v-dialog>
 </template>
+
+
 
 <script setup lang="ts">
     import { ref } from 'vue'
@@ -26,14 +42,12 @@
             props.editor
                 .chain()
                 .focus()
-                .extendMarkRange("link")
                 .setLink(attrs)
                 .run();
         const unset = () =>
             props.editor
                 .chain()
                 .focus()
-                .extendMarkRange("link")
                 .unsetLink()
                 .run();
 
