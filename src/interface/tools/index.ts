@@ -3,6 +3,7 @@
 import heading from "./heading";
 import history from "./history";
 import relationBlock from "./relation-block";
+import relationInlineBlock from "./relation-inline-block";
 import paragraph from "./paragraph";
 import codeBlock from "./code-block";
 import bold from "./bold";
@@ -26,6 +27,7 @@ import type { Tool, ToolSelection, InterfaceOption } from "../types";
 
 const tools: Tool[] = [
     relationBlock,
+    relationInlineBlock,
     paragraph,
     codeBlock,
     heading(1),
@@ -64,7 +66,11 @@ export const selectedTools = (
         ({ key }) =>
             selection.indexOf(key) >= 0 ||
             (includeRelationNodes &&
-                ["relation-block", "relation-mark"].indexOf(key) >= 0)
+                [
+                    "relation-block",
+                    "relation-inline-block",
+                    "relation-mark",
+                ].indexOf(key) >= 0)
     );
 
 export const toolsExtensions = (selection: ToolSelection): AnyExtension[] => {

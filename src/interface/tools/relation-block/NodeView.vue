@@ -1,8 +1,8 @@
 <template>
-    <node-view-wrapper class="relation-block">
+    <node-view-wrapper :class="inline ? 'relation-inline-block' : 'relation-block'">
         <v-skeleton-loader
             v-if="loading"
-            :type="'block-list-item'"
+            :type="inline ? 'text' : 'block-list-item'"
         />
 
         <div
@@ -19,9 +19,13 @@
                 draggable="true"
                 left
                 @click.stop
+                :small="inline"
             />
             <duplication-warning :node-id="node.attrs.id"></duplication-warning>
-            <span class="collection">{{ getCollectionName(element) }}:</span>
+            <span
+                v-if="!inline"
+                class="collection"
+            >{{ getCollectionName(element) }}:</span>
             <render-template
                 :collection="element[relationInfo!.collectionField.field]"
                 :template="templates[element[relationInfo!.collectionField.field]]"
@@ -32,21 +36,41 @@
                 class="clear-icon"
                 name="delete"
                 @click.stop="deleteNode"
+                :small="inline"
             />
         </div>
 
-        <v-notice
-            v-else
-            type="warning"
-        >
-            <span>{{ t('related_item_missing') }}</span>
-            <div class="spacer"></div>
-            <v-icon
-                class="clear-icon"
-                name="delete"
-                @click.stop="deleteNode"
-            />
-        </v-notice>
+        <template v-else>
+            <v-notice
+                v-if="!inline"
+                type="warning"
+            >
+                <span>{{ t('related_item_missing') }}</span>
+                <div class="spacer"></div>
+                <v-icon
+                    class="clear-icon"
+                    name="delete"
+                    @click.stop="deleteNode"
+                />
+            </v-notice>
+
+            <div
+                v-else
+                class="inline-warning"
+            >
+                <v-icon
+                    name="warning"
+                    small
+                />
+                <span>{{ t('related_item_missing') }}</span>
+                <v-icon
+                    class="clear-icon"
+                    name="delete"
+                    @click.stop="deleteNode"
+                    small
+                />
+            </div>
+        </template>
     </node-view-wrapper>
 </template>
 
@@ -62,7 +86,7 @@
     import type { NodeViewProps } from '@tiptap/vue-3';
     import type { RelationReference } from '../../types';
 
-    const props = defineProps<NodeViewProps>();
+    const props = defineProps<NodeViewProps & { inline?: boolean }>();
 
     const { t } = useI18nFallback(useI18n());
 
@@ -80,6 +104,7 @@
 
 
 <style scoped>
+
     /* Based on the styles of https://github.com/directus/directus/blob/main/app/src/components/v-list-item.vue */
     .v-list-item {
         position: relative;
@@ -204,7 +229,7 @@
     }
 
     .drag-handle:hover {
-        color: var(--theme--foreground, var(--foreground-normal));
+        color: var(--v-icon-color-hover);
     }
 
     .drag-handle:active {
@@ -216,16 +241,113 @@
         --v-icon-color-hover: var(--theme--danger, var(--danger));
 
         margin-right: 8px;
-        color: var(--theme--foreground-subdued, var(--foreground-subdued));
+        color: var(--v-icon-color);
         transition: color var(--fast) var(--transition);
         cursor: pointer;
     }
 
     .clear-icon:hover {
-        color: var(--theme--danger, var(--danger));
+        color: var(--v-icon-color-hover);
     }
 
     .v-list-item.selected {
         --v-list-item-border-color: var(--theme--form--field--input--border-color-hover, var(--v-list-item-border-color-hover));
+    }
+
+    /* Inline Block Overwrites */
+
+    .relation-inline-block {
+        --inline-block-height: calc(1em * var(--editor-lineheight));
+        --v-list-item-max-width: 33%;
+        --v-list-item-padding: 0 6px;
+
+        position: relative;
+        display: inline;
+        vertical-align: baseline;
+        /* for the cursor */
+        margin-left: 1px;
+    }
+
+    .relation-inline-block .v-list-item {
+        --v-list-item-background-color: var(--theme--primary-background);
+        --v-list-item-background-color-hover: var(--v-list-item-background-color);
+        --v-icon-color: var(--theme--primary-subdued);
+        --v-icon-color-hover: var(--theme--primary);
+        --theme--form--field--input--border-color: var(--theme--primary-subdued);
+
+        position: relative;
+        display: inline-flex;
+        vertical-align: top;
+        max-width: var(--v-list-item-max-width);
+        height: var(--inline-block-height);
+        padding: var(--v-list-item-padding);
+        border: 0;
+        overflow: visible;
+        background: none;
+        color: var(--theme--primary);
+    }
+
+    .relation-inline-block .v-list-item:before {
+        content: "";
+        position: absolute;
+        top: -0.5px;
+        left: 0;
+        right: 0;
+        bottom: -0.5px;
+        border-radius: var(--theme--border-radius);
+        background-color: var(--v-list-item-background-color);
+    }
+
+    .relation-inline-block:hover,
+    .relation-inline-block.ProseMirror-selectednode {
+        z-index: 1;
+    }
+
+    .relation-inline-block .v-list-item:hover:before,
+    .relation-inline-block .v-list-item.selected:before {
+        border: var(--theme--border-width) solid var(--theme--primary-subdued);
+        top: calc(-1 * var(--theme--border-width));
+        bottom: calc(-1 * var(--theme--border-width));
+    }
+
+    .relation-inline-block .v-list-item.block.clickable:hover {
+        border: 0;
+        background-color: var(--v-list-item-background-color-hover);
+    }
+
+    .relation-inline-block .clear-icon {
+        --v-icon-color: var(--theme--primary-subdued);
+        margin-right: 0;
+    }
+
+    .relation-inline-block .render-template {
+        display: inline-block;
+        padding-right: 4px;
+    }
+
+    .relation-inline-block .render-template>* {
+        height: var(--inline-block-height);
+        vertical-align: top;
+    }
+
+    .relation-inline-block .inline-warning {
+        --v-icon-color: var(--theme--warning);
+
+        display: inline-flex;
+        align-items: center;
+        vertical-align: top;
+        gap: 4px;
+        background: var(--theme--background-normal);
+        padding: 0 6px;
+        border-radius: var(--theme--border-radius);
+    }
+
+    .relation-inline-block .inline-warning .clear-icon {
+        --v-icon-color: var(--theme--foreground-subdued);
+    }
+
+    .relation-inline-block .v-skeleton-loader {
+        display: inline-block;
+        width: 10%;
     }
 </style>

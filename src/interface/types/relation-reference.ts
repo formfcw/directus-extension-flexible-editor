@@ -18,12 +18,19 @@ export type RelationReferenceAttributes = {
     relationMarks: Ref<Collection[] | null>;
 };
 
-export type RelationNodeType = "relationBlock" | "relationMark";
+export type RelationNodeType =
+    | "relationBlock"
+    | "relationInlineBlock"
+    | "relationMark";
 
 export type RelationReference = {
     errors: Ref<string[]>;
     templates: ComputedRef<Record<string, any>>;
-    editModalActive: Ref<{ relationBlock: boolean; relationMark: boolean }>;
+    editModalActive: Ref<{
+        relationBlock: boolean;
+        relationInlineBlock: boolean;
+        relationMark: boolean;
+    }>;
     disabled: Ref<boolean>;
     relationInfo: ComputedRef<RelationM2A | undefined>;
     allowedCollections: ComputedRef<Collection[]>;

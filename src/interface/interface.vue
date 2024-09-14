@@ -46,6 +46,7 @@
     import Dropcursor from '@tiptap/extension-dropcursor'
     import Gapcursor from '@tiptap/extension-gapcursor'
     import RelationBlock from "./tools/relation-block/node-extension"
+    import RelationInlineBlock from "./tools/relation-inline-block/node-extension"
     import RelationMark from "./tools/relation-mark/node-extension"
     import { toolsExtensions, interfaceOptionsDefault, selectedTools } from './tools'
     import { useSyncRelationNodes } from "./composables/use-sync-relation-nodes"
@@ -111,13 +112,14 @@
     const editor = useEditor({
         content: props.value,
         extensions: [
-            Document.extend(singleLineMode.value ? { content: "text*" } : {}),
+            Document.extend(singleLineMode.value ? { content: "(text|singleline)*" } : {}),
             Text,
             Paragraph,
             Placeholder.configure({ placeholder: props.placeholder }),
             Dropcursor,
             Gapcursor,
             RelationBlock,
+            RelationInlineBlock,
             RelationMark,
             ...toolsExtensions(props.tools)
         ],

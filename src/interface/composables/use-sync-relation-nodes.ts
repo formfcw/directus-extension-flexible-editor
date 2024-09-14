@@ -203,11 +203,14 @@ export function useSyncRelationNodes({
 
         editor.value!.state.doc.descendants((node, pos, _parent, nodeIndex) => {
             const isRelationBlock = node.type.name == "relation-block";
+            const isRelationInlineBlock =
+                node.type.name == "relation-inline-block";
             const relationMarkNode = node.marks?.find(
                 (mark) => mark.type.name == "relation-mark"
             );
 
-            if (!isRelationBlock && !relationMarkNode) return;
+            if (!isRelationBlock && !isRelationInlineBlock && !relationMarkNode)
+                return;
 
             const nodeId = relationMarkNode
                 ? relationMarkNode.attrs.id

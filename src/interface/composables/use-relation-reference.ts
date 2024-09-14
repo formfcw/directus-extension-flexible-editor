@@ -155,6 +155,7 @@ export function useRelationReference({
     // [DIRECTUS_CORE][!MODIFIED!] from m2a-field
     const editModalActive: RelationReference["editModalActive"] = ref({
         relationBlock: false,
+        relationInlineBlock: false,
         relationMark: false,
     });
     const currentlyEditing = ref<string | number | null>(null);
