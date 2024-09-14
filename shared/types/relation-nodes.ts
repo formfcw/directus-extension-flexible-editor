@@ -1,6 +1,6 @@
 export type UUID = string;
 
-export type RelationBlockAttrs = {
+export type RelationNodeAttrs = {
     id: UUID | null;
     junction: string | null;
     collection: string | null;

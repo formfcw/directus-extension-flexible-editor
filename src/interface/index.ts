@@ -1,14 +1,12 @@
 // NOTE: [wording] There are relation blocks and relation marks, but both of them are relation nodes
 
-// TODO: [!!!][before release] Go through all files.
-
 // TODO: [Stage 2][_main changes] (1.) Every editor instance needs its own m2a field and m2a junction. (2.) Every editor has its own store — no shared store anymore! (3.) Rewrite Duplication for broader use cases. When coping to a different editor: for new ones use the clipboard api; for existing fetch from the api; for edited merge/do both.
 
 // TODO: [Stage 2][duplication] Add warning: Never set duplication values for a nested Flexible Editor field
 
 // TODO: [Stage 2][relation marks] There is a slot in the drawer component to add custom buttons. This could be useful for relation marks in order to remove it.
 
-import { defineInterface } from "@directus/extensions-sdk";
+import { defineInterface, useStores } from "@directus/extensions-sdk";
 import component from "./interface.vue";
 import { interfaceOptions, interfaceOptionsDefault } from "./tools";
 import customMessages from "./i18n/custom-messages";
@@ -24,23 +22,11 @@ export default defineInterface({
     // localTypes: ["m2a"],
     group: "standard",
     recommendedDisplays: ["flexible-editor-display"],
-    options: ({ collection }): any => {
+    options: ({ collection, $state }: any) => {
+        const relationReferenceOptions = useRelationReferenceOptions();
+
         return [
-            {
-                field: "m2aField",
-                type: "string",
-                name: customMessages.m2a_field,
-                meta: {
-                    width: "full",
-                    interface: "system-field",
-                    options: {
-                        collectionName: collection,
-                        typeAllowList: ["alias"],
-                        allowNone: true,
-                    },
-                    note: "$t:optional",
-                },
-            },
+            ...relationReferenceOptions,
             {
                 field: "placeholder",
                 name: "$t:placeholder",
@@ -203,6 +189,143 @@ export default defineInterface({
                 },
             },
         ];
+
+        function useRelationReferenceOptions() {
+            const relationNodes = getRelatedAnyCollections();
+
+            const options: Record<string, any>[] = [
+                {
+                    field: "m2aField",
+                    type: "string",
+                    name: customMessages.m2a_field,
+                    meta: {
+                        width: relationNodes ? "half" : "full",
+                        interface: "system-field",
+                        options: {
+                            collectionName: collection,
+                            typeAllowList: ["alias"],
+                            allowNone: true,
+                        },
+                        note: "$t:optional",
+                    },
+                },
+            ];
+
+            if (relationNodes) {
+                options.push(
+                    ...[
+                        {
+                            field: "relation-blocks",
+                            type: "json",
+                            name: customMessages.relation_nodes.blocks,
+                            schema: {
+                                default_value: relationNodes.defaults,
+                            },
+                            meta: {
+                                width: "half",
+                                interface: "select-multiple-dropdown",
+                                options: {
+                                    choices: relationNodes.options,
+                                    allowNone: true,
+                                },
+                            },
+                        },
+                        {
+                            field: "relation-inline-blocks",
+                            type: "json",
+                            name: customMessages.relation_nodes.inline_blocks,
+                            meta: {
+                                width: "half",
+                                interface: "select-multiple-dropdown",
+                                options: {
+                                    choices: relationNodes.options,
+                                    allowNone: true,
+                                },
+                            },
+                        },
+                        {
+                            field: "relation-marks",
+                            type: "json",
+                            name: customMessages.relation_nodes.marks,
+                            meta: {
+                                width: "half",
+                                interface: "select-multiple-dropdown",
+                                options: {
+                                    choices: relationNodes.options,
+                                    allowNone: true,
+                                },
+                            },
+                        },
+                    ]
+                );
+            } else {
+                options.unshift({
+                    field: "warning",
+                    type: "alias",
+                    meta: {
+                        width: "full",
+                        interface: "presentation-notice",
+                        options: {
+                            color: "warning",
+                            icon: "warning",
+                            text: customMessages.invalid_m2a_field,
+                        },
+                        hidden: true,
+                        conditions: [
+                            {
+                                rule: {
+                                    _and: [{ m2aField: { _nnull: true } }],
+                                },
+                                hidden: false,
+                            },
+                        ],
+                    },
+                });
+            }
+
+            return options;
+
+            function getRelatedAnyCollections() {
+                const m2aField = $state?.field?.meta?.options?.m2aField;
+                if (!m2aField) return;
+
+                const { useRelationsStore, useCollectionsStore } = useStores();
+                if (!useRelationsStore || !useCollectionsStore) return;
+
+                const relationStore = useRelationsStore();
+                const m2aRelations = relationStore.getRelationsForField(
+                    collection,
+                    m2aField
+                );
+
+                if (!m2aRelations.length) return;
+
+                const relationNodesValues = m2aRelations.find(
+                    (item: any) => item.meta?.one_allowed_collections?.length
+                )?.meta?.one_allowed_collections;
+
+                if (!relationNodesValues.length) return;
+
+                const collectionsStore = useCollectionsStore();
+                collectionsStore.collection;
+
+                const relationNodesOptions = collectionsStore.collections
+                    .filter((item: any) =>
+                        relationNodesValues.includes(item.collection)
+                    )
+                    .map((item: any) => ({
+                        text: item.name,
+                        value: item.collection,
+                    }));
+
+                if (!relationNodesOptions.length) return;
+
+                return {
+                    defaults: relationNodesValues,
+                    options: relationNodesOptions,
+                };
+            }
+        }
     },
     preview: `<svg width="156" height="96" viewBox="0 0 156 96" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M132 16H24C21.2386 16 19 18.2386 19 21V75C19 77.7614 21.2386 80 24 80H132C134.761 80 137 77.7614 137 75V21C137 18.2386 134.761 16 132 16Z" stroke="var(--theme--primary, var(--primary))" stroke-width="2"/>

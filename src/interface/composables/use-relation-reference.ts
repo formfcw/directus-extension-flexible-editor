@@ -6,30 +6,34 @@ import { useRelationM2A } from "../directus-core/composables/use-relation-m2a.js
 import { useRelationMultiple } from "../directus-core/composables/use-relation-multiple";
 // TODO: [test] We do not need this, because the permission counts for the whole … Test it with permissions on the editor
 // import { useRelationPermissionsM2A } from "../directus-core/composables/use-relation-permissions";
-import { relationBlockTool } from "../tools";
 import { adjustFieldsForDisplays } from "../directus-core/utils/adjust-fields-for-displays";
 import { getFieldsFromTemplate } from "@directus/extensions-sdk";
 import { addRelatedPrimaryKeyToFields } from "../directus-core/utils/add-related-primary-key-to-fields";
 import { v4 as uuidv4 } from "uuid";
 import { useM2aStore } from "../composables/use-m2a-store";
 import type { Ref, ComputedRef } from "vue";
+import type { Collection } from "../directus-core/types/collections";
 import type {
     RelationQueryMultiple,
     DisplayItem,
 } from "../directus-core/composables/use-relation-multiple";
 import type {
     UUID,
+    RelationNodeType,
     RelationReference,
     RelationReferenceAttributes,
+    RelationNodeAttrs,
 } from "../types";
 
 export function useRelationReference({
-    editorInstance,
     m2aField,
     editorField,
     itemCollection,
     itemPrimaryKey,
     updateM2aField,
+    relationBlocks,
+    relationInlineBlocks,
+    relationMarks,
 }: RelationReferenceAttributes): RelationReference {
     const m2aStore = useM2aStore();
 
@@ -69,13 +73,12 @@ export function useRelationReference({
     if (!duplicationFields.length)
         errors.value.push("errors.duplication_fields_not_set");
 
-    // [DIRECTUS_CORE] from m2a-field
-    const allowedCollections = computed(() => {
-        if (!relationInfo.value) return [];
-        return relationInfo.value.allowedCollections.filter(
-            (collection) => collection.meta?.singleton !== true
-        );
-    });
+    const {
+        allowedCollections,
+        allowedBlockCollections,
+        allowedInlineBlockCollections,
+        allowedMarkCollections,
+    } = _useAllowedCollections();
 
     // [DIRECTUS_CORE] from m2a-field
     const templates: ComputedRef<Record<string, any>> = computed(() => {
@@ -150,7 +153,10 @@ export function useRelationReference({
     } = useRelationMultiple(value, query, relationInfo, itemPrimaryKey);
 
     // [DIRECTUS_CORE][!MODIFIED!] from m2a-field
-    const editModalActive = ref(false);
+    const editModalActive: RelationReference["editModalActive"] = ref({
+        relationBlock: false,
+        relationMark: false,
+    });
     const currentlyEditing = ref<string | number | null>(null);
     const relatedPrimaryKey = ref<string | number | null>(null);
     // [!MODIFIED!] `editingCollection` not needed
@@ -160,8 +166,58 @@ export function useRelationReference({
     const editsAtStart = ref<Record<string, any>>({});
     let newItem = false;
 
-    // [DIRECTUS_CORE] from m2a-field
-    function createItem(collection: string) {
+    /* TODO: [test] We do not need this, because the permission applies for the entire editor
+    const { createAllowed, deleteAllowed, selectAllowed, updateAllowed } = useRelationPermissionsM2A(relationInfo);
+
+    const createCollections = computed(() => {
+        const info = relationInfo.value;
+        if (!info) return [];
+
+        return info.allowedCollections.filter((collection) => {
+            return createAllowed.value[collection.collection];
+        });
+    });
+    */
+
+    return {
+        errors,
+        templates,
+        editModalActive,
+        disabled,
+        relationInfo,
+        allowedCollections,
+        allowedBlockCollections,
+        allowedInlineBlockCollections,
+        allowedMarkCollections,
+        currentlyEditing,
+        relatedPrimaryKey,
+        junctionPrimaryKeyField,
+        editsAtStart,
+        fetchedItems,
+        displayItems,
+        loading,
+        duplicationFieldsSchema,
+        create,
+        createItem,
+        update,
+        editItem,
+        stageEdits,
+        remove,
+        deleteItem,
+        hasAllowedCollection,
+        getCollectionName,
+        findDisplayItem,
+        addCreateUpdateDeleteProps,
+        mergeItemWithEdits,
+        cloneItemByDuplicationFields,
+        // testvalue: value,
+    };
+
+    // [DIRECTUS_CORE][!MODIFIED!] from m2a-field
+    function createItem(
+        collection: string,
+        type: RelationNodeType = "relationBlock"
+    ) {
         if (!relationInfo.value) return;
 
         currentlyEditing.value = null;
@@ -173,11 +229,15 @@ export function useRelationReference({
         };
 
         newItem = true;
-        editModalActive.value = true;
+        // [!MODIFIED!] assign `type` and add `type` to function parameters
+        editModalActive.value[type] = true;
     }
 
-    // [DIRECTUS_CORE][!MODIFIED!] from m2a-field
-    function editItem(item: DisplayItem) {
+    // [DIRECTUS_CORE][!MODIFIED!][!MODIFIED!] from m2a-field
+    function editItem(
+        item: DisplayItem,
+        type: RelationNodeType = "relationBlock"
+    ) {
         if (!relationInfo.value) return;
 
         const relationPkField =
@@ -197,7 +257,8 @@ export function useRelationReference({
                 item[relationInfo.value.collectionField.field],
         };
 
-        editModalActive.value = true;
+        // [!MODIFIED!] assign `type` and add `type` to function parameters
+        editModalActive.value[type] = true;
         // [!MODIFIED!] `editingCollection` not needed
         // editingCollection.value = item[relationInfo.value.collectionField.field];
 
@@ -218,14 +279,16 @@ export function useRelationReference({
     }
 
     // [DIRECTUS_CORE][!MODIFIED!] from m2a-field
-    function stageEdits(item: Record<string, any>) {
+    function stageEdits(
+        item: Record<string, any>,
+        insertNode: (attrs: RelationNodeAttrs) => void
+    ) {
         if (isEmpty(item)) return;
 
         if (newItem) {
             const nodeId = uuidv4();
 
-            // Insert Editor Node
-            relationBlockTool!.action?.(editorInstance.value!, {
+            insertNode({
                 id: nodeId,
                 junction: junctionCollection,
                 collection: item.collection,
@@ -297,59 +360,10 @@ export function useRelationReference({
         return collection?.name;
     }
 
-    /* TODO: [test] We do not need this, because the permission applies for the entire editor
-    const { createAllowed, deleteAllowed, selectAllowed, updateAllowed } = useRelationPermissionsM2A(relationInfo);
-
-    const createCollections = computed(() => {
-        const info = relationInfo.value;
-        if (!info) return [];
-
-        return info.allowedCollections.filter((collection) => {
-            return createAllowed.value[collection.collection];
-        });
-    });
-    */
-
     function findDisplayItem(nodeId: UUID) {
         return displayItems.value.find(
             (displayItem) => displayItem[junctionPrimaryKeyField] === nodeId
         );
-    }
-
-    function _duplicationFieldsToObject(fields: string[]) {
-        if (!fields || !fields.length) return {};
-
-        const obj = {};
-        const dotNotationToObject = (path: string, obj: any) => {
-            // Based on https://stackoverflow.com/a/22985802
-            const parts = path.split(".");
-            let part: string | undefined;
-            while ((part = parts.shift())) {
-                const _parts: string[] = part.split(":");
-                part = _parts[0] ?? "";
-                if (parts.length < 1) obj[part] = null;
-                else if (typeof obj[part] !== "object") obj[part] = {};
-                obj = obj[part]; // update "pointer"
-            }
-        };
-
-        fields.forEach((field) => dotNotationToObject(field, obj));
-
-        return obj;
-    }
-
-    function _isObject(obj: unknown) {
-        return typeof obj === "object" && !Array.isArray(obj) && obj !== null;
-    }
-
-    function _objectHasProps(obj: { [key: string]: unknown }) {
-        return Object.keys(obj).length;
-    }
-
-    function _objectNotProseMirror(field: { [key: string]: unknown }) {
-        if (!field.type && !field.content) return true;
-
-        return field.type !== "doc";
     }
 
     function addCreateUpdateDeleteProps(itemFields: any) {
@@ -503,34 +517,81 @@ export function useRelationReference({
         return reducedFields;
     }
 
-    return {
-        errors,
-        templates,
-        editModalActive,
-        disabled,
-        relationInfo,
-        allowedCollections,
-        currentlyEditing,
-        relatedPrimaryKey,
-        junctionPrimaryKeyField,
-        editsAtStart,
-        fetchedItems,
-        displayItems,
-        loading,
-        duplicationFieldsSchema,
-        create,
-        createItem,
-        update,
-        editItem,
-        stageEdits,
-        remove,
-        deleteItem,
-        hasAllowedCollection,
-        getCollectionName,
-        findDisplayItem,
-        addCreateUpdateDeleteProps,
-        mergeItemWithEdits,
-        cloneItemByDuplicationFields,
-        // testvalue: value,
-    };
+    function _duplicationFieldsToObject(fields: string[]) {
+        if (!fields || !fields.length) return {};
+
+        const obj = {};
+        const dotNotationToObject = (path: string, obj: any) => {
+            // Based on https://stackoverflow.com/a/22985802
+            const parts = path.split(".");
+            let part: string | undefined;
+            while ((part = parts.shift())) {
+                const _parts: string[] = part.split(":");
+                part = _parts[0] ?? "";
+                if (parts.length < 1) obj[part] = null;
+                else if (typeof obj[part] !== "object") obj[part] = {};
+                obj = obj[part]; // update "pointer"
+            }
+        };
+
+        fields.forEach((field) => dotNotationToObject(field, obj));
+
+        return obj;
+    }
+
+    function _isObject(obj: unknown) {
+        return typeof obj === "object" && !Array.isArray(obj) && obj !== null;
+    }
+
+    function _objectHasProps(obj: { [key: string]: unknown }) {
+        return Object.keys(obj).length;
+    }
+
+    function _objectNotProseMirror(field: { [key: string]: unknown }) {
+        if (!field.type && !field.content) return true;
+
+        return field.type !== "doc";
+    }
+
+    function _useAllowedCollections() {
+        // [DIRECTUS_CORE] from m2a-field
+        const allowedCollections = computed(() => {
+            if (!relationInfo.value) return [];
+            return relationInfo.value.allowedCollections.filter(
+                (collection) => collection.meta?.singleton !== true
+            );
+        });
+
+        const allowedBlockCollections = computed(() =>
+            allowedCollectionsByType(relationBlocks, true)
+        );
+        const allowedInlineBlockCollections = computed(() =>
+            allowedCollectionsByType(relationInlineBlocks)
+        );
+        const allowedMarkCollections = computed(() =>
+            allowedCollectionsByType(relationMarks)
+        );
+
+        return {
+            allowedCollections,
+            allowedBlockCollections,
+            allowedInlineBlockCollections,
+            allowedMarkCollections,
+        };
+
+        function allowedCollectionsByType(
+            relationNodeType: Ref<Collection[] | null>,
+            allOnDefault = false
+        ) {
+            if (allOnDefault && typeof relationNodeType.value === "undefined") {
+                return allowedCollections.value;
+            }
+
+            if (!relationNodeType.value?.length) return [];
+
+            return allowedCollections.value.filter((collection: any) =>
+                relationNodeType.value!.includes(collection.collection)
+            );
+        }
+    }
 }

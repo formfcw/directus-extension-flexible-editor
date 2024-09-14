@@ -7,6 +7,12 @@ export default {
         "A rich text editor (WYSIWYG) with JSON output that allows the integration of M2A relations to make it extremely flexible.",
     tools_title: "Tools",
     m2a_field: "M2A Reference Field",
+    invalid_m2a_field: "Please select a valid M2A reference field!",
+    relation_nodes: {
+        blocks: "Relation Blocks",
+        inline_blocks: "Relation Inline Blocks",
+        marks: "Relation Marks",
+    },
     input_mode: {
         title: "Input Mode",
         multi: "Multi-line text",

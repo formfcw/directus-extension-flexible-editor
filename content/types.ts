@@ -3,8 +3,8 @@ export type RelationBlockSerializers<T> = {
     component: T;
 }[];
 
-import type { RelationBlockAttrs } from "../shared/types";
+import type { RelationNodeAttrs } from "../shared/types";
 import type { JSONContent } from "tiptap-render-view";
-export type RelationBlockProps = RelationBlockAttrs & {
+export type RelationBlockProps = RelationNodeAttrs & {
     data?: JSONContent | null;
 };

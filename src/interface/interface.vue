@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
     // Imports
-    import { ref, toRef, watch, provide, computed, type Ref } from 'vue'
+    import { ref, toRef, watch, provide, computed } from 'vue'
     import { useEditor, EditorContent, type JSONContent } from '@tiptap/vue-3'
     import Toolbar from './components/Toolbar.vue'
     import Document from '@tiptap/extension-document'
@@ -46,14 +46,15 @@
     import Dropcursor from '@tiptap/extension-dropcursor'
     import Gapcursor from '@tiptap/extension-gapcursor'
     import RelationBlock from "./tools/relation-block/node-extension"
+    import RelationMark from "./tools/relation-mark/node-extension"
     import { toolsExtensions, interfaceOptionsDefault, selectedTools } from './tools'
     import { useSyncRelationNodes } from "./composables/use-sync-relation-nodes"
     import { useRelationReference } from './composables/use-relation-reference'
     // import { useM2aStore } from './composables/use-m2a-store'
     import { useI18n } from "vue-i18n"
     import { useI18nFallback } from './composables/use-i18n-fallback'
-    import type { PrimaryKey } from "@directus/types"
-    import type { ToolbarMode } from './types'
+    import type { Collection } from "./directus-core/types/collections";
+    import type { ToolbarMode, RelationReferenceAttributes } from './types'
 
 
     // Props
@@ -61,6 +62,9 @@
         value: JSONContent | null;
         disabled: boolean;
         m2aField: string | null;
+        relationBlocks: Collection[] | null;
+        relationInlineBlocks: Collection[] | null;
+        relationMarks: Collection[] | null;
         placeholder: string;
         inputMode: "multi" | "single";
         tools: string[];
@@ -114,6 +118,7 @@
             Dropcursor,
             Gapcursor,
             RelationBlock,
+            RelationMark,
             ...toolsExtensions(props.tools)
         ],
         onCreate() {
@@ -159,15 +164,17 @@
 
 
     if (props.m2aField) {
-        // use Relation Reference and provide the values
         const m2aRelation = useRelationReference({
-            editorInstance: editor,
-            m2aField: toRef(props, 'm2aField') as Ref<string>,
-            editorField: toRef(props, 'field') as Ref<string>,
-            itemCollection: toRef(props, 'collection') as Ref<string>,
-            itemPrimaryKey: toRef(props, 'primaryKey') as Ref<PrimaryKey>,
-            updateM2aField: (value) => emit("setFieldValue", { field: props.m2aField, value })
-        });
+            m2aField: toRef(props, 'm2aField'),
+            editorField: toRef(props, 'field'),
+            itemCollection: toRef(props, 'collection'),
+            itemPrimaryKey: toRef(props, 'primaryKey'),
+            updateM2aField: (value) => emit("setFieldValue", { field: props.m2aField, value }),
+            relationBlocks: toRef(props, 'relationBlocks'),
+            relationInlineBlocks: toRef(props, 'relationInlineBlocks'),
+            relationMarks: toRef(props, 'relationMarks'),
+        } as RelationReferenceAttributes);
+
         provide('m2aRelation', m2aRelation);
 
         errors.value = m2aRelation.errors.value;
@@ -195,6 +202,7 @@
         border: var(--theme--border-width, var(--border-width)) solid var(--theme--form--field--input--border-color, var(--border-normal));
         border-radius: var(--v-input-border-radius, var(--theme--border-radius));
     }
+
     .flexible-editor-wrapper:not(.toolbar-floating) {
         contain: paint;
     }
@@ -227,13 +235,16 @@
         border-radius: 0;
         border: none;
     }
+
     .flexible-editor-wrapper.fullscreen .toolbar.sticky {
         position: static;
     }
+
     .flexible-editor-wrapper.fullscreen .flexible-editor {
         flex-grow: 1;
         height: 0;
     }
+
     .flexible-editor-wrapper.fullscreen .flexible-editor :deep(.ProseMirror) {
         height: 100% !important;
         min-height: 0;
@@ -282,6 +293,7 @@
     .flexible-editor.height-fixed :deep(.ProseMirror) {
         height: var(--editor-height);
     }
+
     .flexible-editor.height-fixed.single-line :deep(.ProseMirror) {
         height: var(--editor-height-single-line);
         white-space: nowrap;
@@ -289,6 +301,7 @@
         scrollbar-width: none;
 
     }
+
     .flexible-editor.height-fixed.single-line :deep(.ProseMirror::-webkit-scrollbar) {
         display: none;
     }
@@ -297,6 +310,7 @@
     .flexible-editor.height-grow :deep(.ProseMirror) {
         min-height: var(--editor-height);
     }
+
     .flexible-editor.height-grow-till-overflow.single-line :deep(.ProseMirror),
     .flexible-editor.height-grow.single-line :deep(.ProseMirror) {
         min-height: var(--editor-height-single-line);
@@ -348,12 +362,15 @@
     .flexible-editor :deep([textAlign="left"]) {
         text-align: left;
     }
+
     .flexible-editor :deep([textAlign="center"]) {
         text-align: center;
     }
+
     .flexible-editor :deep([textAlign="right"]) {
         text-align: right;
     }
+
     .flexible-editor :deep([textAlign="justify"]) {
         text-align: justify;
     }
@@ -383,6 +400,14 @@
     .flexible-editor :deep(a) {
         color: var(--theme--primary, var(--primary));
         border-bottom: 1px solid var(--theme--primary, var(--primary));
+    }
+
+    .flexible-editor :deep(.relation-mark.related-item-missing:after) {
+        font-family: "Material Symbols";
+        content: "warning";
+        color: var(--theme--warning, var(--warning));
+        vertical-align: bottom;
+        padding-left: 4px;
     }
 
     .flexible-editor :deep(code) {
@@ -490,6 +515,7 @@
 
 
 <style>
+
     /* not scoped */
     .prosemirror-dropcursor-block {
         background-color: var(--theme--border-color, var(--border-normal)) !important;

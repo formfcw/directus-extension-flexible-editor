@@ -1,9 +1,8 @@
 import { defineTool } from "../../lib";
 import customMessages from "../../i18n/custom-messages";
-// import RelationBlock from "./node-extension";
 import ToolButton from "./ToolButton.vue";
 import type { Editor } from "@tiptap/core";
-import type { RelationBlockAttrs } from "../../types";
+import type { RelationNodeAttrs } from "../../types";
 
 export default defineTool({
     // Custom
@@ -14,7 +13,7 @@ export default defineTool({
     // Already imported
     extension: [],
     toolbarButton: ToolButton,
-    action: (editor: Editor, attrs: RelationBlockAttrs) => {
+    action: (editor: Editor, attrs: RelationNodeAttrs) => {
         focusAfterSelectionIfNotEmpty();
         editor.chain().focus().setRelationBlock(attrs).run();
         focusAfterSelectionIfNotEmpty();

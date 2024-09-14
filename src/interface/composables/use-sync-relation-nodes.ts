@@ -16,6 +16,12 @@ type ProseMirrorNode = ProseMirrorNodeOriginal & {
     attrs: ProseMirrorAttrs;
 };
 
+type EditorNodes = NodeWithPos & {
+    nodeId: UUID;
+    mark: Record<string, any> | undefined;
+    nodeIndex: number;
+};
+
 type SyncRelationNodesAttributes = {
     m2aRelation: RelationReference;
     editor: ShallowRef<Editor | undefined>;
@@ -32,7 +38,7 @@ export function useSyncRelationNodes({
     return {
         resetRelationNodes() {
             const editorNodeIds: UUID[] = _getExistingEditorNodes().map(
-                ({ node }) => node.attrs.id
+                ({ nodeId }) => nodeId
             );
             m2aStore.reset(editorNodeIds, editorField);
         },
@@ -49,14 +55,27 @@ export function useSyncRelationNodes({
             m2aStore.init(fetchedItems, m2aRelation.junctionPrimaryKeyField);
 
         // First add all fetchedItems to M2A Store, then set the editor fields per editor
-        const editorNodeIds: UUID[] = _getExistingEditorNodes().map(
-            ({ node }) => node.attrs.id
-        );
+        const editorNodes = _getExistingEditorNodes();
+        const editorNodeIds: UUID[] = editorNodes.map(({ nodeId }) => nodeId);
 
         m2aStore.setEditorFields(editorNodeIds, editorField);
+        validateRelationMarks(editorNodes);
     }
 
-    function syncInsertedNodes(editorNodes: NodeWithPos[]) {
+    function validateRelationMarks(editorNodes: EditorNodes[]) {
+        editorNodes.forEach(({ node, pos, nodeId, mark }) => {
+            if (!mark) return;
+
+            if (m2aRelation.findDisplayItem(nodeId)) return;
+
+            _updateMarkAttrs(node, pos, {
+                ...(mark.attrs ?? []),
+                noRelatedItem: true,
+            });
+        });
+    }
+
+    function syncInsertedNodes(editorNodes: EditorNodes[]) {
         /*
             AI prompt: Create all possible combinations for the following sentence: COPY/CUT SAVED_NODE/NEW_NODE from SAVED_ITEM/NEW_ITEM and paste into SAME_FIELD/DIFFERENT_FIELD of SAME_ITEM/DIFFERENT_ITEM
             
@@ -101,14 +120,22 @@ export function useSyncRelationNodes({
             m2aRelation.relationInfo.value!.junctionField.collection;
 
         // TODO: [Stage 2][flow chart] Place link to flow chart here
-        editorNodes.forEach(({ node, pos }) => {
-            let nodeId = node.attrs.id;
-
-            // NodeId does not exist in M2A store and the NodeView component will display a warning because the related item is missing
+        editorNodes.forEach(({ node, pos, nodeId, mark, nodeIndex }, index) => {
+            // NodeId does not exist in M2A store and the Node will display a warning because the related item is missing
             if (!m2aStore.itemExists(nodeId)) return;
 
             const storeItemIsActive = m2aStore.itemIsActive(nodeId);
             const nodeIdIsUnique = memory.nodeIdUniqueInEditor(nodeId);
+
+            const nodeIdMatchesLastNode = () => {
+                if (nodeIdIsUnique || !index) return false;
+                return (
+                    editorNodes[index - 1]?.nodeId === nodeId &&
+                    editorNodes[index - 1]?.nodeIndex === nodeIndex - 1
+                );
+            };
+            const nodeIdIsSplittedByMarks = nodeIdMatchesLastNode();
+
             const nodeFromDifferentEditor = m2aStore.itemFromDifferentEditor(
                 nodeId,
                 editorField
@@ -119,7 +146,7 @@ export function useSyncRelationNodes({
             // Nothing changed OR inserted a new node OR dragged and dropped an existing node
             if (
                 storeItemIsActive &&
-                nodeIdIsUnique &&
+                (nodeIdIsUnique || nodeIdIsSplittedByMarks) &&
                 !nodeFromDifferentEditor &&
                 !nodeFromDifferentItem
             )
@@ -129,7 +156,7 @@ export function useSyncRelationNodes({
 
             if (storeItemIsActive || nodeFromDifferentItem) {
                 nodeId = m2aStore.duplicateItem(nodeId, m2aRelation);
-                _refreshRelationNode(nodeId, junctionField, node, pos);
+                _refreshRelationNode(nodeId, junctionField, node, pos, mark);
                 memory.replaceLastItem(nodeId);
             } else {
                 m2aStore.activateItem(nodeId);
@@ -172,11 +199,27 @@ export function useSyncRelationNodes({
     }
 
     function _getExistingEditorNodes() {
-        const editorNodes: NodeWithPos[] = [];
+        const editorNodes: EditorNodes[] = [];
 
-        editor.value!.state.doc.descendants((node, pos) => {
-            if (node.type.name === "relation-block")
-                editorNodes.push({ node, pos });
+        editor.value!.state.doc.descendants((node, pos, _parent, nodeIndex) => {
+            const isRelationBlock = node.type.name == "relation-block";
+            const relationMarkNode = node.marks?.find(
+                (mark) => mark.type.name == "relation-mark"
+            );
+
+            if (!isRelationBlock && !relationMarkNode) return;
+
+            const nodeId = relationMarkNode
+                ? relationMarkNode.attrs.id
+                : node.attrs.id;
+
+            editorNodes.push({
+                node,
+                pos,
+                nodeId,
+                mark: relationMarkNode,
+                nodeIndex,
+            });
         });
 
         return editorNodes;
@@ -186,9 +229,48 @@ export function useSyncRelationNodes({
         nodeId: UUID,
         junction: string,
         node: ProseMirrorNode,
-        pos: number
+        pos: number,
+        mark: Record<string, any> | undefined
     ) {
-        _updateNodeAttrs(node, pos, { ...node.attrs, id: nodeId, junction });
+        if (!!mark) {
+            _updateMarkAttrs(node, pos, {
+                ...(mark.attrs ?? []),
+                id: nodeId,
+                junction,
+            });
+        } else {
+            _updateNodeAttrs(node, pos, {
+                ...node.attrs,
+                id: nodeId,
+                junction,
+            });
+        }
+    }
+
+    function _updateMarkAttrs(
+        node: ProseMirrorNode,
+        pos: number,
+        updatedAttrs: ProseMirrorAttrs
+    ) {
+        const transaction = editor.value!.state.tr;
+        const markType = editor.value!.schema.marks["relation-mark"];
+        if (!markType) return;
+
+        transaction.addMark(
+            pos,
+            pos + node.nodeSize,
+            markType.create(updatedAttrs)
+        );
+
+        // Update the editor content without triggering an update
+        transaction.setMeta("addToHistory", false);
+        transaction.setMeta("preventUpdate", true);
+
+        // Apply changes
+        editor.value!.view.dispatch(transaction);
+
+        // needs to be set after `setNodeMarkup`
+        node.attrs = updatedAttrs;
     }
 
     function _updateNodeAttrs(
@@ -230,12 +312,13 @@ export function useSyncRelationNodes({
         m2aRelation.remove(relatedItem);
     }
 
-    function syncRemovedNodes(editorNodes: NodeWithPos[]) {
-        const existingNodeIds = editorNodes.map(({ node }) => node.attrs.id);
+    function syncRemovedNodes(editorNodes: EditorNodes[]) {
+        const existingNodeIds = editorNodes.map(({ nodeId }) => nodeId);
         const inactiveNodeIds = m2aStore.deactivateUnusedItems(
             existingNodeIds,
             editorField
         );
+
         _removeRelatedItems(inactiveNodeIds);
     }
 
