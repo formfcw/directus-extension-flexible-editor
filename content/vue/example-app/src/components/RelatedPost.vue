@@ -1,13 +1,10 @@
 <template>
-    <dl>
-        <template
-            v-for="(item, key) in data.items"
-            :key="key"
-        >
-            <dt>{{ item.term }}</dt>
-            <dd>{{ item.definition }}</dd>
-        </template>
-    </dl>
+    <a
+        :href="data?.post.slug"
+        :title="`id: ${data?.post.id}, slug: ${data?.post.slug}`"
+    >
+        <slot />
+    </a>
 </template>
 
 <script setup lang="ts">

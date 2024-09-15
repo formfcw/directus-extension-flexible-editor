@@ -36,7 +36,7 @@ const data = await fetchDirectusData();
 
 injectDataIntoContent(data.editor_nodes, data.description);
 
-// Optionally remove editor_nodes from the payload after injecting into the description
+// Optionally remove editor_nodes from the payload after injecting them into the description
 delete data.editor_nodes;
 ```
 
@@ -60,30 +60,40 @@ Check out this [example on StackBlitz](https://stackblitz.com/github/formfcw/dir
 <template>
     <FlexibleEditorContent
         :content="data.description"
-        :componentSerializers="componentSerializers"
-        :relationBlocks="relationBlocks"
+        :component-serializers="componentSerializers"
+        :relation-blocks="relationBlocks"
+        :relation-inline-blocks="relationInlineBlocks"
+        :relation-marks="relationMarks"
     />
 </template>
 
 <script setup lang="ts">
     import FlexibleEditorContent, {
         VueComponentSerializers,
-        VueRelationBlockSerializers,
+        VueRelationNodeSerializers,
     } from "directus-extension-flexible-editor/content/vue";
     import { injectDataIntoContent } from "directus-extension-flexible-editor/content";
     import Textfield from "./components/Textfield.vue";
     import DefinitionList from "./components/DefinitionList.vue";
     import Video from "./components/Video.vue";
+    import Color from "./components/Color.vue";
+    import RelatedPost from "./components/RelatedPost.vue";
 
     // Fetch and transform the API data
     const data = await fetchDirectusData();
     injectDataIntoContent(data.editor_nodes, data.description);
     delete data.editor_nodes;
 
-    // Define components to render the relation blocks
-    const relationBlocks: VueRelationBlockSerializers = [
+    // Define components to render the relation blocks, relation inline blocks or relation marks
+    const relationBlocks: VueRelationNodeSerializers = [
         { collection: "definition_list", component: DefinitionList },
         { collection: "video", component: Video },
+    ];
+    const relationInlineBlocks: VueRelationNodeSerializers = [
+        { collection: "color", component: Color },
+    ];
+    const relationMarks: VueRelationNodeSerializers = [
+        { collection: "related_post", component: RelatedPost },
     ];
 
     // Define other components to render any editor content node
@@ -121,13 +131,13 @@ Example of a component (`./components/DefinitionList.vue`) that renders a relati
 
 <script setup lang="ts">
     import { defineProps } from "vue";
-    import type { RelationBlockProps } from "directus-extension-flexible-editor/content";
+    import type { RelationNodeProps } from "directus-extension-flexible-editor/content";
 
     defineProps<{
-        id: RelationBlockProps["id"];
-        junction: RelationBlockProps["junction"];
-        collection: RelationBlockProps["collection"];
-        data?: RelationBlockProps["data"];
+        id: RelationNodeProps["id"];
+        junction: RelationNodeProps["junction"];
+        collection: RelationNodeProps["collection"];
+        data?: RelationNodeProps["data"];
     }>();
 </script>
 ```

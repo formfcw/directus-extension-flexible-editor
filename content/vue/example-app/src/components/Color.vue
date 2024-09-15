@@ -1,13 +1,5 @@
 <template>
-    <dl>
-        <template
-            v-for="(item, key) in data.items"
-            :key="key"
-        >
-            <dt>{{ item.term }}</dt>
-            <dd>{{ item.definition }}</dd>
-        </template>
-    </dl>
+    <div :style="{ backgroundColor: data?.name ?? 'black' }"></div>
 </template>
 
 <script setup lang="ts">
@@ -21,3 +13,13 @@
         data?: RelationNodeProps['data']
     }>()
 </script>
+
+
+<style scoped>
+    div {
+        display: inline-block;
+        vertical-align: top;
+        width: 1em;
+        height: 1em;
+    }
+</style>

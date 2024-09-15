@@ -11,8 +11,47 @@
           { "text": "woke from ", "type": "text" },
           { "text": "troubled", "type": "text", "marks": [{ "type": "bold" }] },
           {
-            "text": " dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.",
+            "text": " dreams, he found himself transformed in his bed into a horrible vermin.",
             "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "He lay on his "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "relation-mark",
+                "attrs": {
+                  "id": "cd1c5b30-46fe-427b-8d37-9d049b3f9535",
+                  "junction": "post_editor_nodes",
+                  "collection": "related_post"
+                }
+              }
+            ],
+            "text": "armour-like"
+          },
+          {
+            "type": "text",
+            "text": " back, and if he lifted his "
+          },
+          {
+            "type": "relation-inline-block",
+            "attrs": {
+              "id": "e65a28fe-1916-432b-83e4-1ce7022a2783",
+              "junction": "post_editor_nodes",
+              "collection": "color"
+            }
+          },
+          {
+            "type": "text",
+            "text": " a little he could see his brown belly, slightly domed and divided by arches into stiff sections."
           }
         ]
       },
@@ -45,6 +84,25 @@
   },
   "editor_nodes": [
     {
+      "id": "e65a28fe-1916-432b-83e4-1ce7022a2783",
+      "posts_id": 6,
+      "collection": "color",
+      "item": {
+        "name": "red"
+      }
+    },
+    {
+      "id": "cd1c5b30-46fe-427b-8d37-9d049b3f9535",
+      "posts_id": 6,
+      "collection": "related_post",
+      "item": {
+        "post": {
+          "id": "1",
+          "slug": "/posts/my-first-post"
+        }
+      }
+    },
+    {
       "id": "5a4eef60-9d7e-4e06-bd29-74d33d147e0c",
       "posts_id": 8,
       "collection": "video",
@@ -52,7 +110,7 @@
     },
     {
       "id": "a84ef404-b0e7-4931-b2e7-26dc072805a2",
-      "posts_id": 8,
+      "posts_id": 10,
       "collection": "definition_list",
       "item": {
         "items": [

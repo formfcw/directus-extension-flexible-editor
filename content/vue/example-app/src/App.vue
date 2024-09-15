@@ -5,13 +5,15 @@
         <hr />
         <p>
             Rendered result:
-            <button @click="showRB = !showRB">Toggle Relation Blocks</button>
-            <button @click="showCS = !showCS">Toggle component serializers</button>
+            <button @click="showRelationNodes = !showRelationNodes">Toggle Relation Nodes</button>
+            <button @click="showComponentSerializers = !showComponentSerializers">Toggle component serializers</button>
         </p>
         <FlexibleEditorContent
             :content="content.description"
-            :componentSerializers="showCS ? componentSerializers : []"
-            :relationBlocks="showRB ? relationBlocks : []"
+            :component-serializers="showComponentSerializers ? componentSerializers : []"
+            :relation-blocks="showRelationNodes ? relationBlocks : []"
+            :relation-inline-blocks="showRelationNodes ? relationInlineBlocks : []"
+            :relation-marks="showRelationNodes ? relationMarks : []"
             class="result"
         />
     </main>
@@ -21,21 +23,31 @@
     import { ref } from 'vue'
     import FlexibleEditorContent, {
         VueComponentSerializers,
-        VueRelationBlockSerializers,
+        VueRelationNodeSerializers,
+        JSONContent
     } from 'directus-extension-flexible-editor/content/vue'
     import { injectDataIntoContent } from 'directus-extension-flexible-editor/content'
-    import content from './content.json'
+    import jsonContent from './content.json'
     import Textfield from './components/Textfield.vue'
     import DefinitionList from './components/DefinitionList.vue'
     import Video from './components/Video.vue'
+    import Color from './components/Color.vue'
+    import RelatedPost from './components/RelatedPost.vue'
 
-    injectDataIntoContent(content.editor_nodes, content.description)
-    delete content.editor_nodes
+    const content: { description: JSONContent, editor_nodes?: Record<string, any>[] } = jsonContent;
+    injectDataIntoContent(content.editor_nodes!, content.description);
+    delete content.editor_nodes;
 
-    const relationBlocks: VueRelationBlockSerializers = [
+    const relationBlocks: VueRelationNodeSerializers = [
         { collection: 'definition_list', component: DefinitionList },
         { collection: 'video', component: Video },
-    ]
+    ];
+    const relationInlineBlocks: VueRelationNodeSerializers = [
+        { collection: 'color', component: Color },
+    ];
+    const relationMarks: VueRelationNodeSerializers = [
+        { collection: 'related_post', component: RelatedPost },
+    ];
 
     const componentSerializers: VueComponentSerializers = [
         // marks with `type: 'mark'`
@@ -43,10 +55,10 @@
         { name: 'bold', type: 'mark', render: (attrs) => [Textfield, { ...attrs, style: 'background:lightgreen' }] },
         // blocks
         { name: 'heading', render: (attrs) => ['textarea', attrs] },
-    ]
+    ];
 
-    const showCS = ref(false)
-    const showRB = ref(true)
+    const showComponentSerializers = ref(false);
+    const showRelationNodes = ref(true);
 </script>
 
 <style>

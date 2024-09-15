@@ -6,13 +6,13 @@
 
 <script setup lang="ts">
     import { defineProps } from 'vue'
-    import type { RelationBlockProps } from 'directus-extension-flexible-editor/content'
+    import type { RelationNodeProps } from 'directus-extension-flexible-editor/content'
 
     defineProps<{
-        id: RelationBlockProps['id']
-        junction: RelationBlockProps['junction']
-        collection: RelationBlockProps['collection']
-        data?: RelationBlockProps['data']
+        id: RelationNodeProps['id']
+        junction: RelationNodeProps['junction']
+        collection: RelationNodeProps['collection']
+        data?: RelationNodeProps['data']
     }>()
 </script>
 
