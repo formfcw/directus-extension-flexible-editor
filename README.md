@@ -10,47 +10,47 @@ Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap)
 
 ## Features
 
--   **Composable Blocks**: Compose blocks as you would with the built-in builder interface and insert these referenced items directly into Flexible Editor as a “Relation Block”.
+:rocket: **Composable Blocks**: Compose blocks as you would with the built-in builder interface and insert these referenced items directly into Flexible Editor as a “Relation Block”.
 
-    <details><summary>Show example</summary>
+<details><summary>Show example</summary>
 
-    ![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-relation-blocks.gif)
+![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-relation-blocks.gif)
 
-    </details>
+</details>
 
--   **Inline Blocks**: Use relation blocks inline by inserting them directly into the text flow as “Relation Inline Blocks”.
+:rocket: **Inline Blocks**: Use relation blocks inline by inserting them directly into the text flow as “Relation Inline Blocks”.
 
-    <details><summary>Show example</summary>
+<details><summary>Show example</summary>
 
-    ![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-relation-inline-blocks.gif)
+![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-relation-inline-blocks.gif)
 
-    </details>
+</details>
 
--   **Internal Linking**: Create your own custom link collection(s) and apply it as “Relation Mark” to selected text within Flexible Editor.
+:rocket: **Internal Linking**: Create your own custom link collection(s) and apply it as “Relation Mark” to selected text within Flexible Editor.
 
-    <details><summary>Show example</summary>
+<details><summary>Show example</summary>
 
-    ![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-relation-marks.gif)
+![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-relation-marks.gif)
 
-    </details>
+</details>
 
--   **Single Line Mode**: Turn Flexible Editor into an inline editor that only allows marks and inline blocks. This way, you can have a simple text input field that could contain a link or any other mark (including _Relation Marks_ and _Relation Inline Blocks_).
+:rocket: **Single Line Mode**: Turn Flexible Editor into an inline editor that only allows marks and inline blocks. This way, you can have a simple text input field that could contain a link or any other mark (including _Relation Marks_ and _Relation Inline Blocks_).
 
-    <details><summary>Show example</summary>
+<details><summary>Show example</summary>
 
-    ![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-single-line-mode.png)
+![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-single-line-mode.png)
 
-    </details>
+</details>
 
--   **Adjustable Toolbar**: Choose between a static, sticky or floating toolbar.
+:rocket: **Adjustable Toolbar**: Choose between a static, sticky or floating toolbar.
 
-    <details><summary>Show example</summary>
+<details><summary>Show example</summary>
 
-    ![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-toolbar-options.png)
+![](https://raw.githubusercontent.com/formfcw/directus-extension-flexible-editor/main/docs/feature-toolbar-options.png)
 
-    </details>
+</details>
 
--   **Render Interactive Components**: On your front-end, you can render any node (especially “Relation Nodes”) with your own custom component using [Flexible Editor Content](https://github.com/formfcw/directus-extension-flexible-editor/tree/main/content).
+:rocket: **Render Interactive Components**: On your front-end, you can render any node (especially “Relation Nodes”) with your own custom component using [Flexible Editor Content](https://github.com/formfcw/directus-extension-flexible-editor/tree/main/content).
 
 ## Installation
 
