@@ -323,6 +323,8 @@
     }
 
     /* Editor Styles */
+    .flexible-editor :deep(.ProseMirror li > * ~ :not(ul):not(ol)),
+    .flexible-editor :deep(.ProseMirror li > * ~ :not(ul):not(ol) ~ *),
     .flexible-editor :deep(.ProseMirror blockquote > * ~ *),
     .flexible-editor:not(.single-line) :deep(.ProseMirror > * ~ *) {
         margin-top: var(--editor-block-mt);
