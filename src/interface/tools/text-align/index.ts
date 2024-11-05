@@ -11,7 +11,12 @@ export default defineTool({
     name: customMessages.tools.text_align,
     icon: "format_align_left",
     extension: [
-        TextAlign.configure({ types: ["heading", "paragraph", "codeBlock"] }),
+        (selection) =>
+            TextAlign.configure({
+                types: selection?.filter((extension) =>
+                    ["heading", "paragraph", "codeBlock"].includes(extension)
+                ),
+            }),
     ],
     toolbarButton: ToolButton,
     action: (editor: Editor, alignment: string) => {
