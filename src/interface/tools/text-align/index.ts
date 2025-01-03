@@ -13,9 +13,18 @@ export default defineTool({
     extension: [
         (selection) =>
             TextAlign.configure({
-                types: selection?.filter((extension) =>
-                    ["heading", "paragraph", "codeBlock"].includes(extension)
-                ),
+                types: [
+                    ...(
+                        selection?.filter((extension) => 
+                            ["h1", "h2", "h3", "h4", "h5", "h6"].includes(extension)
+                        ).length ?
+                        ['heading'] :
+                        []
+                    ),
+                    ...selection?.filter((extension) =>
+                       ["paragraph", "codeBlock"].includes(extension)
+                    )
+                  ],
             }),
     ],
     toolbarButton: ToolButton,
