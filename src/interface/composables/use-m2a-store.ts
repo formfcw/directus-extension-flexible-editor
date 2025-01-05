@@ -12,7 +12,7 @@ import type { Ref } from "vue";
 import type { UUID, RelationReference } from "../types";
 import type { Item, PrimaryKey } from "@directus/types";
 
-type EditorField = string | null;
+type EditorField = UUID | null;
 
 export type M2AStoreItem = {
     nodeId: UUID;

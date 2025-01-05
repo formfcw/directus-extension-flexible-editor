@@ -40,6 +40,7 @@
     // Imports
     import { ref, toRef, watch, provide, computed } from "vue";
     import { useEditor, EditorContent, type JSONContent } from "@tiptap/vue-3";
+    import { v4 as uuidv4 } from "uuid";
     import Toolbar from "./components/Toolbar.vue";
     import Document from "@tiptap/extension-document";
     import Text from "@tiptap/extension-text";
@@ -174,9 +175,10 @@
     const errors = ref<string[]>([]);
 
     if (props.m2aField) {
+        const uniqueEditorField = ref(uuidv4());
         const m2aRelation = useRelationReference({
             m2aField: toRef(props, "m2aField"),
-            editorField: toRef(props, "field"),
+            editorField: uniqueEditorField,
             itemCollection: toRef(props, "collection"),
             itemPrimaryKey: toRef(props, "primaryKey"),
             updateM2aField: (value) =>
@@ -198,7 +200,7 @@
         } = useSyncRelationNodes({
             m2aRelation,
             editor,
-            editorField: props.field,
+            editorField: uniqueEditorField.value,
         });
         resetRelationNodes = _resetRelationNodes;
         syncRelationNodes = _syncRelationNodes;
