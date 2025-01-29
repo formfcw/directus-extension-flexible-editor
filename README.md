@@ -1,3 +1,19 @@
+# NOTE
+
+This is a fork of the original repository with extended table menu functionality.
+Added features:
+- Add 5 rows after selection
+- Add 5 rows before selection
+- Add 5 columns after selection
+- Add 5 columns before selection
+
+To publish the package use `yarn build-publish`.
+Our version numbering follows the format: `[original-version]-[our-modification]`
+Example: Version `1.8.3-01` means:
+- `1.8.3`: Original version
+- `01`: Our modification number
+
+
 # Flexible Editor for Directus
 
 <!-- NOTE: [extension-description] Sync description with GitHub, custom-messages.ts and package.json -->
@@ -10,7 +26,7 @@ Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap)
 
 ## Features
 
-:rocket: **Composable Blocks**: Compose blocks as you would with the built-in builder interface and insert these referenced items directly into Flexible Editor as a “Relation Block”.
+:rocket: **Composable Blocks**: Compose blocks as you would with the built-in builder interface and insert these referenced items directly into Flexible Editor as a "Relation Block".
 
 <details><summary>Show example</summary>
 
@@ -18,7 +34,7 @@ Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap)
 
 </details>
 
-:rocket: **Inline Blocks**: Use relation blocks inline by inserting them directly into the text flow as “Relation Inline Blocks”.
+:rocket: **Inline Blocks**: Use relation blocks inline by inserting them directly into the text flow as "Relation Inline Blocks".
 
 <details><summary>Show example</summary>
 
@@ -26,7 +42,7 @@ Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap)
 
 </details>
 
-:rocket: **Internal Linking**: Create your own custom link collection(s) and apply it as “Relation Mark” to selected text within Flexible Editor.
+:rocket: **Internal Linking**: Create your own custom link collection(s) and apply it as "Relation Mark" to selected text within Flexible Editor.
 
 <details><summary>Show example</summary>
 
@@ -50,7 +66,7 @@ Under the hood, it integrates the [Tiptap](https://github.com/ueberdosis/tiptap)
 
 </details>
 
-:rocket: **Render Interactive Components**: On your front-end, you can render any node (especially “Relation Nodes”) with your own custom component using [Flexible Editor Content](https://github.com/formfcw/directus-extension-flexible-editor/tree/main/content).
+:rocket: **Render Interactive Components**: On your front-end, you can render any node (especially "Relation Nodes") with your own custom component using [Flexible Editor Content](https://github.com/formfcw/directus-extension-flexible-editor/tree/main/content).
 
 ## Installation
 
@@ -76,7 +92,7 @@ Navigate to the interface tab to adjust the settings.
 | M2A Reference Field<ul><li>Relation Blocks</li><li>Relation Inline Blocks</li><li>Relation Marks</li></ul> | Described in detail below _(Usage with relation nodes)_                                                                                                                                               |
 | Placeholder                                                                                                | Display a placeholder text when empty                                                                                                                                                                 |
 | Tools                                                                                                      | Select the editor tools you want to use                                                                                                                                                               |
-| Toolbar                                                                                                    | _Static_ … The toolbar appears at the top of the editor<br>_Sticky_ … The toolbar stays at the top of the viewport as you scroll<br>_Floating_ … The toolbar floats above the current cursor position |
+| Toolbar                                                                                                    | _Static_ … The toolbar appears at the top of the editor<br>_Sticky_ … The toolbar stays at the top of the viewport as you scroll<br>_Floating_ … The toolbar floats above the current cursor position |
 | Formats Button Appearance                                                                                  | Display the active format name instead of just an icon                                                                                                                                                |
 | Input Mode                                                                                                 | _Multi-line text_ … Default behavior<br>_Single-line text_ … Turns into an inline editor that only allows marks and inline blocks                                                                     |
 | Editor Height                                                                                              | _Grow till Overflow_ … The height grows with its content as long as it remains in the viewport<br>_Grow_ … The height grows with its content<br>_Fixed_ … The editor has a fixed height               |
@@ -109,7 +125,7 @@ You can insert items from your Directus collections into Flexible Editor. This i
 
     </details>
 
-3. Enter a name for the field, such as `editor_nodes` and uncheck `Auto Fill` on the `Relationship` tab, so that you can manually select the junction collection you created earlier (such as `xxxx_editor_nodes`). Select the `Related Collections` you want to integrate into your Flexible Editor field. You don’t need to set a `sort` field, but you do want to set the `Relational Triggers` to `cascade` when an item is deleted or deselected.
+3. Enter a name for the field, such as `editor_nodes` and uncheck `Auto Fill` on the `Relationship` tab, so that you can manually select the junction collection you created earlier (such as `xxxx_editor_nodes`). Select the `Related Collections` you want to integrate into your Flexible Editor field. You don't need to set a `sort` field, but you do want to set the `Relational Triggers` to `cascade` when an item is deleted or deselected.
 
     <details><summary>Show example</summary>
 
@@ -139,7 +155,7 @@ You can insert items from your Directus collections into Flexible Editor. This i
 
     - **Relation Block** … A block, you can insert in Flexible Editor, that references an item of a collection you can compose yourself.
         > Use Cases: gallery, video, related content, complex content structure, …
-    - **Relation Inline Block** … Same as “Relation Block”, but appears inside text.
+    - **Relation Inline Block** … Same as "Relation Block", but appears inside text.
         > Use Cases: link to referenced item using item data for link text, inline image/icon, placeholders/variables for templates (e.g. email), …
     - **Relation Mark** … A mark, you can apply to selected text, that references an item of a collection you can compose yourself.
         > Use Cases: classic link (compose your own), link to referenced item, button that opens a modal/overlay/video, …
@@ -154,7 +170,7 @@ You can insert items from your Directus collections into Flexible Editor. This i
 
     </details>
 
-    > **Tip**: If you set up Flexible Editor in the same way for different collections, you can copy and paste the duplication settings via `Copy Raw Value` from the field menu — by clicking on the “Item Duplication Fields” label.
+    > **Tip**: If you set up Flexible Editor in the same way for different collections, you can copy and paste the duplication settings via `Copy Raw Value` from the field menu — by clicking on the "Item Duplication Fields" label.
 
 ### Things to keep in mind
 
