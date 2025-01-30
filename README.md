@@ -7,11 +7,11 @@ Added features:
 - Add 5 columns after selection
 - Add 5 columns before selection
 
-To publish the package use `yarn build-publish`.
+To publish the package use `npm run build-publish`.
 Our version numbering follows the format: `[original-version]-[our-modification]`
-Example: Version `1.8.3-01` means:
+Example: Version `1.8.3-1` means:
 - `1.8.3`: Original version
-- `01`: Our modification number
+- `1`: Our modification number
 
 # Flexible Editor for Directus
 
