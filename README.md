@@ -1,3 +1,18 @@
+# NOTE
+
+This is a fork of the original repository with extended table menu functionality.
+Added features:
+- Add 5 rows after selection
+- Add 5 rows before selection
+- Add 5 columns after selection
+- Add 5 columns before selection
+
+To publish the package use `npm run build-publish`.
+Our version numbering follows the format: `[original-version]-[our-modification]`
+Example: Version `1.8.3-1` means:
+- `1.8.3`: Original version
+- `1`: Our modification number
+
 # Flexible Editor for Directus
 
 <!-- NOTE: [extension-description] Sync description with GitHub, custom-messages.ts and package.json -->

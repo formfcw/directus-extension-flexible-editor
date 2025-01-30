@@ -67,6 +67,17 @@
                         <v-text-overflow :text="t('table.add_column_before')" />
                     </v-list-item-content>
                 </v-list-item>
+
+                <v-list-item clickable @click="() => {
+                  for (let i = 0; i < 5; i++) {
+                    editor.chain().focus().addColumnBefore().run();
+                  }
+                }" :disabled="!editor.can().chain().focus().addColumnBefore().run()">
+                  <v-list-item-content>
+                    <v-text-overflow :text="t('table.add_5_columns_before')" />
+                  </v-list-item-content>
+                </v-list-item>
+
                 <v-list-item
                     clickable
                     @click="editor.chain().focus().addColumnAfter().run()"
@@ -76,6 +87,17 @@
                         <v-text-overflow :text="t('table.add_column_after')" />
                     </v-list-item-content>
                 </v-list-item>
+
+                <v-list-item clickable @click="() => {
+                  for (let i = 0; i < 5; i++) {
+                    editor.chain().focus().addColumnAfter().run();
+                  }
+                }" :disabled="!editor.can().chain().focus().addColumnAfter().run()">
+                  <v-list-item-content>
+                    <v-text-overflow :text="t('table.add_5_columns_after')" />
+                  </v-list-item-content>
+                </v-list-item>
+
                 <v-list-item
                     clickable
                     @click="editor.chain().focus().deleteColumn().run()"
@@ -93,7 +115,6 @@
                 <template #activator>
                     <v-text-overflow :text="t('table.section_rows')" />
                 </template>
-
                 <v-list-item
                     clickable
                     @click="editor.chain().focus().addRowBefore().run()"
@@ -103,6 +124,15 @@
                         <v-text-overflow :text="t('table.add_row_before')" />
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item clickable @click="() => {
+                  for (let i = 0; i < 5; i++) {
+                    editor.chain().focus().addRowBefore().run();
+                  }
+                }" :disabled="!editor.can().chain().focus().addRowBefore().run()">
+                  <v-list-item-content>
+                    <v-text-overflow :text="t('table.add_5_rows_before')" />
+                  </v-list-item-content>
+                </v-list-item>
                 <v-list-item
                     clickable
                     @click="editor.chain().focus().addRowAfter().run()"
@@ -111,6 +141,15 @@
                     <v-list-item-content>
                         <v-text-overflow :text="t('table.add_row_after')" />
                     </v-list-item-content>
+                </v-list-item>
+                <v-list-item clickable @click="() => {
+                  for (let i = 0; i < 5; i++) {
+                    editor.chain().focus().addRowAfter().run();
+                  }
+                }" :disabled="!editor.can().chain().focus().addRowAfter().run()">
+                  <v-list-item-content>
+                    <v-text-overflow :text="t('table.add_5_rows_after')" />
+                  </v-list-item-content>
                 </v-list-item>
                 <v-list-item
                     clickable
