@@ -21,6 +21,7 @@ import bulletList from "./bullet-list";
 import orderedList from "./ordered-list";
 import blockquote from "./blockquote";
 import table from "./table";
+import underline from "./underline";
 import fullscreen from "./fullscreen";
 import type { AnyExtension } from "@tiptap/core";
 import type { Tool, ToolSelection, InterfaceOption } from "../types";
@@ -39,6 +40,7 @@ const tools: Tool[] = [
     bold,
     italic,
     strike,
+    underline,
     code,
     subscript,
     superscript,
