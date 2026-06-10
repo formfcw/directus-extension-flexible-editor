@@ -41,6 +41,7 @@ export default {
         bold: "$t:wysiwyg_options.bold",
         italic: "$t:wysiwyg_options.italic",
         strike: "$t:wysiwyg_options.strikethrough",
+        underline: "$t:wysiwyg_options.underline",
         code: "Code",
         subscript: "$t:wysiwyg_options.subscript",
         superscript: "$t:wysiwyg_options.superscript",

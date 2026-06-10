@@ -16,6 +16,7 @@ import Link from "@tiptap/extension-link";
 import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import Strike from "@tiptap/extension-strike";
+import Underline from "@tiptap/extension-underline";
 import Code from "@tiptap/extension-code";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
@@ -41,6 +42,7 @@ export default [
     Bold,
     Italic,
     Strike,
+    Underline,
     Code,
     Subscript,
     Superscript,

@@ -112,6 +112,7 @@
         "@tiptap/extension-table-row": "^2.6.6",
         "@tiptap/extension-text": "^2.6.6",
         "@tiptap/extension-text-align": "^2.6.6",
+        "@tiptap/extension-underline": "^2.6.6",
         "tiptap-render-view": "^1.0.2"
     }
 }

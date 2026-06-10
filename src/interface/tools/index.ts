@@ -9,6 +9,7 @@ import codeBlock from "./code-block";
 import bold from "./bold";
 import italic from "./italic";
 import strike from "./strike";
+import underline from "./underline";
 import code from "./code";
 import subscript from "./subscript";
 import superscript from "./superscript";
@@ -39,6 +40,7 @@ const tools: Tool[] = [
     bold,
     italic,
     strike,
+    underline,
     code,
     subscript,
     superscript,
