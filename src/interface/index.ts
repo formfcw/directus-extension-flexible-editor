@@ -304,7 +304,7 @@ export default defineInterface({
                     (item: any) => item.meta?.one_allowed_collections?.length
                 )?.meta?.one_allowed_collections;
 
-                if (!relationNodesValues.length) return;
+                if (!relationNodesValues?.length) return;
 
                 const collectionsStore = useCollectionsStore();
                 collectionsStore.collection;
